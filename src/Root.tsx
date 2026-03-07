@@ -1,6 +1,7 @@
 import "./index.css";
-import { Composition } from "remotion";
+import { Composition, Still } from "remotion";
 import { AutotestIntro } from "./AutotestIntro";
+import { LogoStill } from "./AutotestIntro/LogoStill";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 
@@ -16,6 +17,13 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      <Still
+        id="AutotestLogoStill"
+        component={LogoStill}
+        width={512}
+        height={512}
       />
 
       <Composition

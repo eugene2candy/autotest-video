@@ -37,8 +37,9 @@ const TARGETS = [
   { cx: 1540, cy: 650, r: 55 }, // bottom
 ];
 
-// SVG path: horizontal line from left circle edge to branch point
-const STEM_PATH = `M ${SRC_CX + SRC_R} ${SRC_CY} L ${BRANCH_X} ${BRANCH_Y}`;
+// SVG path: horizontal line from left circle edge all the way to the middle target
+const MID_TARGET = TARGETS[1];
+const STEM_PATH = `M ${SRC_CX + SRC_R} ${SRC_CY} L ${MID_TARGET.cx - MID_TARGET.r} ${MID_TARGET.cy}`;
 
 // SVG paths: curved branches from branch‑point to each target circle
 const branchPath = (tx: number, ty: number, tr: number): string => {
@@ -51,10 +52,13 @@ const branchPath = (tx: number, ty: number, tr: number): string => {
   return `M ${BRANCH_X} ${BRANCH_Y} C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${tx - tr} ${ty}`;
 };
 
-const BRANCH_PATHS = TARGETS.map((t) => branchPath(t.cx, t.cy, t.r));
+// Only top and bottom branches -- the stem covers the middle path
+const BRANCH_PATHS = [TARGETS[0], TARGETS[2]].map((t) =>
+  branchPath(t.cx, t.cy, t.r),
+);
 
 /* Approximate fallback lengths (close enough for dash calculations) */
-const STEM_FALLBACK = 200;
+const STEM_FALLBACK = 600;
 const BRANCH_FALLBACK = 300;
 const STROKE_WIDTH = 10;
 const GLOW_DOT = 16;
@@ -286,16 +290,7 @@ export const AutotestLogo: React.FC<{
         glowGradientId={glowGradientId}
       />
 
-      {/* 2. Horizontal stem */}
-      <AnimatedPath
-        d={STEM_PATH}
-        fallbackLength={STEM_FALLBACK}
-        progress={stem}
-        filterId={filterId}
-        glowGradientId={glowGradientId}
-      />
-
-      {/* 3. Curved branches */}
+      {/* 2. Curved branches */}
       {BRANCH_PATHS.map((d, i) => (
         <AnimatedPath
           key={`branch-${i}`}
@@ -306,6 +301,15 @@ export const AutotestLogo: React.FC<{
           glowGradientId={glowGradientId}
         />
       ))}
+
+      {/* 3. Horizontal stem – rendered after branches so it's on top */}
+      <AnimatedPath
+        d={STEM_PATH}
+        fallbackLength={STEM_FALLBACK}
+        progress={stem}
+        filterId={filterId}
+        glowGradientId={glowGradientId}
+      />
 
       {/* 4. Target circles */}
       {TARGETS.map((t, i) => (
