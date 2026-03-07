@@ -573,9 +573,9 @@ const AIPoweredAct: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          right: "5%",
+          left: "42%",
           top: "20%",
-          width: "52%",
+          width: "fit-content",
         }}
       >
         {features.map((feat, i) => (
@@ -785,7 +785,7 @@ const AIFeatureCard: React.FC<{
       <div
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 30,
+          fontSize: 46,
           fontWeight: 700,
           color: MICROSOFT_BLUE,
           marginBottom: 6,
@@ -796,7 +796,7 @@ const AIFeatureCard: React.FC<{
       <div
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 22,
+          fontSize: 34,
           color: "#444",
           lineHeight: 1.4,
         }}
