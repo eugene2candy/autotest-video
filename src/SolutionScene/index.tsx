@@ -20,23 +20,23 @@ const MICROSOFT_BLUE = "#0078D4";
 /* ====================================================================
  * SolutionScene – Scene 2: "How Autotest Solves It"
  *
- * Timeline (30 fps, 4302 frames ≈ 143.4 s):
- *   0-120    : Title "How Autotest Solves It" with blue underline
- *   120-960  : Act 1 – Record Once (recording animation + proxy capture)
- *   960-2925 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
- *   2925-3419: Act 3 – Progress (platform status with AI-thinking style)
- *   3419-4302: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
- *   ~4262+   : Fade out
+ * Timeline (30 fps, 3863 frames ≈ 128.8 s):
+ *   0-83     : Title "How Autotest Solves It" with blue underline
+ *   83-830   : Act 1 – Record Once (recording animation + proxy capture)
+ *   830-2648 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
+ *   2648-3076: Act 3 – Progress (platform status with AI-thinking style)
+ *   3076-3860: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
+ *   ~3853+   : Fade out
  * ==================================================================== */
 
-const SOLUTION_DURATION = 4302;
+const SOLUTION_DURATION = 3863;
 
 export const SolutionScene: React.FC = () => {
   const frame = useCurrentFrame();
 
   const fadeOut = interpolate(
     frame,
-    [SOLUTION_DURATION - 40, SOLUTION_DURATION - 5],
+    [SOLUTION_DURATION - 10, SOLUTION_DURATION - 3],
     [1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
@@ -59,27 +59,27 @@ export const SolutionScene: React.FC = () => {
       <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* Title */}
-        <Sequence from={0} durationInFrames={120} premountFor={10}>
+        <Sequence from={0} durationInFrames={83} premountFor={10}>
           <SectionTitle />
         </Sequence>
 
         {/* Act 1: Record Once */}
-        <Sequence from={120} durationInFrames={840} premountFor={30}>
+        <Sequence from={83} durationInFrames={747} premountFor={30}>
           <RecordOnceAct />
         </Sequence>
 
         {/* Act 2: AI-Powered */}
-        <Sequence from={960} durationInFrames={1965} premountFor={30}>
+        <Sequence from={830} durationInFrames={1818} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
         {/* Act 3: Progress */}
-        <Sequence from={2925} durationInFrames={494} premountFor={30}>
+        <Sequence from={2648} durationInFrames={428} premountFor={30}>
           <ProgressAct />
         </Sequence>
 
         {/* Act 4: Summary */}
-        <Sequence from={3419} durationInFrames={883} premountFor={30}>
+        <Sequence from={3076} durationInFrames={784} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -110,7 +110,7 @@ const SectionTitle: React.FC = () => {
     easing: Easing.out(Easing.quad),
   });
 
-  const titleFadeOut = interpolate(frame, [87, 120], [1, 0], {
+  const titleFadeOut = interpolate(frame, [58, 83], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -170,35 +170,35 @@ const RecordOnceAct: React.FC = () => {
   // Recording steps appearing one by one
   // Each bullet appears after the previous bullet's images finish
   const steps = [
-    { label: "Open Autotest Portal", delay: 53, icon: "1" },
+    { label: "Open Autotest Portal", delay: 3, icon: "1" },
     {
       label: "Connect — Tap, Type, Swipe",
-      delay: 336,
+      delay: 271,
       icon: "2",
     },
-    { label: "Autotest captures everything", delay: 494, icon: "3" },
+    { label: "Autotest captures everything", delay: 422, icon: "3" },
   ];
 
   // Screenshot images grouped by bullet point:
   // Each image lasts ~63 frames (2.1 seconds). Next image replaces instantly.
   //
-  // Bullet 1 (fully at frame 84): 1-1-0, 1-2-0, 1-3-0, 1-4-0
-  // Bullet 2 (fully at frame 368): 2-1-0, 2-2-0
-  // Bullet 3 (fully at frame 525): 2-4-0, 2-5-0, 2-6-0, 2-7-0
+  // Bullet 1 (fully at frame 18): 1-1-0, 1-2-0, 1-3-0, 1-4-0
+  // Bullet 2 (fully at frame 290): 2-1-0, 2-2-0
+  // Bullet 3 (fully at frame 440): 2-4-0, 2-5-0, 2-6-0, 2-7-0
   const screenshots = [
     // Bullet 1 images
-    { src: staticFile("1-1-0.png"), start: 84 },
-    { src: staticFile("1-2-0.png"), start: 147 },
-    { src: staticFile("1-3-0.png"), start: 210 },
-    { src: staticFile("1-4-0.png"), start: 273 },
+    { src: staticFile("1-1-0.png"), start: 18 },
+    { src: staticFile("1-2-0.png"), start: 81 },
+    { src: staticFile("1-3-0.png"), start: 144 },
+    { src: staticFile("1-4-0.png"), start: 207 },
     // Bullet 2 images
-    { src: staticFile("2-1-0.png"), start: 368 },
-    { src: staticFile("2-2-0.png"), start: 431 },
+    { src: staticFile("2-1-0.png"), start: 290 },
+    { src: staticFile("2-2-0.png"), start: 353 },
     // Bullet 3 images
-    { src: staticFile("2-4-0.png"), start: 525 },
-    { src: staticFile("2-5-0.png"), start: 588 },
-    { src: staticFile("2-6-0.png"), start: 651 },
-    { src: staticFile("2-7-0.png"), start: 714 },
+    { src: staticFile("2-4-0.png"), start: 440 },
+    { src: staticFile("2-5-0.png"), start: 503 },
+    { src: staticFile("2-6-0.png"), start: 566 },
+    { src: staticFile("2-7-0.png"), start: 629 },
   ];
   // Determine which screenshot is active (last one whose start <= frame)
   const activeScreenshotIndex = screenshots.reduce(
@@ -209,7 +209,7 @@ const RecordOnceAct: React.FC = () => {
   // Portrait images (2-4-0 to 2-7-0, indices 6-9) need to sit lower to avoid covering the title
   const isPortraitImage = activeScreenshotIndex >= 6;
 
-  const actFade = interpolate(frame, [756, 840], [1, 0], {
+  const actFade = interpolate(frame, [665, 747], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -312,7 +312,7 @@ const RecordOnceAct: React.FC = () => {
             fontSize: 56,
             color: "#333",
             fontWeight: 700,
-            opacity: interpolate(frame, [735, 777], [0, 1], {
+            opacity: interpolate(frame, [640, 670], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
             }),
@@ -600,8 +600,8 @@ const DISMISS_VIDEOS = [
 
 /** Shows 3 dismiss videos side-by-side in the left panel area.
  *  Wrapped in a <Sequence> by the parent so videos start at the right time.
- *  Videos play at 1.35x speed so they finish before the Smart Element panel appears. */
-const DISMISS_VIDEO_DURATION = 910; // ~30.3s at 30fps (41s source / 1.35x playback)
+ *  Videos play at 1.8x speed so they finish before the Smart Element panel appears. */
+const DISMISS_VIDEO_DURATION = 683; // ~22.8s at 30fps (41s source / 1.8x playback)
 const DismissVideosPanel: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -662,7 +662,7 @@ const DismissVideosPanel: React.FC = () => {
             <Video
               src={staticFile(vid.src)}
               muted
-              playbackRate={1.35}
+              playbackRate={1.8}
               style={{
                 width: "100%",
                 display: "block",
@@ -1081,21 +1081,21 @@ const AIPoweredAct: React.FC = () => {
     {
       title: "AI Evidence Evaluation",
       desc: "AI analyzes screenshots & XML to verify app state",
-      delay: 32,
+      delay: 3,
     },
     {
       title: "Handles the Unexpected",
       desc: "Permission dialogs, system popups — AI adapts automatically",
-      delay: 442,
+      delay: 407,
     },
     {
       title: "Smart Element Finding",
       desc: "Uses element signatures to locate elements despite UI changes",
-      delay: 1377,
+      delay: 1333,
     },
   ];
 
-  const actFade = interpolate(frame, [1907, 1965], [1, 0], {
+  const actFade = interpolate(frame, [1760, 1818], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -1140,15 +1140,15 @@ const AIPoweredAct: React.FC = () => {
       </div>
 
       {/* AI Terminal - left side (fades out as AI Evidence narration finishes) */}
-      <AITerminal frame={frame} startFrame={49} endFrame={435} />
+      <AITerminal frame={frame} startFrame={8} endFrame={406} />
 
       {/* Dismiss videos - left side (appears with bullet 2 "Handles the Unexpected") */}
-      <Sequence from={457}>
+      <Sequence from={625}>
         <DismissVideosPanel />
       </Sequence>
 
       {/* Smart Element workflow - left side (appears with bullet 3) */}
-      <SmartElementPanel frame={frame} startFrame={1385} />
+      <SmartElementPanel frame={frame} startFrame={1340} />
 
       {/* Feature list */}
       <div
@@ -1189,36 +1189,36 @@ const SummaryAct: React.FC = () => {
   const opacity = interpolate(entrance, [0, 1], [0, 1]);
 
   const badges = [
-    { label: "AI-Powered", color: "#F25022", delay: 28 },
-    { label: "All Platforms", color: "#7FBA00", delay: 92 },
-    { label: "CI Ready", color: "#00A4EF", delay: 156 },
-    { label: "Easy to Scale", color: "#FFB900", delay: 313 },
+    { label: "AI-Powered", color: "#F25022", delay: 3 },
+    { label: "All Platforms", color: "#7FBA00", delay: 76 },
+    { label: "CI Ready", color: "#00A4EF", delay: 152 },
+    { label: "Easy to Scale", color: "#FFB900", delay: 366 },
   ];
 
   // Image zoom/pan timeline (badges 1-2 zoom architecture, then fade for CI Ready)
   const zoomScale = interpolate(
     frame,
-    [0, 28, 37, 83, 101, 147],
+    [0, 3, 12, 67, 85, 143],
     [1, 1, 3, 3, 2, 2],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
   const panX = interpolate(
     frame,
-    [0, 28, 37, 83, 101, 147],
+    [0, 3, 12, 67, 85, 143],
     [0, 0, 450, 450, -80, -80],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
   const panY = interpolate(
     frame,
-    [0, 28, 37, 83, 101, 147],
+    [0, 3, 12, 67, 85, 143],
     [0, 0, -20, -20, -260, -260],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
   // Architecture fades when CI Ready badge arrives
-  const imgOpacity = interpolate(frame, [147, 175], [1, 0], {
+  const imgOpacity = interpolate(frame, [143, 170], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -1226,7 +1226,7 @@ const SummaryAct: React.FC = () => {
   // CI Pipeline appears with CI Ready badge, fades out for Easy to Scale
   const pipelineOpacity = interpolate(
     frame,
-    [175, 193, 304, 322],
+    [170, 188, 357, 375],
     [0, 1, 1, 0],
     {
       extrapolateLeft: "clamp",
@@ -1235,7 +1235,7 @@ const SummaryAct: React.FC = () => {
   );
 
   // Scale Grid (test cases + device icons) appears AFTER Easy to Scale badge
-  const gridOpacity = interpolate(frame, [322, 340, 506, 534], [0, 1, 1, 0], {
+  const gridOpacity = interpolate(frame, [375, 393, 520, 540], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -1255,16 +1255,16 @@ const SummaryAct: React.FC = () => {
    *   Blue(BL): 906, 534   Yellow(BR): 1014, 534
    *
    * After logo forms:
-   *   Frame 589-634: Logo slides left, "Windows 365 Experience Team" appears
-   *   Frame 736-773: Flip to "Autotest designed for daily work"
+   *   Frame 590-635: Logo slides left, "Windows 365 Experience Team" appears
+   *   Frame 670-707: Flip to "Autotest designed for daily work"
    */
-  const MORPH_START = 506;
+  const MORPH_START = 530;
 
   // Phase 2: Logo slides left, text appears
-  const SLIDE_START = 589;
+  const SLIDE_START = 590;
 
   // Phase 3: Flip text
-  const FLIP_START = 736;
+  const FLIP_START = 670;
   const FLIP_DUR = 37;
 
   // Morph progress (0 → 1) with spring for smooth feel
@@ -1396,7 +1396,7 @@ const SummaryAct: React.FC = () => {
           zIndex: 10,
         }}
       >
-        <ScaleGrid frame={frame - 322} />
+        <ScaleGrid frame={frame - 375} />
       </div>
 
       {/* 4 badges — absolutely positioned so they can morph into the Microsoft logo */}
@@ -1694,7 +1694,7 @@ const ProgressAct: React.FC = () => {
   const translateY = interpolate(entrance, [0, 1], [60, 0]);
 
   // Fade out at the end
-  const actFade = interpolate(frame, [403, 458], [1, 0], {
+  const actFade = interpolate(frame, [355, 428], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });

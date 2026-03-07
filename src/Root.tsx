@@ -28,7 +28,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition
           id="AutotestIntro"
           component={AutotestIntro}
-          durationInFrames={366}
+          durationInFrames={326}
           fps={30}
           width={1920}
           height={1080}
@@ -37,7 +37,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition
           id="ProblemScene"
           component={ProblemScene}
-          durationInFrames={1630}
+          durationInFrames={1369}
           fps={30}
           width={1920}
           height={1080}
@@ -46,7 +46,7 @@ export const RemotionRoot: React.FC = () => {
         <Composition
           id="SolutionScene"
           component={SolutionScene}
-          durationInFrames={4302}
+          durationInFrames={3863}
           fps={30}
           width={1920}
           height={1080}

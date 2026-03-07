@@ -1,14 +1,14 @@
 """
-Compute exact frame positions for each audio segment in the new extended timeline.
-Each clip plays after the previous one finishes + PAUSE_FRAMES gap.
-Clips are grouped by visual act and placed within that act's time window.
+Compute exact frame positions for each audio segment — COMPACT timeline.
+Reduced pauses (4 frames) and minimal visual entrance delays (8-12 frames).
+Derives act/scene durations bottom-up from audio content.
 """
 
 import json, math
 from pydub import AudioSegment
 
 FPS = 30
-PAUSE_FRAMES = 10  # ~0.33s between clips
+PAUSE_FRAMES = 1  # ~0.03s between clips (minimal gap)
 
 with open("public/ssml/manifest.json", encoding="utf-8") as f:
     segments = json.load(f)["segments"]
@@ -18,58 +18,92 @@ for seg in segments:
     dur_ms = len(AudioSegment.from_wav(wav))
     seg["audio_frames"] = math.ceil(dur_ms / 1000 * FPS)
 
+
+def audio_span(scene_labels):
+    """Total audio frames for segments matching any of the given scene labels."""
+    segs = [s for s in segments if s["scene"] in scene_labels]
+    total = sum(s["audio_frames"] for s in segs)
+    pauses = max(0, len(segs) - 1) * PAUSE_FRAMES
+    return total + pauses, len(segs)
+
+
 # ============================================================
-# NEW SCENE STRUCTURE
+# COMPUTE MINIMUM ACT DURATIONS (bottom-up from audio)
 # ============================================================
 
-# INTRO: 366 frames
-INTRO_DUR = 366
-# Audio starts at frame 0 of the full video
+# Intro: 3 clips
+intro_audio, intro_n = audio_span(["Intro"])
+INTRO_DUR = intro_audio + 0 + 8  # no entrance delay + 8 frames tail for fade-out
 
-# PROBLEM: 1630 frames
-PROBLEM_DUR = 1630
-PROB_TITLE_DUR = 135
-PROB_ACT1_DUR = 621
-PROB_ACT2_DUR = 550
-PROB_ACT3_DUR = 294
-PROB_FADE = 30
-# Sequence starts within Problem scene (local frames):
+# Problem acts
+prob_title_audio, _ = audio_span(["Problem - Title"])
+prob_act1_audio, _ = audio_span(["Problem - Manual Testing"])
+prob_act2_audio, _ = audio_span(["Problem - Brittle Scripts"])
+prob_act3_audio, _ = audio_span(["Problem - Cannot Scale"])
+
+# Each act: entrance_delay + audio + fade_tail
+PROB_TITLE_DUR = 3 + prob_title_audio + 0  # title flows straight into act1
+PROB_ACT1_DUR = 3 + prob_act1_audio + 0
+PROB_ACT2_DUR = 3 + prob_act2_audio + 0
+PROB_ACT3_DUR = 3 + prob_act3_audio + 0
+PROB_FADE = 3  # scene fade-out
+
 PROB_TITLE_START = 0
-PROB_ACT1_START = PROB_TITLE_DUR  # 135
-PROB_ACT2_START = PROB_ACT1_START + PROB_ACT1_DUR  # 756
-PROB_ACT3_START = PROB_ACT2_START + PROB_ACT2_DUR  # 1306
+PROB_ACT1_START = PROB_TITLE_DUR
+PROB_ACT2_START = PROB_ACT1_START + PROB_ACT1_DUR
+PROB_ACT3_START = PROB_ACT2_START + PROB_ACT2_DUR
+PROBLEM_DUR = PROB_ACT3_START + PROB_ACT3_DUR + PROB_FADE
 
-# SOLUTION: 4302 frames (was 4894 — shrunk by eliminating 20s dismiss gap)
-SOLUTION_DUR = 4302
-SOL_TITLE_DUR = 120
-SOL_RECORD_DUR = 840
-SOL_AI_DUR = 1965  # was 2517 — shrunk after removing dismiss gap
-SOL_PROGRESS_DUR = 494
-SOL_SUMMARY_DUR = 883
-SOL_FADE = 40
-# Sequence starts within Solution scene (local frames):
+# Solution acts
+sol_title_audio, _ = audio_span(["Solution - Title"])
+sol_record_audio, _ = audio_span(["Solution - Record Once"])
+sol_ai_audio, _ = audio_span(
+    [
+        "Solution - AI-Powered",
+        "Solution - AI Evidence",
+        "Solution - Unexpected",
+        "Solution - Dismiss Videos",
+        "Solution - Smart Element",
+    ]
+)
+sol_progress_audio, _ = audio_span(["Solution - Platform Progress"])
+sol_summary_audio, _ = audio_span(["Solution - Summary"])
+
+SOL_TITLE_DUR = 3 + sol_title_audio + 0
+SOL_RECORD_DUR = 3 + sol_record_audio + 0
+
+# AI act is special: needs time for dismiss videos + visual transitions
+# Entrance (3) + all AI sub-section audio + tail (3)
+SOL_AI_DUR = 3 + sol_ai_audio + 3  # tail for act fade
+
+SOL_PROGRESS_DUR = 3 + sol_progress_audio + 0
+SOL_SUMMARY_DUR = 3 + sol_summary_audio + 3  # slight tail for final scene
+SOL_FADE = 3
+
 SOL_TITLE_START = 0
-SOL_RECORD_START = SOL_TITLE_DUR  # 120
-SOL_AI_START = SOL_RECORD_START + SOL_RECORD_DUR  # 960
-SOL_PROGRESS_START = SOL_AI_START + SOL_AI_DUR  # 2925
-SOL_SUMMARY_START = SOL_PROGRESS_START + SOL_PROGRESS_DUR  # 3419
+SOL_RECORD_START = SOL_TITLE_DUR
+SOL_AI_START = SOL_RECORD_START + SOL_RECORD_DUR
+SOL_PROGRESS_START = SOL_AI_START + SOL_AI_DUR
+SOL_SUMMARY_START = SOL_PROGRESS_START + SOL_PROGRESS_DUR
+SOLUTION_DUR = SOL_SUMMARY_START + SOL_SUMMARY_DUR + SOL_FADE
 
-# ============================================================
-# COMPUTE ABSOLUTE FRAME POSITIONS FOR AUDIO
-# ============================================================
-
-# Scene offsets in full video
+# Scene offsets
 INTRO_OFFSET = 0
-PROBLEM_OFFSET = INTRO_DUR  # 366
-SOLUTION_OFFSET = INTRO_DUR + PROBLEM_DUR  # 1996
+PROBLEM_OFFSET = INTRO_DUR
+SOLUTION_OFFSET = INTRO_DUR + PROBLEM_DUR
+TOTAL = INTRO_DUR + PROBLEM_DUR + SOLUTION_DUR
 
 
-def place_clips(segs, act_start_absolute, visual_entrance_delay=20):
-    """Place clips sequentially starting at act_start_absolute + visual_entrance_delay.
-    Returns list of (segment, absolute_start_frame)."""
+# ============================================================
+# PLACE AUDIO CLIPS
+# ============================================================
+
+
+def place_clips(segs, act_start_absolute, visual_entrance_delay=12):
+    """Place clips sequentially starting at act_start_absolute + visual_entrance_delay."""
     cursor = act_start_absolute + visual_entrance_delay
     placements = []
-    for i, seg in enumerate(segs):
+    for seg in segs:
         placements.append((seg, cursor))
         cursor += seg["audio_frames"] + PAUSE_FRAMES
     return placements
@@ -78,7 +112,6 @@ def place_clips(segs, act_start_absolute, visual_entrance_delay=20):
 all_placements = []
 
 # --- INTRO ---
-# Audio starts at frame 0 (no visual delay needed, logo draws immediately)
 all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Intro"],
@@ -88,65 +121,54 @@ all_placements.extend(
 )
 
 # --- PROBLEM ---
-# Title
 all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Problem - Title"],
         PROBLEM_OFFSET + PROB_TITLE_START,
-        visual_entrance_delay=15,
+        visual_entrance_delay=3,
     )
 )
-
-# Manual Testing (Act 1)
 all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Problem - Manual Testing"],
         PROBLEM_OFFSET + PROB_ACT1_START,
-        visual_entrance_delay=20,
+        visual_entrance_delay=3,
     )
 )
-
-# Brittle Scripts (Act 2)
 all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Problem - Brittle Scripts"],
         PROBLEM_OFFSET + PROB_ACT2_START,
-        visual_entrance_delay=20,
+        visual_entrance_delay=3,
     )
 )
-
-# Cannot Scale (Act 3)
 all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Problem - Cannot Scale"],
         PROBLEM_OFFSET + PROB_ACT3_START,
-        visual_entrance_delay=20,
+        visual_entrance_delay=3,
     )
 )
 
 # --- SOLUTION ---
-# Title
 all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Solution - Title"],
         SOLUTION_OFFSET + SOL_TITLE_START,
-        visual_entrance_delay=15,
+        visual_entrance_delay=3,
     )
 )
-
-# Record Once
 all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Solution - Record Once"],
         SOLUTION_OFFSET + SOL_RECORD_START,
-        visual_entrance_delay=25,
+        visual_entrance_delay=3,
     )
 )
 
-# AI-Powered group (AI-Powered, AI Evidence, Unexpected, Dismiss, Smart Element)
-# These are sub-sections of the AI act, placed sequentially
+# AI-Powered group — placed sequentially within the act
 ai_act_abs_start = SOLUTION_OFFSET + SOL_AI_START
-ai_cursor = ai_act_abs_start + 20  # visual entrance delay
+ai_cursor = ai_act_abs_start + 3  # visual entrance delay
 
 for scene_label in [
     "Solution - AI-Powered",
@@ -159,11 +181,7 @@ for scene_label in [
         all_placements.append((seg, ai_cursor))
         ai_cursor += seg["audio_frames"] + PAUSE_FRAMES
 
-# Small pause after dismiss narration before smart element narration
-# (Previously 20s / 600 frames gap — now just the standard pause)
-ai_cursor += 0  # No extra gap — standard PAUSE_FRAMES already applied above
-
-# Smart Element Finding
+# Smart Element Finding (no extra gap)
 smart_segs = [s for s in segments if s["scene"] == "Solution - Smart Element"]
 for seg in smart_segs:
     all_placements.append((seg, ai_cursor))
@@ -174,7 +192,7 @@ all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Solution - Platform Progress"],
         SOLUTION_OFFSET + SOL_PROGRESS_START,
-        visual_entrance_delay=20,
+        visual_entrance_delay=3,
     )
 )
 
@@ -183,34 +201,38 @@ all_placements.extend(
     place_clips(
         [s for s in segments if s["scene"] == "Solution - Summary"],
         SOLUTION_OFFSET + SOL_SUMMARY_START,
-        visual_entrance_delay=15,
+        visual_entrance_delay=3,
     )
 )
 
 # ============================================================
 # OUTPUT
 # ============================================================
-TOTAL = INTRO_DUR + PROBLEM_DUR + SOLUTION_DUR
 
 print(f"TOTAL VIDEO: {TOTAL} frames ({TOTAL / FPS:.1f}s)")
 print(f"\nINTRO_DURATION = {INTRO_DUR}")
 print(f"PROBLEM_DURATION = {PROBLEM_DUR}")
 print(f"SOLUTION_DURATION = {SOLUTION_DUR}")
 print(
-    f"\nProblem act starts (local): title={PROB_TITLE_START}, act1={PROB_ACT1_START}, act2={PROB_ACT2_START}, act3={PROB_ACT3_START}"
+    f"\nProblem act starts (local): title={PROB_TITLE_START}, act1={PROB_ACT1_START}, "
+    f"act2={PROB_ACT2_START}, act3={PROB_ACT3_START}"
 )
 print(
-    f"Problem act durations: title={PROB_TITLE_DUR}, act1={PROB_ACT1_DUR}, act2={PROB_ACT2_DUR}, act3={PROB_ACT3_DUR}"
+    f"Problem act durations: title={PROB_TITLE_DUR}, act1={PROB_ACT1_DUR}, "
+    f"act2={PROB_ACT2_DUR}, act3={PROB_ACT3_DUR}"
 )
 print(
-    f"\nSolution act starts (local): title={SOL_TITLE_START}, record={SOL_RECORD_START}, ai={SOL_AI_START}, progress={SOL_PROGRESS_START}, summary={SOL_SUMMARY_START}"
+    f"\nSolution act starts (local): title={SOL_TITLE_START}, record={SOL_RECORD_START}, "
+    f"ai={SOL_AI_START}, progress={SOL_PROGRESS_START}, summary={SOL_SUMMARY_START}"
 )
 print(
-    f"Solution act durations: title={SOL_TITLE_DUR}, record={SOL_RECORD_DUR}, ai={SOL_AI_DUR}, progress={SOL_PROGRESS_DUR}, summary={SOL_SUMMARY_DUR}"
+    f"Solution act durations: title={SOL_TITLE_DUR}, record={SOL_RECORD_DUR}, "
+    f"ai={SOL_AI_DUR}, progress={SOL_PROGRESS_DUR}, summary={SOL_SUMMARY_DUR}"
 )
 
 print(
-    f"\n{'':>3s}  {'File':>35s}  {'AbsFrame':>8s}  {'AbsSec':>7s}  {'DurF':>5s}  {'DurSec':>6s}  {'EndF':>6s}"
+    f"\n{'':>3s}  {'File':>35s}  {'AbsFrame':>8s}  {'AbsSec':>7s}  "
+    f"{'DurF':>5s}  {'DurSec':>6s}  {'EndF':>6s}"
 )
 print("-" * 85)
 for seg, abs_frame in all_placements:
@@ -218,7 +240,8 @@ for seg, abs_frame in all_placements:
     dur_f = seg["audio_frames"]
     end_f = abs_frame + dur_f
     print(
-        f"{'':>3s}  {name:>35s}  {abs_frame:>8d}  {abs_frame / FPS:>7.1f}  {dur_f:>5d}  {dur_f / FPS:>6.1f}  {end_f:>6d}"
+        f"{'':>3s}  {name:>35s}  {abs_frame:>8d}  {abs_frame / FPS:>7.1f}  "
+        f"{dur_f:>5d}  {dur_f / FPS:>6.1f}  {end_f:>6d}"
     )
 
 # Verify no overlaps
@@ -232,7 +255,8 @@ for i in range(len(sorted_placements) - 1):
     if end_a > start_b:
         overlaps += 1
         print(
-            f"  OVERLAP: {seg_a['file']} ends at {end_a} but {seg_b['file']} starts at {start_b} (overlap={end_a - start_b}f)"
+            f"  OVERLAP: {seg_a['file']} ends at {end_a} but "
+            f"{seg_b['file']} starts at {start_b} (overlap={end_a - start_b}f)"
         )
 
 if overlaps == 0:
@@ -247,7 +271,8 @@ if last_end > TOTAL:
     )
 else:
     print(
-        f"\n  Last clip ends at frame {last_end} ({last_end / FPS:.1f}s), video is {TOTAL} frames ({TOTAL / FPS:.1f}s). OK!"
+        f"\n  Last clip ends at frame {last_end} ({last_end / FPS:.1f}s), "
+        f"video is {TOTAL} frames ({TOTAL / FPS:.1f}s). OK!"
     )
 
 # Generate the NARRATION_SEGMENTS array for FullVideo.tsx

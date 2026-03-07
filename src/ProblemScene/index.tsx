@@ -18,22 +18,22 @@ const RED = "#e53935";
 /* ====================================================================
  * ProblemScene – Scene 1: "The Problem with UI Testing Today"
  *
- * Timeline (30 fps, 1630 frames ≈ 54.3 s):
- *   0-135    : Title "The Problem" fades in with red underline
- *   135-756  : Act 1 – Manual Testing pain (buddy typing, clock ticking)
- *   756-1306 : Act 2 – Hard-coded scripts breaking across devices
- *   1306-1600: Act 3 – Cannot scale (device wall + red Xs)
- *   ~1600-1630: Fade out
+ * Timeline (30 fps, 1369 frames ≈ 45.6 s):
+ *   0-108    : Title "The Problem" fades in with red underline
+ *   108-663  : Act 1 – Manual Testing pain (buddy typing, clock ticking)
+ *   663-1138 : Act 2 – Hard-coded scripts breaking across devices
+ *   1138-1366: Act 3 – Cannot scale (device wall + red Xs)
+ *   ~1359-1369: Fade out
  * ==================================================================== */
 
-const PROBLEM_DURATION = 1630;
+const PROBLEM_DURATION = 1369;
 
 export const ProblemScene: React.FC = () => {
   const frame = useCurrentFrame();
 
   const fadeOut = interpolate(
     frame,
-    [PROBLEM_DURATION - 30, PROBLEM_DURATION - 5],
+    [PROBLEM_DURATION - 10, PROBLEM_DURATION - 2],
     [1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
@@ -56,22 +56,22 @@ export const ProblemScene: React.FC = () => {
       <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* ---- ACT 0: Section title ---- */}
-        <Sequence from={0} durationInFrames={135} premountFor={10}>
+        <Sequence from={0} durationInFrames={108} premountFor={10}>
           <SectionTitle />
         </Sequence>
 
         {/* ---- ACT 1: Manual testing burden ---- */}
-        <Sequence from={135} durationInFrames={621} premountFor={30}>
+        <Sequence from={108} durationInFrames={555} premountFor={30}>
           <ManualTestingAct />
         </Sequence>
 
         {/* ---- ACT 2: Hard-coded scripts break ---- */}
-        <Sequence from={756} durationInFrames={550} premountFor={30}>
+        <Sequence from={663} durationInFrames={475} premountFor={30}>
           <BrittleScriptsAct />
         </Sequence>
 
         {/* ---- ACT 3: Cannot scale ---- */}
-        <Sequence from={1306} durationInFrames={294} premountFor={30}>
+        <Sequence from={1138} durationInFrames={228} premountFor={30}>
           <CannotScaleAct />
         </Sequence>
       </AbsoluteFill>
@@ -104,7 +104,7 @@ const SectionTitle: React.FC = () => {
   });
 
   // Fade out the title to make room for acts
-  const titleFadeOut = interpolate(frame, [95, 135], [1, 0], {
+  const titleFadeOut = interpolate(frame, [75, 108], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -165,7 +165,7 @@ const ManualTestingAct: React.FC = () => {
 
   // Character mood transitions: neutral -> stressed -> exhausted
   const mood: "neutral" | "stressed" | "exhausted" =
-    frame < 186 ? "neutral" : frame < 434 ? "stressed" : "exhausted";
+    frame < 170 ? "neutral" : frame < 400 ? "stressed" : "exhausted";
 
   // Subtitle text fades in
   const subtitleOpacity = interpolate(frame, [62, 140], [0, 1], {
@@ -173,9 +173,9 @@ const ManualTestingAct: React.FC = () => {
     extrapolateRight: "clamp",
   });
 
-  // Clock appears at frame 155
+  // Clock appears at frame 140
   const clockEntrance = spring({
-    frame: frame - 155,
+    frame: frame - 140,
     fps,
     config: { damping: 15, stiffness: 200 },
   });
@@ -185,13 +185,13 @@ const ManualTestingAct: React.FC = () => {
   });
 
   // "Cannot scale" caption
-  const captionOpacity = interpolate(frame, [248, 326], [0, 1], {
+  const captionOpacity = interpolate(frame, [220, 290], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
   // Fade out this act
-  const actFade = interpolate(frame, [497, 621], [1, 0], {
+  const actFade = interpolate(frame, [470, 555], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -245,7 +245,7 @@ const ManualTestingAct: React.FC = () => {
       >
         <ProblemBullet
           frame={frame}
-          delay={31}
+          delay={3}
           icon="1"
           text="Fully relies on human manual testing"
         />
@@ -257,7 +257,7 @@ const ManualTestingAct: React.FC = () => {
         />
         <ProblemBullet
           frame={frame}
-          delay={279}
+          delay={303}
           icon="3"
           text="Every device, OS version, update..."
           subtext="tested by hand, again and again"
@@ -321,11 +321,11 @@ const BrittleScriptsAct: React.FC = () => {
   const totalChars = codeLines.join("").length;
   const charsTyped = Math.min(
     totalChars,
-    Math.floor((frame * totalChars) / 275),
+    Math.floor((frame * totalChars) / 238),
   );
 
   // Red flash when code "breaks"
-  const breakFrame = 306;
+  const breakFrame = 265;
   const breakFlash =
     frame > breakFrame
       ? interpolate(
@@ -337,15 +337,15 @@ const BrittleScriptsAct: React.FC = () => {
 
   // Devices with red X appearing one by one
   const devices = [
-    { label: "Samsung", delay: 336 },
-    { label: "Pixel", delay: 382 },
-    { label: "Xiaomi", delay: 428 },
-    { label: "iOS 17", delay: 474 },
-    { label: "iOS 16", delay: 519 },
+    { label: "Samsung", delay: 300 },
+    { label: "Pixel", delay: 330 },
+    { label: "Xiaomi", delay: 360 },
+    { label: "iOS 17", delay: 390 },
+    { label: "iOS 16", delay: 420 },
   ];
 
   // Act fade out
-  const actFade = interpolate(frame, [443, 550], [1, 0], {
+  const actFade = interpolate(frame, [400, 475], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -480,7 +480,7 @@ const BrittleScriptsAct: React.FC = () => {
             fontSize: 46,
             color: "#111",
             fontWeight: 600,
-            opacity: interpolate(frame, [397, 474], [0, 1], {
+            opacity: interpolate(frame, [350, 420], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
             }),
@@ -512,7 +512,7 @@ const CannotScaleAct: React.FC = () => {
   const deviceCount = Math.min(18, 2 + Math.floor(frame / 20));
 
   // Red "X" slam effect on the whole grid
-  const slamFrame = 196;
+  const slamFrame = 155;
   const slamScale =
     frame > slamFrame
       ? spring({
@@ -633,7 +633,7 @@ const CannotScaleAct: React.FC = () => {
             fontSize: 46,
             color: "#111",
             fontWeight: 700,
-            opacity: interpolate(frame, [98, 159], [0, 1], {
+            opacity: interpolate(frame, [80, 130], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
             }),
