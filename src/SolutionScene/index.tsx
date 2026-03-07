@@ -174,11 +174,11 @@ const RecordOnceAct: React.FC = () => {
   const steps = [
     { label: "Open Autotest Portal", delay: 25, icon: "1" },
     {
-      label: "Connect to Application — tap, type, swipe",
+      label: "Connect — Tap, Type, Swipe",
       delay: 60,
       icon: "2",
     },
-    { label: "Autotest captures everything via proxy", delay: 95, icon: "3" },
+    { label: "Autotest captures everything", delay: 95, icon: "3" },
   ];
 
   // Evidence capture animation (screenshots + XML flying into storage)
@@ -288,8 +288,8 @@ const RecordOnceAct: React.FC = () => {
         <span
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 44,
-            color: MICROSOFT_BLUE,
+            fontSize: 56,
+            color: "#333",
             fontWeight: 700,
             opacity: interpolate(frame, [130, 155], [0, 1], {
               extrapolateLeft: "clamp",
@@ -715,15 +715,15 @@ const SolutionStep: React.FC<{
     >
       <div
         style={{
-          minWidth: 64,
-          height: 64,
-          borderRadius: 32,
+          minWidth: 76,
+          height: 76,
+          borderRadius: 38,
           backgroundColor: GREEN,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontFamily: FONT_FAMILY,
-          fontSize: 32,
+          fontSize: 40,
           fontWeight: 700,
           color: "white",
         }}
@@ -733,7 +733,7 @@ const SolutionStep: React.FC<{
       <span
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 38,
+          fontSize: 48,
           color: "#111",
           fontWeight: 600,
           whiteSpace: "nowrap",
