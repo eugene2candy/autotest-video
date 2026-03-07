@@ -76,6 +76,11 @@ export const SolutionScene: React.FC = () => {
         <Sequence from={2055} durationInFrames={320} premountFor={30}>
           <SummaryAct />
         </Sequence>
+
+        {/* Act 4: Progress */}
+        <Sequence from={2355} durationInFrames={280} premountFor={30}>
+          <ProgressAct />
+        </Sequence>
       </AbsoluteFill>
     </AbsoluteFill>
   );
@@ -1365,6 +1370,270 @@ const SummaryAct: React.FC = () => {
         }}
       >
         <CIPipelineFlow frame={frame - 95} fps={fps} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+/* ------------------------------------------------------------------ */
+/*  Act 5: Progress                                                    */
+/* ------------------------------------------------------------------ */
+const PLATFORM_STATUS = [
+  {
+    name: "Android",
+    status: "Fully Implemented",
+    color: "#4caf50",
+    icon: "🤖",
+    pct: 100,
+    delay: 15,
+  },
+  {
+    name: "iOS / iPadOS",
+    status: "Technically Verified — In Progress",
+    color: "#ff7a00",
+    icon: "🍎",
+    pct: 45,
+    delay: 30,
+  },
+  {
+    name: "Windows",
+    status: "Technically Verified — In Progress",
+    color: "#ff7a00",
+    icon: "🪟",
+    pct: 35,
+    delay: 45,
+  },
+  {
+    name: "macOS",
+    status: "On the Roadmap",
+    color: "#888",
+    icon: "💻",
+    pct: 0,
+    delay: 60,
+  },
+  {
+    name: "Linux",
+    status: "On the Roadmap",
+    color: "#888",
+    icon: "🐧",
+    pct: 0,
+    delay: 75,
+  },
+  {
+    name: "Browser",
+    status: "On the Roadmap",
+    color: "#888",
+    icon: "🌐",
+    pct: 0,
+    delay: 90,
+  },
+] as const;
+
+const ProgressAct: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+
+  const entrance = spring({
+    frame,
+    fps,
+    config: { damping: 200 },
+    durationInFrames: 20,
+  });
+  const opacity = interpolate(entrance, [0, 1], [0, 1]);
+  const translateY = interpolate(entrance, [0, 1], [60, 0]);
+
+  // Fade out at the end
+  const actFade = interpolate(frame, [230, 260], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Blinking cursor for AI thinking feel
+  const cursorOn = Math.sin(frame * 0.35) > 0;
+
+  return (
+    <AbsoluteFill
+      style={{
+        opacity: opacity * actFade,
+        transform: `translateY(${translateY}px)`,
+      }}
+    >
+      {/* Title */}
+      <div
+        style={{
+          position: "absolute",
+          top: "7%",
+          width: "100%",
+          textAlign: "center",
+          zIndex: 1,
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "SF Mono, Consolas, monospace",
+            fontSize: 60,
+            fontWeight: 700,
+            color: "#1a3a5c",
+            margin: 0,
+            textShadow: "0 0 12px rgba(26,58,92,0.2)",
+            letterSpacing: 2,
+          }}
+        >
+          {">"} Platform Progress
+          <span
+            style={{
+              display: "inline-block",
+              width: 22,
+              height: 48,
+              backgroundColor: "#1a3a5c",
+              marginLeft: 6,
+              verticalAlign: "text-bottom",
+              opacity: cursorOn ? 0.8 : 0,
+            }}
+          />
+        </h2>
+      </div>
+
+      {/* Platform rows */}
+      <div
+        style={{
+          position: "absolute",
+          top: "20%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "80%",
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+          zIndex: 1,
+        }}
+      >
+        {PLATFORM_STATUS.map((plat, i) => {
+          const rowSpring = spring({
+            frame: frame - plat.delay,
+            fps,
+            config: { damping: 14, stiffness: 180 },
+          });
+          const rowScale = interpolate(rowSpring, [0, 1], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+          const rowX = interpolate(rowSpring, [0, 1], [60, 0], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+
+          // Progress bar fill animates after row appears
+          const barDelay = plat.delay + 12;
+          const barFill = interpolate(
+            frame,
+            [barDelay, barDelay + 20],
+            [0, plat.pct],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+          );
+
+          // Checkmark for fully implemented
+          const showCheck = plat.pct >= 100 && frame > barDelay + 22;
+          const checkOpacity = interpolate(
+            frame,
+            [barDelay + 22, barDelay + 28],
+            [0, 1],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+          );
+
+          // AI-style status color mapping
+          const glowColor =
+            plat.pct >= 100 ? "#4caf50" : plat.pct > 0 ? "#ff7a00" : "#556677";
+
+          return (
+            <div
+              key={`plat-${i}`}
+              style={{
+                opacity: rowScale,
+                transform: `translateX(${rowX}px)`,
+                borderRadius: 12,
+                border: `2px solid ${glowColor}50`,
+                backgroundColor: "rgba(255,255,255,0.55)",
+                backdropFilter: "blur(10px)",
+                boxShadow: `0 4px 20px ${glowColor}15`,
+                padding: "14px 28px",
+                display: "flex",
+                alignItems: "center",
+                gap: 24,
+              }}
+            >
+              {/* Icon */}
+              <span style={{ fontSize: 48, flexShrink: 0 }}>{plat.icon}</span>
+
+              {/* Name + status + bar */}
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    justifyContent: "space-between",
+                    marginBottom: 8,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "SF Mono, Consolas, monospace",
+                      fontSize: 42,
+                      fontWeight: 700,
+                      color: "#222",
+                    }}
+                  >
+                    {plat.name}
+                  </span>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "SF Mono, Consolas, monospace",
+                        fontSize: 30,
+                        fontWeight: 600,
+                        color: glowColor,
+                        textShadow: `0 0 8px ${glowColor}60`,
+                      }}
+                    >
+                      {plat.status}
+                    </span>
+                    {showCheck && (
+                      <span style={{ fontSize: 32, opacity: checkOpacity }}>
+                        ✅
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {/* Progress bar */}
+                <div
+                  style={{
+                    width: "100%",
+                    height: 14,
+                    backgroundColor: "#e0e0e0",
+                    borderRadius: 7,
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: `${barFill}%`,
+                      height: "100%",
+                      backgroundColor: glowColor,
+                      borderRadius: 5,
+                      boxShadow: `0 0 8px ${glowColor}80`,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </AbsoluteFill>
   );
