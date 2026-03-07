@@ -20,16 +20,16 @@ const MICROSOFT_BLUE = "#0078D4";
 /* ====================================================================
  * SolutionScene – Scene 2: "How Autotest Solves It"
  *
- * Timeline (30 fps, 2815 frames ≈ 93.8 s):
- *   0-110    : Title "How Autotest Solves It" with blue underline
- *   110-510  : Act 1 – Record Once (recording animation + proxy capture)
- *   510-2065 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
- *   2065-2335: Act 3 – Progress (platform status with AI-thinking style)
- *   2335-2815: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
- *   ~2775+   : Fade out
+ * Timeline (30 fps, 4894 frames ≈ 163.1 s):
+ *   0-120    : Title "How Autotest Solves It" with blue underline
+ *   120-960  : Act 1 – Record Once (recording animation + proxy capture)
+ *   960-3477 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
+ *   3477-3971: Act 3 – Progress (platform status with AI-thinking style)
+ *   3971-4894: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
+ *   ~4854+   : Fade out
  * ==================================================================== */
 
-const SOLUTION_DURATION = 2815;
+const SOLUTION_DURATION = 4894;
 
 export const SolutionScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -59,27 +59,27 @@ export const SolutionScene: React.FC = () => {
       <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* Title */}
-        <Sequence from={0} durationInFrames={110} premountFor={10}>
+        <Sequence from={0} durationInFrames={120} premountFor={10}>
           <SectionTitle />
         </Sequence>
 
         {/* Act 1: Record Once */}
-        <Sequence from={110} durationInFrames={400} premountFor={30}>
+        <Sequence from={120} durationInFrames={840} premountFor={30}>
           <RecordOnceAct />
         </Sequence>
 
         {/* Act 2: AI-Powered */}
-        <Sequence from={510} durationInFrames={1555} premountFor={30}>
+        <Sequence from={960} durationInFrames={2517} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
         {/* Act 3: Progress */}
-        <Sequence from={2065} durationInFrames={270} premountFor={30}>
+        <Sequence from={3477} durationInFrames={494} premountFor={30}>
           <ProgressAct />
         </Sequence>
 
         {/* Act 4: Summary */}
-        <Sequence from={2335} durationInFrames={480} premountFor={30}>
+        <Sequence from={3971} durationInFrames={883} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -104,13 +104,13 @@ const SectionTitle: React.FC = () => {
   const opacity = interpolate(titleProgress, [0, 1], [0, 1]);
   const translateY = interpolate(titleProgress, [0, 1], [40, 0]);
 
-  const underlineWidth = interpolate(frame, [15, 55], [0, 580], {
+  const underlineWidth = interpolate(frame, [16, 60], [0, 580], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.quad),
   });
 
-  const titleFadeOut = interpolate(frame, [80, 110], [1, 0], {
+  const titleFadeOut = interpolate(frame, [87, 120], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -170,35 +170,35 @@ const RecordOnceAct: React.FC = () => {
   // Recording steps appearing one by one
   // Each bullet appears after the previous bullet's images finish
   const steps = [
-    { label: "Open Autotest Portal", delay: 25, icon: "1" },
+    { label: "Open Autotest Portal", delay: 53, icon: "1" },
     {
       label: "Connect — Tap, Type, Swipe",
-      delay: 160,
+      delay: 336,
       icon: "2",
     },
-    { label: "Autotest captures everything", delay: 235, icon: "3" },
+    { label: "Autotest captures everything", delay: 494, icon: "3" },
   ];
 
   // Screenshot images grouped by bullet point:
-  // Each image lasts 30 frames (1 second). Next image replaces instantly.
+  // Each image lasts ~63 frames (2.1 seconds). Next image replaces instantly.
   //
-  // Bullet 1 (fully at frame 40): 1-1-0, 1-2-0, 1-3-0, 1-4-0
-  // Bullet 2 (fully at frame 175): 2-1-0, 2-2-0
-  // Bullet 3 (fully at frame 250): 2-4-0, 2-5-0, 2-6-0, 2-7-0
+  // Bullet 1 (fully at frame 84): 1-1-0, 1-2-0, 1-3-0, 1-4-0
+  // Bullet 2 (fully at frame 368): 2-1-0, 2-2-0
+  // Bullet 3 (fully at frame 525): 2-4-0, 2-5-0, 2-6-0, 2-7-0
   const screenshots = [
     // Bullet 1 images
-    { src: staticFile("1-1-0.png"), start: 40 },
-    { src: staticFile("1-2-0.png"), start: 70 },
-    { src: staticFile("1-3-0.png"), start: 100 },
-    { src: staticFile("1-4-0.png"), start: 130 },
+    { src: staticFile("1-1-0.png"), start: 84 },
+    { src: staticFile("1-2-0.png"), start: 147 },
+    { src: staticFile("1-3-0.png"), start: 210 },
+    { src: staticFile("1-4-0.png"), start: 273 },
     // Bullet 2 images
-    { src: staticFile("2-1-0.png"), start: 175 },
-    { src: staticFile("2-2-0.png"), start: 205 },
+    { src: staticFile("2-1-0.png"), start: 368 },
+    { src: staticFile("2-2-0.png"), start: 431 },
     // Bullet 3 images
-    { src: staticFile("2-4-0.png"), start: 250 },
-    { src: staticFile("2-5-0.png"), start: 280 },
-    { src: staticFile("2-6-0.png"), start: 310 },
-    { src: staticFile("2-7-0.png"), start: 340 },
+    { src: staticFile("2-4-0.png"), start: 525 },
+    { src: staticFile("2-5-0.png"), start: 588 },
+    { src: staticFile("2-6-0.png"), start: 651 },
+    { src: staticFile("2-7-0.png"), start: 714 },
   ];
   // Determine which screenshot is active (last one whose start <= frame)
   const activeScreenshotIndex = screenshots.reduce(
@@ -209,7 +209,7 @@ const RecordOnceAct: React.FC = () => {
   // Portrait images (2-4-0 to 2-7-0, indices 6-9) need to sit lower to avoid covering the title
   const isPortraitImage = activeScreenshotIndex >= 6;
 
-  const actFade = interpolate(frame, [360, 400], [1, 0], {
+  const actFade = interpolate(frame, [756, 840], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -312,7 +312,7 @@ const RecordOnceAct: React.FC = () => {
             fontSize: 56,
             color: "#333",
             fontWeight: 700,
-            opacity: interpolate(frame, [350, 370], [0, 1], {
+            opacity: interpolate(frame, [735, 777], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
             }),
@@ -1080,21 +1080,21 @@ const AIPoweredAct: React.FC = () => {
     {
       title: "AI Evidence Evaluation",
       desc: "AI analyzes screenshots & XML to verify app state",
-      delay: 20,
+      delay: 32,
     },
     {
       title: "Handles the Unexpected",
       desc: "Permission dialogs, system popups — AI adapts automatically",
-      delay: 140,
+      delay: 226,
     },
     {
       title: "Smart Element Finding",
       desc: "Uses element signatures to locate elements despite UI changes",
-      delay: 1400,
+      delay: 2265,
     },
   ];
 
-  const actFade = interpolate(frame, [1520, 1555], [1, 0], {
+  const actFade = interpolate(frame, [2459, 2517], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -1139,15 +1139,15 @@ const AIPoweredAct: React.FC = () => {
       </div>
 
       {/* AI Terminal - left side (fades out when bullet 2 "Handles the Unexpected" appears) */}
-      <AITerminal frame={frame} startFrame={30} endFrame={140} />
+      <AITerminal frame={frame} startFrame={49} endFrame={226} />
 
       {/* Dismiss videos - left side (appears after bullet 2 fade-in completes) */}
-      <Sequence from={155}>
+      <Sequence from={251}>
         <DismissVideosPanel />
       </Sequence>
 
       {/* Smart Element workflow - left side (appears with bullet 3) */}
-      <SmartElementPanel frame={frame} startFrame={1405} />
+      <SmartElementPanel frame={frame} startFrame={2273} />
 
       {/* Feature list */}
       <div
@@ -1188,44 +1188,44 @@ const SummaryAct: React.FC = () => {
   const opacity = interpolate(entrance, [0, 1], [0, 1]);
 
   const badges = [
-    { label: "AI-Powered", color: "#F25022", delay: 15 },
-    { label: "All Platforms", color: "#7FBA00", delay: 50 },
-    { label: "CI Ready", color: "#00A4EF", delay: 85 },
-    { label: "Easy to Scale", color: "#FFB900", delay: 170 },
+    { label: "AI-Powered", color: "#F25022", delay: 28 },
+    { label: "All Platforms", color: "#7FBA00", delay: 92 },
+    { label: "CI Ready", color: "#00A4EF", delay: 156 },
+    { label: "Easy to Scale", color: "#FFB900", delay: 313 },
   ];
 
   // Image zoom/pan timeline (badges 1-2 zoom architecture, then fade for CI Ready)
   const zoomScale = interpolate(
     frame,
-    [0, 15, 20, 45, 55, 80],
+    [0, 28, 37, 83, 101, 147],
     [1, 1, 3, 3, 2, 2],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
   const panX = interpolate(
     frame,
-    [0, 15, 20, 45, 55, 80],
+    [0, 28, 37, 83, 101, 147],
     [0, 0, 450, 450, -80, -80],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
   const panY = interpolate(
     frame,
-    [0, 15, 20, 45, 55, 80],
+    [0, 28, 37, 83, 101, 147],
     [0, 0, -20, -20, -260, -260],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
   // Architecture fades when CI Ready badge arrives
-  const imgOpacity = interpolate(frame, [80, 95], [1, 0], {
+  const imgOpacity = interpolate(frame, [147, 175], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // CI Pipeline appears with CI Ready badge (85), fades out for Easy to Scale
+  // CI Pipeline appears with CI Ready badge, fades out for Easy to Scale
   const pipelineOpacity = interpolate(
     frame,
-    [95, 105, 165, 175],
+    [175, 193, 304, 322],
     [0, 1, 1, 0],
     {
       extrapolateLeft: "clamp",
@@ -1234,13 +1234,13 @@ const SummaryAct: React.FC = () => {
   );
 
   // Scale Grid (test cases + device icons) appears AFTER Easy to Scale badge
-  const gridOpacity = interpolate(frame, [175, 185, 275, 290], [0, 1, 1, 0], {
+  const gridOpacity = interpolate(frame, [322, 340, 506, 534], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
   /* ── Microsoft logo morph ──
-   * Phase starts at frame 275. The 4 colored badges move from their
+   * Phase starts at frame 506. The 4 colored badges move from their
    * horizontal row positions into a 2×2 grid at the center of the screen,
    * morphing from rounded text badges into solid colored squares.
    *
@@ -1254,17 +1254,17 @@ const SummaryAct: React.FC = () => {
    *   Blue(BL): 906, 534   Yellow(BR): 1014, 534
    *
    * After logo forms:
-   *   Frame 320-345: Logo slides left, "Windows 365 Experience Team" appears
-   *   Frame 395-420: Flip to "Autotest designed for daily work"
+   *   Frame 589-634: Logo slides left, "Windows 365 Experience Team" appears
+   *   Frame 736-773: Flip to "Autotest designed for daily work"
    */
-  const MORPH_START = 275;
+  const MORPH_START = 506;
 
   // Phase 2: Logo slides left, text appears
-  const SLIDE_START = 320;
+  const SLIDE_START = 589;
 
   // Phase 3: Flip text
-  const FLIP_START = 400;
-  const FLIP_DUR = 20;
+  const FLIP_START = 736;
+  const FLIP_DUR = 37;
 
   // Morph progress (0 → 1) with spring for smooth feel
   const morphSpring = spring({
@@ -1395,7 +1395,7 @@ const SummaryAct: React.FC = () => {
           zIndex: 10,
         }}
       >
-        <ScaleGrid frame={frame - 175} />
+        <ScaleGrid frame={frame - 322} />
       </div>
 
       {/* 4 badges — absolutely positioned so they can morph into the Microsoft logo */}
@@ -1619,7 +1619,7 @@ const SummaryAct: React.FC = () => {
           zIndex: 5,
         }}
       >
-        <CIPipelineFlow frame={frame - 95} fps={fps} />
+        <CIPipelineFlow frame={frame - 175} fps={fps} />
       </div>
     </AbsoluteFill>
   );
@@ -1635,7 +1635,7 @@ const PLATFORM_STATUS = [
     color: "#4caf50",
     icon: "🤖",
     pct: 100,
-    delay: 15,
+    delay: 27,
   },
   {
     name: "iOS / iPadOS",
@@ -1643,7 +1643,7 @@ const PLATFORM_STATUS = [
     color: "#ff7a00",
     icon: "🍎",
     pct: 45,
-    delay: 30,
+    delay: 55,
   },
   {
     name: "Windows",
@@ -1651,7 +1651,7 @@ const PLATFORM_STATUS = [
     color: "#ff7a00",
     icon: "🪟",
     pct: 35,
-    delay: 45,
+    delay: 82,
   },
   {
     name: "macOS",
@@ -1659,7 +1659,7 @@ const PLATFORM_STATUS = [
     color: "#888",
     icon: "💻",
     pct: 0,
-    delay: 60,
+    delay: 110,
   },
   {
     name: "Linux",
@@ -1667,7 +1667,7 @@ const PLATFORM_STATUS = [
     color: "#888",
     icon: "🐧",
     pct: 0,
-    delay: 75,
+    delay: 137,
   },
   {
     name: "Browser",
@@ -1675,7 +1675,7 @@ const PLATFORM_STATUS = [
     color: "#888",
     icon: "🌐",
     pct: 0,
-    delay: 90,
+    delay: 165,
   },
 ] as const;
 
@@ -1693,7 +1693,7 @@ const ProgressAct: React.FC = () => {
   const translateY = interpolate(entrance, [0, 1], [60, 0]);
 
   // Fade out at the end
-  const actFade = interpolate(frame, [220, 250], [1, 0], {
+  const actFade = interpolate(frame, [403, 458], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });

@@ -17,13 +17,13 @@ const MICROSOFT_BLUE = "#004E8C";
 /**
  * AutotestIntro – opening scene of the Autotest demo video.
  *
- * Timeline (at 30 fps, ~6 s total = 180 frames):
+ * Timeline (at 30 fps, ~12.2 s total = 366 frames):
  *   0-75   : Autotest logo draws on (left circle, stem, branches, target circles)
  *   45-105 : "Welcome to Autotest" fades / springs in
  *   85-135 : Subtitle "one time record, replay everywhere" fades in
- *   155-180: Everything fades out
+ *   341-361: Everything fades out
  */
-const INTRO_DURATION = 180;
+const INTRO_DURATION = 366;
 
 export const AutotestIntro: React.FC = () => {
   const frame = useCurrentFrame();
