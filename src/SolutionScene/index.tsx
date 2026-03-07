@@ -82,7 +82,7 @@ export const SolutionScene: React.FC = () => {
         </Sequence>
 
         {/* Act 4: Summary */}
-        <Sequence from={640} durationInFrames={110} premountFor={30}>
+        <Sequence from={640} durationInFrames={260} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -609,43 +609,44 @@ const SummaryAct: React.FC = () => {
 
   const badges = [
     { label: "AI-Powered", color: "#F25022", delay: 15 },
-    { label: "All Platforms", color: "#7FBA00", delay: 50 },
-    { label: "CI Ready", color: "#00A4EF", delay: 85 },
-    { label: "Easy to Scale", color: "#FFB900", delay: 95 },
+    { label: "All Platforms", color: "#7FBA00", delay: 60 },
+    { label: "CI Ready", color: "#00A4EF", delay: 110 },
+    { label: "Easy to Scale", color: "#FFB900", delay: 200 },
   ];
 
-  // Timeline:
-  // Frame 0-15: full image shown
-  // Frame 15-20: first badge appears, start zoom into left-center (AI Models)
-  // Frame 20-45: zoomed into AI Models area
-  // Frame 45-50: second badge appears, zoom out
-  // Frame 50-55: zoom into bottom (Devices)
-  // Frame 55-80: zoomed into Devices area
-  // Frame 80-90: zoom back to full view
-  // Frame 85-95: remaining badges appear
-
+  // Image zoom/pan timeline (frames 0-80)
   const zoomScale = interpolate(
     frame,
-    [0, 15, 20, 45, 55, 80, 90],
-    [1, 1, 3, 3, 2, 2, 1],
+    [0, 15, 20, 55, 65, 100],
+    [1, 1, 3, 3, 2, 2],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
-  // Pan X: center → far left (AI Models) → bottom-right (devices) → center
   const panX = interpolate(
     frame,
-    [0, 15, 20, 45, 55, 80, 90],
-    [0, 0, 450, 450, -80, -80, 0],
+    [0, 15, 20, 55, 65, 100],
+    [0, 0, 450, 450, -80, -80],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
 
-  // Pan Y: center → slight up (AI Models) → down (devices) → center
   const panY = interpolate(
     frame,
-    [0, 15, 20, 45, 55, 80, 90],
-    [0, 0, -20, -20, -260, -260, 0],
+    [0, 15, 20, 55, 65, 100],
+    [0, 0, -20, -20, -260, -260],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
+
+  // Image fades away after 2nd badge (frame 70-82)
+  const imgOpacity = interpolate(frame, [95, 108], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // CI pipeline flow appears when CI Ready badge comes (frame 110)
+  const pipelineOpacity = interpolate(frame, [108, 115], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   return (
     <AbsoluteFill
@@ -719,6 +720,7 @@ const SummaryAct: React.FC = () => {
           right: 0,
           bottom: 0,
           overflow: "hidden",
+          opacity: imgOpacity,
         }}
       >
         <div
@@ -743,7 +745,162 @@ const SummaryAct: React.FC = () => {
           />
         </div>
       </div>
+
+      {/* CI Pipeline Flow */}
+      <div
+        style={{
+          position: "absolute",
+          top: "18%",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          opacity: pipelineOpacity,
+        }}
+      >
+        <CIPipelineFlow frame={frame - 108} fps={fps} />
+      </div>
     </AbsoluteFill>
+  );
+};
+
+/* ------------------------------------------------------------------ */
+/*  CI Pipeline Flow Diagram                                           */
+/* ------------------------------------------------------------------ */
+const PIPELINE_BLUE = "#00A4EF";
+
+const CIPipelineFlow: React.FC<{ frame: number; fps: number }> = ({
+  frame,
+  fps,
+}) => {
+  // Step 1: Build App Package
+  const step1 = spring({ frame, fps, config: { damping: 12, stiffness: 200 } });
+  const s1 = interpolate(step1, [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  // Arrow 1
+  const arrow1Fill = interpolate(frame, [8, 18], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  // Step 2: Self-hosted agent with devices
+  const step2 = spring({ frame: frame - 12, fps, config: { damping: 12, stiffness: 200 } });
+  const s2 = interpolate(step2, [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  // Arrow 2
+  const arrow2Fill = interpolate(frame, [20, 30], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  // Step 3: Testing with animation
+  const step3 = spring({ frame: frame - 24, fps, config: { damping: 12, stiffness: 200 } });
+  const s3 = interpolate(step3, [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  // Testing progress bar
+  const testProgress = interpolate(frame, [26, 42], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const testingDots = ".".repeat(Math.max(0, Math.floor((frame / 5) % 4)));
+
+  // Arrow 3
+  const arrow3Fill = interpolate(frame, [38, 48], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  // Step 4: Report
+  const step4 = spring({ frame: frame - 44, fps, config: { damping: 12, stiffness: 200 } });
+  const s4 = interpolate(step4, [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  // Report checkmark
+  const reportCheck = frame > 48;
+
+  const boxStyle = (border: string): React.CSSProperties => ({
+    borderRadius: 16,
+    border: `3px solid ${border}`,
+    backgroundColor: "rgba(255,255,255,0.5)",
+    backdropFilter: "blur(8px)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    padding: "12px 16px",
+  });
+
+  const labelStyle: React.CSSProperties = {
+    fontFamily: FONT_FAMILY,
+    fontSize: 20,
+    fontWeight: 700,
+    color: "#111",
+    textAlign: "center",
+    whiteSpace: "pre-line",
+    lineHeight: 1.2,
+  };
+
+  const renderArrow = (fill: number, opacity: number) => (
+    <div style={{ width: 60, position: "relative", opacity, marginLeft: -2, marginRight: -2 }}>
+      <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: 6, backgroundColor: `${PIPELINE_BLUE}30`, borderRadius: 3 }} />
+      <div style={{ position: "absolute", top: 0, left: 0, width: `${fill}%`, height: 6, backgroundColor: PIPELINE_BLUE, borderRadius: 3 }} />
+      <div style={{ position: "absolute", right: -6, top: -5, width: 0, height: 0, borderTop: "8px solid transparent", borderBottom: "8px solid transparent", borderLeft: `10px solid ${PIPELINE_BLUE}`, opacity: fill > 90 ? 1 : 0 }} />
+    </div>
+  );
+
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+      {/* Step 1: Build */}
+      <div style={{ transform: `scale(${s1})`, opacity: s1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ ...boxStyle(PIPELINE_BLUE), width: 180, height: 140 }}>
+          <span style={{ fontSize: 36 }}>📦</span>
+          <span style={labelStyle}>Build{"\n"}App Package</span>
+        </div>
+      </div>
+
+      {renderArrow(arrow1Fill, interpolate(frame, [8, 12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))}
+
+      {/* Step 2: Self-Hosted Agent with devices */}
+      <div style={{ transform: `scale(${s2})`, opacity: s2, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ ...boxStyle("#ff9800"), width: 240, height: 200 }}>
+          <span style={{ fontSize: 28 }}>🖥️</span>
+          <span style={{ ...labelStyle, fontSize: 18 }}>Self-Hosted Agent</span>
+          <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+            {["📱 Android", "📱 iOS"].map((device, idx) => (
+              <div
+                key={`dev-${idx}`}
+                style={{
+                  padding: "4px 10px",
+                  borderRadius: 8,
+                  backgroundColor: "rgba(0,0,0,0.08)",
+                  border: "1px solid #ccc",
+                }}
+              >
+                <span style={{ fontFamily: FONT_FAMILY, fontSize: 14, fontWeight: 600, color: "#333" }}>{device}</span>
+              </div>
+            ))}
+          </div>
+          <span style={{ fontFamily: FONT_FAMILY, fontSize: 12, color: "#888", marginTop: 2 }}>Devices attached</span>
+        </div>
+      </div>
+
+      {renderArrow(arrow2Fill, interpolate(frame, [20, 24], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))}
+
+      {/* Step 3: Testing with animation */}
+      <div style={{ transform: `scale(${s3})`, opacity: s3, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ ...boxStyle("#4caf50"), width: 200, height: 180 }}>
+          <span style={{ fontSize: 36 }}>🧪</span>
+          <span style={labelStyle}>Testing{testingDots}</span>
+          {/* Progress bar */}
+          <div style={{ width: "85%", height: 8, backgroundColor: "#e0e0e0", borderRadius: 4, marginTop: 6, overflow: "hidden" }}>
+            <div style={{ width: `${testProgress}%`, height: "100%", backgroundColor: "#4caf50", borderRadius: 4 }} />
+          </div>
+          <span style={{ fontFamily: FONT_FAMILY, fontSize: 14, color: testProgress >= 100 ? "#4caf50" : "#888", fontWeight: 600, marginTop: 2 }}>
+            {testProgress >= 100 ? "✓ All Passed" : `${Math.floor(testProgress)}%`}
+          </span>
+        </div>
+      </div>
+
+      {renderArrow(arrow3Fill, interpolate(frame, [38, 42], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))}
+
+      {/* Step 4: Report Results */}
+      <div style={{ transform: `scale(${s4})`, opacity: s4, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ ...boxStyle("#9c27b0"), width: 180, height: 140 }}>
+          <span style={{ fontSize: 36 }}>{reportCheck ? "✅" : "📊"}</span>
+          <span style={labelStyle}>Publish{"\n"}Report</span>
+        </div>
+      </div>
+    </div>
   );
 };
 
