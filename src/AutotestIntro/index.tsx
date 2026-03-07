@@ -23,14 +23,16 @@ const MICROSOFT_BLUE = "#004E8C";
  *   85-135 : Subtitle "one time record, replay everywhere" fades in
  *   155-180: Everything fades out
  */
+const INTRO_DURATION = 180;
+
 export const AutotestIntro: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
+  const { fps } = useVideoConfig();
 
   // --- Global fade-out near the end ---
   const fadeOut = interpolate(
     frame,
-    [durationInFrames - 25, durationInFrames - 5],
+    [INTRO_DURATION - 25, INTRO_DURATION - 5],
     [1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );

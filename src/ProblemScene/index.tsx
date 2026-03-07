@@ -26,13 +26,14 @@ const RED = "#e53935";
  *   ~570-600 : Fade out
  * ==================================================================== */
 
+const PROBLEM_DURATION = 600;
+
 export const ProblemScene: React.FC = () => {
   const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
 
   const fadeOut = interpolate(
     frame,
-    [durationInFrames - 30, durationInFrames - 5],
+    [PROBLEM_DURATION - 30, PROBLEM_DURATION - 5],
     [1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );

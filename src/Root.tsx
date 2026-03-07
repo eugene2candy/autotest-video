@@ -1,5 +1,6 @@
 import "./index.css";
-import { Composition, Still } from "remotion";
+import { Composition, Folder, Still } from "remotion";
+import { FullVideo, FULL_VIDEO_DURATION } from "./FullVideo";
 import { AutotestIntro } from "./AutotestIntro";
 import { LogoStill } from "./AutotestIntro/LogoStill";
 import { ProblemScene } from "./ProblemScene";
@@ -12,34 +13,45 @@ import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      {/* === Full combined video: Intro → Problem → Solution === */}
       <Composition
-        id="AutotestIntro"
-        component={AutotestIntro}
-        durationInFrames={180}
+        id="FullVideo"
+        component={FullVideo}
+        durationInFrames={FULL_VIDEO_DURATION}
         fps={30}
         width={1920}
         height={1080}
       />
 
-      {/* Scene 1: The Problem with UI Testing */}
-      <Composition
-        id="ProblemScene"
-        component={ProblemScene}
-        durationInFrames={600}
-        fps={30}
-        width={1920}
-        height={1080}
-      />
+      {/* === Individual scenes (for development / preview) === */}
+      <Folder name="Scenes">
+        <Composition
+          id="AutotestIntro"
+          component={AutotestIntro}
+          durationInFrames={180}
+          fps={30}
+          width={1920}
+          height={1080}
+        />
 
-      {/* Scene 2: How Autotest Solves It */}
-      <Composition
-        id="SolutionScene"
-        component={SolutionScene}
-        durationInFrames={2815}
-        fps={30}
-        width={1920}
-        height={1080}
-      />
+        <Composition
+          id="ProblemScene"
+          component={ProblemScene}
+          durationInFrames={600}
+          fps={30}
+          width={1920}
+          height={1080}
+        />
+
+        <Composition
+          id="SolutionScene"
+          component={SolutionScene}
+          durationInFrames={2815}
+          fps={30}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
 
       <Still
         id="AutotestLogoStill"

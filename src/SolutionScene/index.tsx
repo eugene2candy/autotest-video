@@ -29,13 +29,14 @@ const MICROSOFT_BLUE = "#0078D4";
  *   ~2775+   : Fade out
  * ==================================================================== */
 
+const SOLUTION_DURATION = 2815;
+
 export const SolutionScene: React.FC = () => {
   const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
 
   const fadeOut = interpolate(
     frame,
-    [durationInFrames - 40, durationInFrames - 5],
+    [SOLUTION_DURATION - 40, SOLUTION_DURATION - 5],
     [1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
