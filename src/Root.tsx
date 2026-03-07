@@ -2,6 +2,8 @@ import "./index.css";
 import { Composition, Still } from "remotion";
 import { AutotestIntro } from "./AutotestIntro";
 import { LogoStill } from "./AutotestIntro/LogoStill";
+import { ProblemScene } from "./ProblemScene";
+import { SolutionScene } from "./SolutionScene";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 
@@ -14,6 +16,26 @@ export const RemotionRoot: React.FC = () => {
         id="AutotestIntro"
         component={AutotestIntro}
         durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Scene 1: The Problem with UI Testing */}
+      <Composition
+        id="ProblemScene"
+        component={ProblemScene}
+        durationInFrames={600}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Scene 2: How Autotest Solves It */}
+      <Composition
+        id="SolutionScene"
+        component={SolutionScene}
+        durationInFrames={750}
         fps={30}
         width={1920}
         height={1080}
