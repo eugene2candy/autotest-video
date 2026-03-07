@@ -1525,7 +1525,7 @@ const SummaryAct: React.FC = () => {
             <span
               style={{
                 fontFamily: FONT_FAMILY,
-                fontSize: 56,
+                fontSize: 72,
                 fontWeight: 600,
                 color: "#333",
                 letterSpacing: 1,
@@ -1553,14 +1553,14 @@ const SummaryAct: React.FC = () => {
               <span
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 56,
+                  fontSize: 72,
                   fontWeight: 600,
-                  color: "#0078D4",
                   letterSpacing: 1,
                   whiteSpace: "nowrap",
                 }}
               >
-                Autotest implemented by W365X
+                <span style={{ color: "#0078D4" }}>Autotest</span>
+                <span style={{ color: "#444" }}> implemented by W365X</span>
               </span>
             </div>
           )}
