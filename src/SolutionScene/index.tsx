@@ -68,12 +68,12 @@ export const SolutionScene: React.FC = () => {
         </Sequence>
 
         {/* Act 2: AI-Powered */}
-        <Sequence from={490} durationInFrames={1500} premountFor={30}>
+        <Sequence from={490} durationInFrames={1510} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
         {/* Act 3: Summary */}
-        <Sequence from={1970} durationInFrames={320} premountFor={30}>
+        <Sequence from={1980} durationInFrames={320} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -583,7 +583,9 @@ const DISMISS_VIDEOS = [
 ] as const;
 
 /** Shows 3 dismiss videos side-by-side in the left panel area.
- *  Wrapped in a <Sequence> by the parent so videos start at the right time. */
+ *  Wrapped in a <Sequence> by the parent so videos start at the right time.
+ *  Fades out after the longest video finishes (~1230 frames). */
+const DISMISS_VIDEO_DURATION = 1230; // ~41s at 30fps (longest video)
 const DismissVideosPanel: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -591,6 +593,12 @@ const DismissVideosPanel: React.FC = () => {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+  const fadeOut = interpolate(
+    frame,
+    [DISMISS_VIDEO_DURATION, DISMISS_VIDEO_DURATION + 15],
+    [1, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
   const slideUp = interpolate(frame, [0, 15], [30, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -604,7 +612,7 @@ const DismissVideosPanel: React.FC = () => {
         left: "2.5%",
         top: "50%",
         width: "37%",
-        opacity: fadeIn,
+        opacity: fadeIn * fadeOut,
         transform: `translateY(calc(-50% + ${slideUp}px))`,
         display: "flex",
         flexDirection: "row",
@@ -692,11 +700,11 @@ const AIPoweredAct: React.FC = () => {
     {
       title: "Smart Element Finding",
       desc: "Uses element signatures to locate elements despite UI changes",
-      delay: 1380,
+      delay: 1400,
     },
   ];
 
-  const actFade = interpolate(frame, [1440, 1475], [1, 0], {
+  const actFade = interpolate(frame, [1460, 1495], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
