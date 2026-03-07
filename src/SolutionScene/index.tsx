@@ -21,11 +21,11 @@ const MICROSOFT_BLUE = "#0078D4";
  * SolutionScene – Scene 2: "How Autotest Solves It"
  *
  * Timeline (30 fps, 2815 frames ≈ 93.8 s):
- *   0-130    : Title "How Autotest Solves It" with blue underline
- *   80-510   : Act 1 – Record Once (recording animation + proxy capture)
- *   490-2075 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
- *   2055-2335: Act 3 – Progress (platform status with AI-thinking style)
- *   2315-2815: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
+ *   0-110    : Title "How Autotest Solves It" with blue underline
+ *   110-510  : Act 1 – Record Once (recording animation + proxy capture)
+ *   510-2065 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
+ *   2065-2335: Act 3 – Progress (platform status with AI-thinking style)
+ *   2335-2815: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
  *   ~2775+   : Fade out
  * ==================================================================== */
 
@@ -58,27 +58,27 @@ export const SolutionScene: React.FC = () => {
       <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* Title */}
-        <Sequence from={0} durationInFrames={130} premountFor={10}>
+        <Sequence from={0} durationInFrames={110} premountFor={10}>
           <SectionTitle />
         </Sequence>
 
         {/* Act 1: Record Once */}
-        <Sequence from={80} durationInFrames={430} premountFor={30}>
+        <Sequence from={110} durationInFrames={400} premountFor={30}>
           <RecordOnceAct />
         </Sequence>
 
         {/* Act 2: AI-Powered */}
-        <Sequence from={490} durationInFrames={1585} premountFor={30}>
+        <Sequence from={510} durationInFrames={1555} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
         {/* Act 3: Progress */}
-        <Sequence from={2055} durationInFrames={280} premountFor={30}>
+        <Sequence from={2065} durationInFrames={270} premountFor={30}>
           <ProgressAct />
         </Sequence>
 
         {/* Act 4: Summary */}
-        <Sequence from={2315} durationInFrames={500} premountFor={30}>
+        <Sequence from={2335} durationInFrames={480} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -109,7 +109,7 @@ const SectionTitle: React.FC = () => {
     easing: Easing.out(Easing.quad),
   });
 
-  const titleFadeOut = interpolate(frame, [100, 130], [1, 0], {
+  const titleFadeOut = interpolate(frame, [80, 110], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -208,7 +208,7 @@ const RecordOnceAct: React.FC = () => {
   // Portrait images (2-4-0 to 2-7-0, indices 6-9) need to sit lower to avoid covering the title
   const isPortraitImage = activeScreenshotIndex >= 6;
 
-  const actFade = interpolate(frame, [385, 420], [1, 0], {
+  const actFade = interpolate(frame, [360, 400], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -1093,7 +1093,7 @@ const AIPoweredAct: React.FC = () => {
     },
   ];
 
-  const actFade = interpolate(frame, [1550, 1585], [1, 0], {
+  const actFade = interpolate(frame, [1520, 1555], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -1692,7 +1692,7 @@ const ProgressAct: React.FC = () => {
   const translateY = interpolate(entrance, [0, 1], [60, 0]);
 
   // Fade out at the end
-  const actFade = interpolate(frame, [230, 260], [1, 0], {
+  const actFade = interpolate(frame, [220, 250], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });

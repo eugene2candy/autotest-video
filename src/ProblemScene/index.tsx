@@ -19,11 +19,11 @@ const RED = "#e53935";
  * ProblemScene – Scene 1: "The Problem with UI Testing Today"
  *
  * Timeline (30 fps, 600 frames = 20 s):
- *   0-60     : Title "The Problem" fades in with red underline
- *   60-240   : Act 1 – Manual Testing pain (buddy typing, clock ticking)
- *   240-420  : Act 2 – Hard-coded scripts breaking across devices
- *   420-540  : Act 3 – Cannot scale (device wall + red Xs)
- *   540-600  : Fade out
+ *   0-100    : Title "The Problem" fades in with red underline
+ *   100-300  : Act 1 – Manual Testing pain (buddy typing, clock ticking)
+ *   300-480  : Act 2 – Hard-coded scripts breaking across devices
+ *   480-600  : Act 3 – Cannot scale (device wall + red Xs)
+ *   ~570-600 : Fade out
  * ==================================================================== */
 
 export const ProblemScene: React.FC = () => {
@@ -55,22 +55,22 @@ export const ProblemScene: React.FC = () => {
       <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* ---- ACT 0: Section title ---- */}
-        <Sequence from={0} durationInFrames={120} premountFor={10}>
+        <Sequence from={0} durationInFrames={100} premountFor={10}>
           <SectionTitle />
         </Sequence>
 
         {/* ---- ACT 1: Manual testing burden ---- */}
-        <Sequence from={80} durationInFrames={220} premountFor={30}>
+        <Sequence from={100} durationInFrames={200} premountFor={30}>
           <ManualTestingAct />
         </Sequence>
 
         {/* ---- ACT 2: Hard-coded scripts break ---- */}
-        <Sequence from={280} durationInFrames={200} premountFor={30}>
+        <Sequence from={300} durationInFrames={180} premountFor={30}>
           <BrittleScriptsAct />
         </Sequence>
 
         {/* ---- ACT 3: Cannot scale ---- */}
-        <Sequence from={460} durationInFrames={140} premountFor={30}>
+        <Sequence from={480} durationInFrames={120} premountFor={30}>
           <CannotScaleAct />
         </Sequence>
       </AbsoluteFill>
@@ -103,7 +103,7 @@ const SectionTitle: React.FC = () => {
   });
 
   // Fade out the title to make room for acts
-  const titleFadeOut = interpolate(frame, [90, 120], [1, 0], {
+  const titleFadeOut = interpolate(frame, [70, 100], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -190,7 +190,7 @@ const ManualTestingAct: React.FC = () => {
   });
 
   // Fade out this act
-  const actFade = interpolate(frame, [180, 220], [1, 0], {
+  const actFade = interpolate(frame, [160, 200], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -344,7 +344,7 @@ const BrittleScriptsAct: React.FC = () => {
   ];
 
   // Act fade out
-  const actFade = interpolate(frame, [165, 200], [1, 0], {
+  const actFade = interpolate(frame, [145, 180], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -740,10 +740,7 @@ function renderTypedCode(lines: string[], charsTyped: number): React.ReactNode {
     const isComment = lineText.trimStart().startsWith("//");
     const highlighted = highlightKeywords(lineText, isComment);
     result.push(
-      <div
-        key={`codeline-${i}`}
-        style={{ color: isComment ? "#888" : "#fff" }}
-      >
+      <div key={`codeline-${i}`} style={{ color: isComment ? "#888" : "#fff" }}>
         {highlighted}
       </div>,
     );
@@ -758,7 +755,9 @@ function highlightKeywords(text: string, isComment: boolean): React.ReactNode {
   if (parts.length === 1) return text;
   return parts.map((part, i) =>
     part === ".click()" || part === ".sendKeys(...)" ? (
-      <span key={i} style={{ color: "#e53935" }}>{part}</span>
+      <span key={i} style={{ color: "#e53935" }}>
+        {part}
+      </span>
     ) : (
       <span key={i}>{part}</span>
     ),
