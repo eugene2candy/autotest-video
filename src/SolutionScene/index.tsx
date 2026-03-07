@@ -582,20 +582,16 @@ const DISMISS_VIDEOS = [
   { src: "sumsung - dismiss.mp4", label: "Samsung" },
 ] as const;
 
-/** Shows 3 dismiss videos stacked vertically in the left panel area.
- *  Fades in when `startFrame` is reached (matching bullet 2 timing). */
-const DismissVideosPanel: React.FC<{
-  frame: number;
-  startFrame: number;
-}> = ({ frame, startFrame }) => {
-  const localFrame = frame - startFrame;
-  if (localFrame < 0) return null;
+/** Shows 3 dismiss videos side-by-side in the left panel area.
+ *  Wrapped in a <Sequence> by the parent so videos start at the right time. */
+const DismissVideosPanel: React.FC = () => {
+  const frame = useCurrentFrame();
 
-  const fadeIn = interpolate(localFrame, [0, 15], [0, 1], {
+  const fadeIn = interpolate(frame, [0, 15], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const slideUp = interpolate(localFrame, [0, 15], [30, 0], {
+  const slideUp = interpolate(frame, [0, 15], [30, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.quad),
@@ -620,7 +616,7 @@ const DismissVideosPanel: React.FC<{
         // Stagger each video entrance slightly
         const stagger = i * 4;
         const itemOpacity = interpolate(
-          localFrame,
+          frame,
           [stagger, stagger + 12],
           [0, 1],
           { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
@@ -747,8 +743,10 @@ const AIPoweredAct: React.FC = () => {
       {/* AI Terminal - left side (fades out when bullet 2 "Handles the Unexpected" appears) */}
       <AITerminal frame={frame} startFrame={30} endFrame={140} />
 
-      {/* Dismiss videos - left side (appears when bullet 2 appears at frame 140) */}
-      <DismissVideosPanel frame={frame} startFrame={140} />
+      {/* Dismiss videos - left side (appears after bullet 2 fade-in completes) */}
+      <Sequence from={155}>
+        <DismissVideosPanel />
+      </Sequence>
 
       {/* Feature list */}
       <div
