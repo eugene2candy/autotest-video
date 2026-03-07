@@ -10,12 +10,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import {
-  RecordButton,
-  DeviceWithCheck,
-  AIBrain,
-  EvidenceFrame,
-} from "./SolutionIcons";
+import { RecordButton, DeviceWithCheck } from "./SolutionIcons";
 
 const FONT_FAMILY = "SF Pro Text, Helvetica, Arial, sans-serif";
 const GREEN = "#4caf50";
@@ -399,25 +394,6 @@ const AIPoweredAct: React.FC = () => {
           </span>{" "}
           Intelligence
         </h2>
-      </div>
-
-      {/* AI Brain - center */}
-      <div
-        style={{
-          position: "absolute",
-          left: "8%",
-          top: "20%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 12,
-        }}
-      >
-        <AIBrain scale={2} />
-        <div style={{ display: "flex", gap: 16, marginTop: 10 }}>
-          <EvidenceFrame scale={1.2} />
-          <EvidenceFrame scale={1.2} />
-        </div>
       </div>
 
       {/* Feature list */}
