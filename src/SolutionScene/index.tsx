@@ -68,12 +68,12 @@ export const SolutionScene: React.FC = () => {
         </Sequence>
 
         {/* Act 2: AI-Powered */}
-        <Sequence from={490} durationInFrames={1510} premountFor={30}>
+        <Sequence from={490} durationInFrames={1585} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
         {/* Act 3: Summary */}
-        <Sequence from={1980} durationInFrames={320} premountFor={30}>
+        <Sequence from={2055} durationInFrames={320} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -399,13 +399,134 @@ const AI_TERMINAL_LINES: { text: string; color?: string }[] = [
   },
 ];
 
-/** Animated terminal window showing AI evidence evaluation logs */
+/* Smart Element Finding – curated log lines showing how element
+   signatures locate elements across different devices and UI states */
+const SMART_ELEMENT_LINES: { text: string; color?: string }[] = [
+  { text: '[Emulator] Step 1: tap - accessibility id="Add"' },
+  { text: "  Waiting for element..." },
+  {
+    text: "  Element found in 33ms",
+    color: "#4caf50",
+  },
+  {
+    text: "  XML signature: 18/18 matched (100.0%)",
+    color: "#4caf50",
+  },
+  { text: "" },
+  { text: '[Pixel] Step 1: tap - accessibility id="Add"' },
+  { text: "  Waiting for element..." },
+  {
+    text: "  Element found in 69ms",
+    color: "#4caf50",
+  },
+  {
+    text: "  XML signature: 18/18 matched (100.0%)",
+    color: "#4caf50",
+  },
+  { text: "" },
+  { text: '[Samsung] Step 1: tap - accessibility id="Add"' },
+  { text: "  Waiting for element..." },
+  {
+    text: "  Element found in 46ms",
+    color: "#4caf50",
+  },
+  {
+    text: "  XML signature: 18/18 matched (100.0%)",
+    color: "#4caf50",
+  },
+  { text: "" },
+  { text: '[Emulator] Step 3: sendKeys - xpath="...EditText"' },
+  { text: "  Waiting for element..." },
+  {
+    text: "  Element found in 428ms",
+    color: "#4caf50",
+  },
+  {
+    text: "  XML signature: 19/20 matched (95.0%)",
+    color: "#FFB900",
+  },
+  {
+    text: '    Missing: TextView text="Sign in"',
+    color: "#FFB900",
+  },
+  {
+    text: "    UI changed — still matched via signature",
+    color: "#4caf50",
+  },
+  { text: "" },
+  { text: '[Pixel] Step 5: sendKeys - xpath="...i0118"' },
+  { text: "  Waiting for element..." },
+  {
+    text: "  Element found in 207ms",
+    color: "#4caf50",
+  },
+  {
+    text: "  XML signature: 31/34 matched (91.2%)",
+    color: "#FFB900",
+  },
+  {
+    text: "    3 elements differ from recording",
+    color: "#FFB900",
+  },
+  {
+    text: "    Signature match above 70% threshold",
+    color: "#4caf50",
+  },
+  { text: "" },
+  { text: '[Samsung] Step 5: sendKeys - xpath="...i0118"' },
+  { text: "  Waiting for element..." },
+  {
+    text: "  Element found in 81ms",
+    color: "#4caf50",
+  },
+  {
+    text: "  XML signature: 31/34 matched (91.2%)",
+    color: "#FFB900",
+  },
+  {
+    text: "    Signature match above 70% threshold",
+    color: "#4caf50",
+  },
+  { text: "" },
+  { text: "[Emulator] Verifying final screen state" },
+  {
+    text: "  XML signature: 29/29 matched (100.0%)",
+    color: "#4caf50",
+  },
+  { text: "[Pixel] Verifying final screen state" },
+  {
+    text: "  XML signature: 29/29 matched (100.0%)",
+    color: "#4caf50",
+  },
+  { text: "[Samsung] Verifying final screen state" },
+  {
+    text: "  XML signature: 29/29 matched (100.0%)",
+    color: "#4caf50",
+  },
+  { text: "" },
+  {
+    text: "  All devices: element signatures verified",
+    color: "#4caf50",
+  },
+];
+
+/** Animated terminal window showing typed-out log lines */
 const AITerminal: React.FC<{
   frame: number;
   startFrame: number;
   /** Frame (relative to parent, not local) at which the terminal begins to fade out */
   endFrame?: number;
-}> = ({ frame, startFrame, endFrame }) => {
+  /** Log lines to display */
+  lines?: { text: string; color?: string }[];
+  /** Title bar text */
+  title?: string;
+}> = ({
+  frame,
+  startFrame,
+  endFrame,
+  lines = AI_TERMINAL_LINES,
+  title = "autotest -- AI Evidence Evaluation",
+}) => {
   const localFrame = frame - startFrame;
   if (localFrame < 0) return null;
 
@@ -444,7 +565,7 @@ const AITerminal: React.FC<{
   // Build visible lines
   let charsRemaining = totalCharsTyped;
   const visibleLines: { text: string; color?: string; partial: boolean }[] = [];
-  for (const line of AI_TERMINAL_LINES) {
+  for (const line of lines) {
     if (charsRemaining <= 0) break;
     if (charsRemaining >= line.text.length) {
       visibleLines.push({ ...line, partial: false });
@@ -525,7 +646,7 @@ const AITerminal: React.FC<{
             marginLeft: 10,
           }}
         >
-          autotest -- AI Evidence Evaluation
+          {title}
         </span>
       </div>
       {/* Terminal body */}
@@ -704,7 +825,7 @@ const AIPoweredAct: React.FC = () => {
     },
   ];
 
-  const actFade = interpolate(frame, [1460, 1495], [1, 0], {
+  const actFade = interpolate(frame, [1550, 1585], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -755,6 +876,14 @@ const AIPoweredAct: React.FC = () => {
       <Sequence from={155}>
         <DismissVideosPanel />
       </Sequence>
+
+      {/* Smart Element terminal - left side (appears with bullet 3) */}
+      <AITerminal
+        frame={frame}
+        startFrame={1405}
+        lines={SMART_ELEMENT_LINES}
+        title="autotest -- Smart Element Finding"
+      />
 
       {/* Feature list */}
       <div
