@@ -1,0 +1,288 @@
+╔════════════════════════════════════════════╗
+║     AUTOTEST MULTI-DEVICE RUNNER           ║
+╚════════════════════════════════════════════╝
+App Package: com.microsoft.rdc.androidx
+Test sets to run: 1
+Total test cases: 3
+Devices: 1
+Mode: SEQUENTIAL (one device at a time)
+  1. SM G781U1 (RFCNC08JTRE) - device
+
+--- Cleaning up all existing Appium sessions ---
+No existing sessions to clean up
+
+╔════════════════════════════════════════════╗
+║  DEVICE [1/1]: SM G781U1
+║  UDID: RFCNC08JTRE
+╚════════════════════════════════════════════╝
+[SM G781U1] Starting test execution...
+[SM G781U1] Cleaning up any existing Appium sessions...
+[SM G781U1] No existing sessions found
+[SM G781U1] Creating Appium session (attempt 1/2, UDID: RFCNC08JTRE, systemPort: 8200)...
+[SM G781U1] Session created: 57b744a0-e861-4746-99ef-ffcc4074b2ea
+[SM G781U1] 
+--- TEST SET [1/1]: cpc test case ---
+[SM G781U1] Preparing app...
+[SM G781U1] Preparing app for testing: com.microsoft.rdc.androidx
+[SM G781U1] Cleaning app state for: com.microsoft.rdc.androidx (reinstall)
+[SM G781U1]   Reinstalling app: com.microsoft.rdc.androidx from C:\Users\chengjiexu\AppData\Local\autotest\packages\Windows App_11.0.0.78_APKPure.apk
+[SM G781U1]   Force stopping app...
+[SM G781U1]   Uninstalling app...
+[SM G781U1]   App uninstalled successfully
+[SM G781U1]   Installing APK...
+[SM G781U1]   Installing APK: C:\Users\chengjiexu\AppData\Local\autotest\packages\Windows App_11.0.0.78_APKPure.apk
+[SM G781U1]   Trying mobile: installApp...
+[SM G781U1]   mobile: installApp succeeded
+[SM G781U1]   APK installed successfully (fresh)
+[SM G781U1] App ready (cleaned)
+[SM G781U1] Launching app...
+[SM G781U1] [1/3] 001-welcome-20260224-125157.zip
+[SM G781U1] 
+========================================
+[SM G781U1] Running test case: welcome
+[SM G781U1] App package: com.microsoft.rdc.androidx
+[SM G781U1] Total steps: 3
+[SM G781U1] Evidence source XMLs available: 4
+[SM G781U1] ========================================
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 1: tap - -android uiautomator="new UiSelector().className("android.widget.Button").instance(0)"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Presence of multiple interactive elements including buttons and clickable EditTexts, and visible content text indicates the page is fully loaded.)
+[SM G781U1]   Page source stabilized after 4226ms (21 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: -android uiautomator="new UiSelector().className("android.widget.Button").instance(0)"
+[SM G781U1]   Element found in 38ms
+[SM G781U1]   XML structural comparison: 14/14 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 2: tap - class name="android.widget.Button"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including clickable views, EditText, and Button, with visible content text and no loading indicators.)
+[SM G781U1]   Page source stabilized after 3166ms (22 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: class name="android.widget.Button"
+[SM G781U1]   Element found in 23ms
+[SM G781U1]   XML structural comparison: 14/14 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 3: tap - accessibility id="Close"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons and editable text fields, with visible content text and no loading indicators present.)
+[SM G781U1]   Page source stabilized after 3488ms (26 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: accessibility id="Close"
+[SM G781U1]   Element found in 30ms
+[SM G781U1]   XML structural comparison: 15/15 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Verifying trailing evidence (step 8) -- final screen state check
+[SM G781U1]   AI page readiness: ready (confidence: 90%, Presence of multiple interactive elements including buttons, clickable views, and descriptive text indicates the page has fully loaded.)
+[SM G781U1]   Page source stabilized after 3533ms (38 elements, AI confirmed ready)
+[SM G781U1]   XML structural comparison: 18/18 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Trailing evidence XML verification passed
+[SM G781U1]   ✓ Step 1 SUCCESS
+[SM G781U1]   ✓ Step 2 SUCCESS
+[SM G781U1]   ✓ Step 3 SUCCESS
+[SM G781U1] 
+----------------------------------------
+[SM G781U1] Test case welcome: PASSED
+[SM G781U1] Success: 3, Failed: 0
+[SM G781U1] ----------------------------------------
+[SM G781U1] [2/3] 002-login-to-cpc-20260224-125210.zip
+[SM G781U1] 
+========================================
+[SM G781U1] Running test case: login to cpc
+[SM G781U1] App package: com.microsoft.rdc.androidx
+[SM G781U1] Total steps: 6
+[SM G781U1] Evidence source XMLs available: 7
+[SM G781U1] ========================================
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 1: tap - accessibility id="Add"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 90%, Presence of multiple interactive elements including buttons, clickable views, and descriptive text indicates the page is fully loaded.)
+[SM G781U1]   Page source stabilized after 3133ms (38 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: accessibility id="Add"
+[SM G781U1]   Element found in 46ms
+[SM G781U1]   XML structural comparison: 18/18 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 2: tap - -android uiautomator="new UiSelector().text("OK")"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, radio buttons, and clickable views with meaningful text labels, indicating the page has fully loaded.)
+[SM G781U1]   Page source stabilized after 3686ms (29 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: -android uiautomator="new UiSelector().text("OK")"
+[SM G781U1]   Element found in 24ms
+[SM G781U1]   XML structural comparison: 16/16 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 3: sendKeys - xpath="//*[@resource-id="placeholder"]//android.widget.EditText[@resource-id="emailTextInput"]"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains interactive elements like EditText and Button, visible content text including 'Sign in' and 'Privacy statement', and no loading indicators present.)
+[SM G781U1]   Page source stabilized after 6036ms (22 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: xpath="//*[@resource-id="placeholder"]//android.widget.EditText[@resource-id="emailTextInput"]"
+[SM G781U1]   Element found in 165ms
+[SM G781U1]   XML structural comparison: 18/20 elements matched (90.0%, threshold: 70%)
+[SM G781U1]     Missing: class=android.view.View|text=Sign in|clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]     Missing: class=android.view.View|text=  |clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 4: tap - xpath="//*[@resource-id="placeholder"]//android.widget.Button[@resource-id="nextButton"]"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains interactive elements like EditText and Button, visible content text including 'Sign in' and 'Privacy statement', and no loading indicators present.)
+[SM G781U1]   Page source stabilized after 3373ms (22 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: xpath="//*[@resource-id="placeholder"]//android.widget.Button[@resource-id="nextButton"]"
+[SM G781U1]   Element found in 32ms
+[SM G781U1]   XML structural comparison: 18/20 elements matched (90.0%, threshold: 70%)
+[SM G781U1]     Missing: class=android.view.View|text=Sign in|clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]     Missing: class=android.view.View|text=  |clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 5: sendKeys - xpath="//*[@resource-id="lightbox"]//android.widget.EditText[@resource-id="i0118"]"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: loading (confidence: 90%, Presence of ProgressBar indicates loading in progress, suggested wait: 4000ms)
+[SM G781U1]   AI detected page still loading — extending timeout to 30000ms, polling every 4000ms
+[SM G781U1]   Page source still loading (8 -> 46 elements)
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, text fields, and visible content text indicating the sign-in screen is fully loaded.)
+[SM G781U1]   Page source stabilized after 12467ms (46 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: xpath="//*[@resource-id="lightbox"]//android.widget.EditText[@resource-id="i0118"]"
+[SM G781U1]   Element found in 81ms
+[SM G781U1]   XML structural comparison: 31/34 elements matched (91.2%, threshold: 70%)
+[SM G781U1]     Missing: class=android.view.View|resource-id=displayName|text=waatest08@cpcprodas001.onmicrosoft.com|clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]     Missing: class=android.view.View|text=  |clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]     Missing: class=android.view.View|text=Enter password|clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 6: tap - -android uiautomator="new UiSelector().resourceId("idSIButton9")"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, text fields, and visible content text indicating the sign-in screen is fully loaded.)
+[SM G781U1]   Page source stabilized after 3287ms (46 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: -android uiautomator="new UiSelector().resourceId("idSIButton9")"
+[SM G781U1]   Element found in 56ms
+[SM G781U1]   XML structural comparison: 31/34 elements matched (91.2%, threshold: 70%)
+[SM G781U1]     Missing: class=android.view.View|resource-id=displayName|text=waatest08@cpcprodas001.onmicrosoft.com|clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]     Missing: class=android.view.View|text=  |clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]     Missing: class=android.view.View|text=Enter password|clickable=false|enabled=true|checkable=false|checked=false
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Verifying trailing evidence (step 13) -- final screen state check
+[SM G781U1]   AI page readiness: loading (confidence: 90%, Presence of ProgressBar and 'Connecting to workspace...' text indicates loading in progress, suggested wait: 6000ms)
+[SM G781U1]   AI detected page still loading — extending timeout to 30000ms, polling every 6000ms
+[SM G781U1]   Page source still loading (12 -> 68 elements)
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, clickable views, and visible content text indicating full load.)
+[SM G781U1]   Page source stabilized after 25360ms (68 elements, AI confirmed ready)
+[SM G781U1]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Trailing evidence XML verification passed
+[SM G781U1]   ✓ Step 1 SUCCESS
+[SM G781U1]   ✓ Step 2 SUCCESS
+[SM G781U1]   ✓ Step 3 SUCCESS
+[SM G781U1]   ✓ Step 4 SUCCESS
+[SM G781U1]   ✓ Step 5 SUCCESS
+[SM G781U1]   ✓ Step 6 SUCCESS
+[SM G781U1] 
+----------------------------------------
+[SM G781U1] Test case login to cpc: PASSED
+[SM G781U1] Success: 6, Failed: 0
+[SM G781U1] ----------------------------------------
+[SM G781U1] [3/3] 003-connect-to-cpc-imported-imported-20260305-103528.zip
+[SM G781U1] 
+========================================
+[SM G781U1] Running test case: connect to cpc (Imported) (Imported)
+[SM G781U1] App package: com.microsoft.rdc.androidx
+[SM G781U1] Total steps: 5
+[SM G781U1] Evidence source XMLs available: 6
+[SM G781U1] ========================================
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 1: tap - -android uiautomator="new UiSelector().className("android.view.View").instance(20)"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, clickable views, and descriptive text indicating content is fully loaded.)
+[SM G781U1]   Page source stabilized after 3310ms (68 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: -android uiautomator="new UiSelector().className("android.view.View").instance(20)"
+[SM G781U1]   Element found in 54ms
+[SM G781U1]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 2: sendKeys - accessibility id="Enter your password"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, The page contains many interactive elements including buttons, switches, lists, and descriptive text indicating content is fully loaded.)
+[SM G781U1]   Page source stabilized after 6125ms (138 elements, AI confirmed ready)
+[SM G781U1]   Heuristic: Settings permission screen detected ("all files access"), looking for toggles...
+[SM G781U1]   Heuristic: tapping toggle at (976, 2153) [rect: 879,2120 129x66]
+[SM G781U1]   Heuristic: enabled unchecked toggle (1)
+[SM G781U1]   Heuristic: reached bottom of list after 1 scroll(s)
+[SM G781U1]   Heuristic: enabled 1 toggle(s) for "all files access"
+[SM G781U1]   Heuristic: pressing Back to return to app...
+[SM G781U1]   Heuristic: Settings permission "all files access" handled (1 enabled) and returned to app
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page shows permission request with multiple clickable buttons and visible text, no loading indicators present)
+[SM G781U1]   Page source stabilized after 4229ms (15 elements, AI confirmed ready)
+[SM G781U1]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[SM G781U1]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[SM G781U1]   Heuristic: permission dialog dismissed
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page shows multiple interactive elements including buttons and radio buttons with meaningful text, no loading indicators present.)
+[SM G781U1]   Page source stabilized after 3500ms (19 elements, AI confirmed ready)
+[SM G781U1]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[SM G781U1]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[SM G781U1]   Heuristic: permission dialog dismissed
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page shows permission request with multiple clickable buttons and visible content text, no loading indicators present)
+[SM G781U1]   Page source stabilized after 3007ms (15 elements, AI confirmed ready)
+[SM G781U1]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[SM G781U1]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[SM G781U1]   Heuristic: permission dialog dismissed
+[SM G781U1]   AI page readiness: loading (confidence: 90%, Presence of status text 'Securing connection to gateway...' and connect dialog indicates ongoing connection process, not fully loaded yet., suggested wait: 5000ms)
+[SM G781U1]   AI detected page still loading — extending timeout to 24000ms, polling every 5000ms
+[SM G781U1]   Page source still loading (21 -> 23 elements)
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page shows multiple interactive elements including text fields and buttons with no loading indicators present.)
+[SM G781U1]   Page source stabilized after 14674ms (23 elements, AI confirmed ready)
+[SM G781U1]   Early dialog sweep: dismissed 4 screen(s) [settings-permission, permission, permission, permission] (3 dialogs, 1 settings)
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page shows interactive elements including text fields and buttons with meaningful text; no loading indicators present.)
+[SM G781U1]   Page source stabilized after 3029ms (23 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: accessibility id="Enter your password"
+[SM G781U1]   Element found in 29ms
+[SM G781U1]   XML structural comparison: 18/20 elements matched (90.0%, threshold: 70%)
+[SM G781U1]     Missing: class=android.widget.EditText|resource-id=com.microsoft.rdc.androidx:id/username|text=waatest08@cpcprodas001.onmicrosoft.com|clickable=true|enabled=true|checkable=false|checked=false
+[SM G781U1]     Missing: class=android.widget.EditText|resource-id=com.microsoft.rdc.androidx:id/password|content-desc=Enter your password|clickable=true|enabled=true|checkable=false|checked=false
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 3: tap - id="android:id/button1"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page shows interactive elements including text fields and buttons with meaningful content; no loading indicators present.)
+[SM G781U1]   Page source stabilized after 3908ms (23 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: id="android:id/button1"
+[SM G781U1]   Element found in 40ms
+[SM G781U1]   XML structural comparison: 18/20 elements matched (90.0%, threshold: 70%)
+[SM G781U1]     Missing: class=android.widget.EditText|resource-id=com.microsoft.rdc.androidx:id/username|text=waatest08@cpcprodas001.onmicrosoft.com|clickable=true|enabled=true|checkable=false|checked=false
+[SM G781U1]     Missing: class=android.widget.EditText|resource-id=com.microsoft.rdc.androidx:id/password|text=•••••••••••|content-desc=Enter your password|clickable=true|enabled=true|checkable=false|checked=false
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 4: tap - accessibility id="Tap to show session switcher"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: loading (confidence: 90%, Presence of status text 'Configuring remote PC...' and connect dialog indicates ongoing setup/loading process, suggested wait: 5000ms)
+[SM G781U1]   AI detected page still loading — extending timeout to 30000ms, polling every 5000ms
+[SM G781U1]   Page source still loading (21 -> 19 elements)
+[SM G781U1]   AI page readiness: ready (confidence: 95%, No loading indicators present; multiple interactive elements and content views visible)
+[SM G781U1]   Page source stabilized after 13007ms (19 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: accessibility id="Tap to show session switcher"
+[SM G781U1]   Element found in 50ms
+[SM G781U1]   XML structural comparison: 16/16 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Step 5: tap - accessibility id="Disconnect Button"
+[SM G781U1]   Waiting for page to stabilize...
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Multiple interactive elements (buttons, clickable layouts, radio buttons, text input) and content text are present with no loading indicators detected.)
+[SM G781U1]   Page source stabilized after 3181ms (37 elements, AI confirmed ready)
+[SM G781U1]   Waiting for element: accessibility id="Disconnect Button"
+[SM G781U1]   Element found in 49ms
+[SM G781U1]   XML structural comparison: 30/30 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Captured evidence XML source
+[SM G781U1] Verifying trailing evidence (step 11) -- final screen state check
+[SM G781U1]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, clickable views, and descriptive text indicating content is loaded and interactive.)
+[SM G781U1]   Page source stabilized after 3554ms (68 elements, AI confirmed ready)
+[SM G781U1]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[SM G781U1]   Trailing evidence XML verification passed
+[SM G781U1]   ✓ Step 1 SUCCESS
+[SM G781U1]   ✓ Step 2 SUCCESS
+[SM G781U1]   ✓ Step 3 SUCCESS
+[SM G781U1]   ✓ Step 4 SUCCESS
+[SM G781U1]   ✓ Step 5 SUCCESS
+[SM G781U1] 
+----------------------------------------
+[SM G781U1] Test case connect to cpc (Imported) (Imported): PASSED
+[SM G781U1] Success: 5, Failed: 0
+[SM G781U1] ----------------------------------------
+[SM G781U1] Test Set cpc test case: PASSED (3/3)
+[SM G781U1] Cleaning up session...
+[SM G781U1] 
+=== DEVICE COMPLETE: ALL PASSED ===
+
+╔════════════════════════════════════════════╗
+║    AUTOTEST MULTI-DEVICE RUN COMPLETE      ║
+╚════════════════════════════════════════════╝
+Devices: 1
+Total Passed: 3, Total Failed: 0
+Result: ✓ ALL PASSED
+
+Per-Device Summary:
+  ✓ SM G781U1 (RFCNC08JTRE): 3 passed, 0 failed

@@ -1,0 +1,297 @@
+╔════════════════════════════════════════════╗
+║     AUTOTEST MULTI-DEVICE RUNNER           ║
+╚════════════════════════════════════════════╝
+App Package: com.microsoft.rdc.androidx
+Test sets to run: 1
+Total test cases: 3
+Devices: 1
+Mode: SEQUENTIAL (one device at a time)
+  1. AOSP on ARM64 (0B171JEC207708) - device
+
+--- Cleaning up all existing Appium sessions ---
+No existing sessions to clean up
+
+╔════════════════════════════════════════════╗
+║  DEVICE [1/1]: AOSP on ARM64
+║  UDID: 0B171JEC207708
+╚════════════════════════════════════════════╝
+[AOSP on ARM64] Starting test execution...
+[AOSP on ARM64] Cleaning up any existing Appium sessions...
+[AOSP on ARM64] No existing sessions found
+[AOSP on ARM64] Creating Appium session (attempt 1/2, UDID: 0B171JEC207708, systemPort: 8200)...
+[AOSP on ARM64] Attempt 1 failed: Failed to create session for device 0B171JEC207708: {"value":{"error":"unknown error","message":"UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.","stacktrace":"UnknownError: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.\n    at getResponseForW3CError (C:\\Users\\chengjiexu\\AppData\\Local\\nvm\\v22.21.1\\node_modules\\appium\\node_modules\\@appium\\base-driver\\lib\\protocol\\errors.ts:1103:34)\n    at asyncHandler (C:\\Users\\chengjiexu\\AppData\\Local\\nvm\\v22.21.1\\node_modules\\appium\\node_modules\\@appium\\base-driver\\lib\\protocol\\protocol.ts:507:57)\nThe above error is caused by\nError: UiAutomator2 Server cannot start because the local port #8200 is busy. Make sure the port you provide via 'systemPort' capability is not occupied. This situation might often be a result of an inaccurate sessions management, e.g. old automation sessions on the same device must always be closed before starting new ones.\n    at Object.errorWithException (C:\\Users\\chengjiexu\\AppData\\Local\\nvm\\v22.21.1\\node_modules\\appium\\node_modules\\@appium\\support\\lib\\logging.js:41:45)\n    at forwardPort (C:\\Users\\chengjiexu\\.appium\\node_modules\\appium-uiautomator2-driver\\lib\\driver.ts:465:24)\n    at AndroidUiautomator2Driver.allocateSystemPort (C:\\Users\\chengjiexu\\.appium\\node_modules\\appium-uiautomator2-driver\\lib\\driver.ts:477:14)"}}
+[AOSP on ARM64] Attempting recovery before retry...
+[AOSP on ARM64] Creating Appium session (attempt 2/2, UDID: 0B171JEC207708, systemPort: 8200)...
+[AOSP on ARM64] Session created: 6804e700-1618-4c46-a512-2b4eee38b107
+[AOSP on ARM64] 
+--- TEST SET [1/1]: cpc test case ---
+[AOSP on ARM64] Preparing app...
+[AOSP on ARM64] Preparing app for testing: com.microsoft.rdc.androidx
+[AOSP on ARM64] Cleaning app state for: com.microsoft.rdc.androidx (reinstall)
+[AOSP on ARM64]   Reinstalling app: com.microsoft.rdc.androidx from C:\Users\chengjiexu\AppData\Local\autotest\packages\Windows App_11.0.0.78_APKPure.apk
+[AOSP on ARM64]   Force stopping app...
+[AOSP on ARM64]   Uninstalling app...
+[AOSP on ARM64]   App uninstalled successfully
+[AOSP on ARM64]   Installing APK...
+[AOSP on ARM64]   Installing APK: C:\Users\chengjiexu\AppData\Local\autotest\packages\Windows App_11.0.0.78_APKPure.apk
+[AOSP on ARM64]   Trying mobile: installApp...
+[AOSP on ARM64]   mobile: installApp succeeded
+[AOSP on ARM64]   APK installed successfully (fresh)
+[AOSP on ARM64] App ready (cleaned)
+[AOSP on ARM64] Launching app...
+[AOSP on ARM64] [1/3] 001-welcome-20260224-125157.zip
+[AOSP on ARM64] 
+========================================
+[AOSP on ARM64] Running test case: welcome
+[AOSP on ARM64] App package: com.microsoft.rdc.androidx
+[AOSP on ARM64] Total steps: 3
+[AOSP on ARM64] Evidence source XMLs available: 4
+[AOSP on ARM64] ========================================
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 1: tap - -android uiautomator="new UiSelector().className("android.widget.Button").instance(0)"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons and editable text fields with meaningful text, indicating the content is fully loaded.)
+[AOSP on ARM64]   Page source stabilized after 4631ms (22 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: -android uiautomator="new UiSelector().className("android.widget.Button").instance(0)"
+[AOSP on ARM64]   Element found in 74ms
+[AOSP on ARM64]   XML structural comparison: 14/14 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 2: tap - class name="android.widget.Button"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including clickable views, buttons, and text fields with meaningful content, indicating the page has fully loaded.)
+[AOSP on ARM64]   Page source stabilized after 4946ms (23 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: class name="android.widget.Button"
+[AOSP on ARM64]   Element found in 97ms
+[AOSP on ARM64]   XML structural comparison: 14/14 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 3: tap - accessibility id="Close"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons and text fields, descriptive text is visible, no loading indicators present)
+[AOSP on ARM64]   Page source stabilized after 6021ms (27 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: accessibility id="Close"
+[AOSP on ARM64]   Element found in 89ms
+[AOSP on ARM64]   XML structural comparison: 15/15 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Verifying trailing evidence (step 8) -- final screen state check
+[AOSP on ARM64]   AI page readiness: ready (confidence: 90%, Page contains multiple interactive elements including buttons and clickable views, visible content text 'Devices', and no loading indicators detected.)
+[AOSP on ARM64]   Page source stabilized after 3691ms (39 elements, AI confirmed ready)
+[AOSP on ARM64]   XML structural comparison: 18/18 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Trailing evidence XML verification passed
+[AOSP on ARM64]   ✓ Step 1 SUCCESS
+[AOSP on ARM64]   ✓ Step 2 SUCCESS
+[AOSP on ARM64]   ✓ Step 3 SUCCESS
+[AOSP on ARM64] 
+----------------------------------------
+[AOSP on ARM64] Test case welcome: PASSED
+[AOSP on ARM64] Success: 3, Failed: 0
+[AOSP on ARM64] ----------------------------------------
+[AOSP on ARM64] [2/3] 002-login-to-cpc-20260224-125210.zip
+[AOSP on ARM64] 
+========================================
+[AOSP on ARM64] Running test case: login to cpc
+[AOSP on ARM64] App package: com.microsoft.rdc.androidx
+[AOSP on ARM64] Total steps: 6
+[AOSP on ARM64] Evidence source XMLs available: 7
+[AOSP on ARM64] ========================================
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 1: tap - accessibility id="Add"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 90%, Page contains multiple interactive elements including buttons and clickable views, visible content text 'Devices', and no loading indicators detected.)
+[AOSP on ARM64]   Page source stabilized after 4070ms (39 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: accessibility id="Add"
+[AOSP on ARM64]   Element found in 69ms
+[AOSP on ARM64]   XML structural comparison: 18/18 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 2: tap - -android uiautomator="new UiSelector().text("OK")"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 90%, Page contains multiple interactive elements including buttons, radio buttons, and clickable views with meaningful text labels, indicating the page is fully loaded.)
+[AOSP on ARM64]   Page source stabilized after 5165ms (29 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: -android uiautomator="new UiSelector().text("OK")"
+[AOSP on ARM64]   Element found in 58ms
+[AOSP on ARM64]   XML structural comparison: 16/16 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 3: sendKeys - xpath="//*[@resource-id="placeholder"]//android.widget.EditText[@resource-id="emailTextInput"]"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page contains interactive elements like EditText and Button, visible content text including 'Sign in' and 'Privacy statement', and no loading indicators present.)
+[AOSP on ARM64]   Page source stabilized after 6942ms (22 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: xpath="//*[@resource-id="placeholder"]//android.widget.EditText[@resource-id="emailTextInput"]"
+[AOSP on ARM64]   Element found in 1104ms
+[AOSP on ARM64]   Refreshing page source for evidence comparison (element took 1104ms to appear)
+[AOSP on ARM64]   XML structural comparison: 18/20 elements matched (90.0%, threshold: 70%)
+[AOSP on ARM64]     Missing: class=android.view.View|text=Sign in|clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.view.View|text=  |clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 4: tap - xpath="//*[@resource-id="placeholder"]//android.widget.Button[@resource-id="nextButton"]"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page contains interactive elements like EditText and Button, visible content text including 'Sign in' and 'Privacy statement', and no loading indicators present.)
+[AOSP on ARM64]   Page source stabilized after 4970ms (22 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: xpath="//*[@resource-id="placeholder"]//android.widget.Button[@resource-id="nextButton"]"
+[AOSP on ARM64]   Element found in 139ms
+[AOSP on ARM64]   XML structural comparison: 18/20 elements matched (90.0%, threshold: 70%)
+[AOSP on ARM64]     Missing: class=android.view.View|text=Sign in|clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.view.View|text=  |clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 5: sendKeys - xpath="//*[@resource-id="lightbox"]//android.widget.EditText[@resource-id="i0118"]"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: loading (confidence: 90%, Presence of ProgressBar indicating loading in progress, suggested wait: 4000ms)
+[AOSP on ARM64]   AI detected page still loading — extending timeout to 30000ms, polling every 4000ms
+[AOSP on ARM64]   Page source still loading (8 -> 46 elements)
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, text fields, and visible content text indicating the sign-in form is fully loaded.)
+[AOSP on ARM64]   Page source stabilized after 14991ms (46 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: xpath="//*[@resource-id="lightbox"]//android.widget.EditText[@resource-id="i0118"]"
+[AOSP on ARM64]   Element found in 207ms
+[AOSP on ARM64]   XML structural comparison: 31/34 elements matched (91.2%, threshold: 70%)
+[AOSP on ARM64]     Missing: class=android.view.View|resource-id=displayName|text=waatest08@cpcprodas001.onmicrosoft.com|clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.view.View|text=  |clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.view.View|text=Enter password|clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 6: tap - -android uiautomator="new UiSelector().resourceId("idSIButton9")"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page shows multiple interactive elements including buttons, text fields, and content text with no loading indicators present.)
+[AOSP on ARM64]   Page source stabilized after 5131ms (46 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: -android uiautomator="new UiSelector().resourceId("idSIButton9")"
+[AOSP on ARM64]   Element found in 89ms
+[AOSP on ARM64]   XML structural comparison: 30/34 elements matched (88.2%, threshold: 70%)
+[AOSP on ARM64]     Missing: class=android.view.View|resource-id=displayName|text=waatest08@cpcprodas001.onmicrosoft.com|clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.view.View|text=  |clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.view.View|text=Enter password|clickable=false|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.widget.EditText|resource-id=i0118|text=Fuzamima123|clickable=true|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Verifying trailing evidence (step 13) -- final screen state check
+[AOSP on ARM64]   AI page readiness: loading (confidence: 90%, Presence of ProgressBar and 'Connecting to workspace...' text indicates loading in progress, suggested wait: 6000ms)
+[AOSP on ARM64]   AI detected page still loading — extending timeout to 30000ms, polling every 6000ms
+[AOSP on ARM64]   Page source still loading (13 -> 69 elements)
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, clickable views, and descriptive text indicating content is fully loaded.)
+[AOSP on ARM64]   Page source stabilized after 21950ms (69 elements, AI confirmed ready)
+[AOSP on ARM64]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Trailing evidence XML verification passed
+[AOSP on ARM64]   ✓ Step 1 SUCCESS
+[AOSP on ARM64]   ✓ Step 2 SUCCESS
+[AOSP on ARM64]   ✓ Step 3 SUCCESS
+[AOSP on ARM64]   ✓ Step 4 SUCCESS
+[AOSP on ARM64]   ✓ Step 5 SUCCESS
+[AOSP on ARM64]   ✓ Step 6 SUCCESS
+[AOSP on ARM64] 
+----------------------------------------
+[AOSP on ARM64] Test case login to cpc: PASSED
+[AOSP on ARM64] Success: 6, Failed: 0
+[AOSP on ARM64] ----------------------------------------
+[AOSP on ARM64] [3/3] 003-connect-to-cpc-imported-imported-20260305-103528.zip
+[AOSP on ARM64] 
+========================================
+[AOSP on ARM64] Running test case: connect to cpc (Imported) (Imported)
+[AOSP on ARM64] App package: com.microsoft.rdc.androidx
+[AOSP on ARM64] Total steps: 5
+[AOSP on ARM64] Evidence source XMLs available: 6
+[AOSP on ARM64] ========================================
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 1: tap - -android uiautomator="new UiSelector().className("android.view.View").instance(20)"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, No loading indicators present; multiple interactive elements and content text visible)
+[AOSP on ARM64]   Page source stabilized after 4118ms (69 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: -android uiautomator="new UiSelector().className("android.view.View").instance(20)"
+[AOSP on ARM64]   Element found in 73ms
+[AOSP on ARM64]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 2: sendKeys - accessibility id="Enter your password"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons and clickable views, and descriptive text indicating content is fully loaded.)
+[AOSP on ARM64]   Page source stabilized after 5604ms (21 elements, AI confirmed ready)
+[AOSP on ARM64]   Heuristic: Settings permission screen detected ("all files access"), looking for toggles...
+[AOSP on ARM64]   Heuristic: no toggle widgets detected (xpath patterns don't match this device), skipping scroll
+[AOSP on ARM64]   Heuristic: no toggles found/toggled — trying AI fallback for toggle detection...
+[AOSP on ARM64]   AI ad-hoc action: achievable (confidence: 95%, Element at index 11 is a clickable, checkable View with checked=OFF and contains the text 'Allow access to manage all files' nearby, matching the permission toggle for all files access.)
+[AOSP on ARM64]   AI toggle: found element — xpath="//android.view.View[@checkable='true' and @checked='false' and @clickable='true' and .//android.widget.TextView[@text='Allow access to manage all files']]" (Element at index 11 is a clickable, checkable View with checked=OFF and contains the text 'Allow access to manage all files' nearby, matching the permission toggle for all files access.)
+[AOSP on ARM64]   AI toggle: tapped element to enable permission
+[AOSP on ARM64]   AI toggle state check: ON (confidence: 100%, The toggle near the text 'Allow access to manage all files' is a checkable View with checked=ON, indicating the permission is enabled.)
+[AOSP on ARM64]   AI toggle: verified — permission is now enabled
+[AOSP on ARM64]   Heuristic: enabled 1 toggle(s) for "all files access"
+[AOSP on ARM64]   Heuristic: pressing Back to return to app...
+[AOSP on ARM64]   Heuristic: Settings permission "all files access" handled (1 enabled) and returned to app
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Permission dialog with multiple clickable buttons and visible content text is fully loaded.)
+[AOSP on ARM64]   Page source stabilized after 3657ms (15 elements, AI confirmed ready)
+[AOSP on ARM64]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[AOSP on ARM64]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[AOSP on ARM64]   Heuristic: permission dialog dismissed
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page shows a permission dialog with multiple interactive buttons and options, no loading indicators present.)
+[AOSP on ARM64]   Page source stabilized after 4592ms (19 elements, AI confirmed ready)
+[AOSP on ARM64]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[AOSP on ARM64]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[AOSP on ARM64]   Heuristic: permission dialog dismissed
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page shows permission request with multiple clickable buttons and visible text, no loading indicators present)
+[AOSP on ARM64]   Page source stabilized after 4665ms (15 elements, AI confirmed ready)
+[AOSP on ARM64]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[AOSP on ARM64]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[AOSP on ARM64]   Heuristic: permission dialog dismissed
+[AOSP on ARM64]   AI page readiness: loading (confidence: 90%, Presence of status text 'Securing remote connection...' and connect dialog with cancel button indicates ongoing connection process., suggested wait: 5000ms)
+[AOSP on ARM64]   AI detected page still loading — extending timeout to 24000ms, polling every 5000ms
+[AOSP on ARM64]   Page source still loading (21 -> 23 elements)
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page shows multiple interactive elements including text fields and buttons with meaningful text, no loading indicators present.)
+[AOSP on ARM64]   Page source stabilized after 14504ms (23 elements, AI confirmed ready)
+[AOSP on ARM64]   Early dialog sweep: dismissed 4 screen(s) [settings-permission, permission, permission, permission] (3 dialogs, 1 settings)
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page shows multiple interactive elements including text fields and buttons with meaningful text; no loading indicators present.)
+[AOSP on ARM64]   Page source stabilized after 3534ms (23 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: accessibility id="Enter your password"
+[AOSP on ARM64]   Element found in 86ms
+[AOSP on ARM64]   XML structural comparison: 18/20 elements matched (90.0%, threshold: 70%)
+[AOSP on ARM64]     Missing: class=android.widget.EditText|resource-id=com.microsoft.rdc.androidx:id/username|text=waatest08@cpcprodas001.onmicrosoft.com|clickable=true|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.widget.EditText|resource-id=com.microsoft.rdc.androidx:id/password|content-desc=Enter your password|clickable=true|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 3: tap - id="android:id/button1"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Page shows interactive elements including text fields and buttons with user account input fields visible, no loading indicators present.)
+[AOSP on ARM64]   Page source stabilized after 3778ms (23 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: id="android:id/button1"
+[AOSP on ARM64]   Element found in 53ms
+[AOSP on ARM64]   XML structural comparison: 18/20 elements matched (90.0%, threshold: 70%)
+[AOSP on ARM64]     Missing: class=android.widget.EditText|resource-id=com.microsoft.rdc.androidx:id/username|text=waatest08@cpcprodas001.onmicrosoft.com|clickable=true|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]     Missing: class=android.widget.EditText|resource-id=com.microsoft.rdc.androidx:id/password|text=•••••••••••|content-desc=Enter your password|clickable=true|enabled=true|checkable=false|checked=false
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 4: tap - accessibility id="Tap to show session switcher"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: loading (confidence: 90%, Presence of status text 'Configuring remote PC...' and connect dialog indicates ongoing setup/loading process, suggested wait: 5000ms)
+[AOSP on ARM64]   AI detected page still loading — extending timeout to 30000ms, polling every 5000ms
+[AOSP on ARM64]   Page source still loading (21 -> 19 elements)
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Multiple interactive elements including clickable buttons and text input present; no loading indicators detected)
+[AOSP on ARM64]   Page source stabilized after 14963ms (19 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: accessibility id="Tap to show session switcher"
+[AOSP on ARM64]   Element found in 57ms
+[AOSP on ARM64]   XML structural comparison: 16/16 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Step 5: tap - accessibility id="Disconnect Button"
+[AOSP on ARM64]   Waiting for page to stabilize...
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, Multiple interactive elements (buttons, clickable layouts, radio buttons, text input) and content text are present; no loading indicators detected.)
+[AOSP on ARM64]   Page source stabilized after 5501ms (37 elements, AI confirmed ready)
+[AOSP on ARM64]   Waiting for element: accessibility id="Disconnect Button"
+[AOSP on ARM64]   Element found in 74ms
+[AOSP on ARM64]   XML structural comparison: 30/30 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Captured evidence XML source
+[AOSP on ARM64] Verifying trailing evidence (step 11) -- final screen state check
+[AOSP on ARM64]   AI page readiness: ready (confidence: 95%, No loading indicators present; multiple interactive elements and content text visible)
+[AOSP on ARM64]   Page source stabilized after 5358ms (69 elements, AI confirmed ready)
+[AOSP on ARM64]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[AOSP on ARM64]   Trailing evidence XML verification passed
+[AOSP on ARM64]   ✓ Step 1 SUCCESS
+[AOSP on ARM64]   ✓ Step 2 SUCCESS
+[AOSP on ARM64]   ✓ Step 3 SUCCESS
+[AOSP on ARM64]   ✓ Step 4 SUCCESS
+[AOSP on ARM64]   ✓ Step 5 SUCCESS
+[AOSP on ARM64] 
+----------------------------------------
+[AOSP on ARM64] Test case connect to cpc (Imported) (Imported): PASSED
+[AOSP on ARM64] Success: 5, Failed: 0
+[AOSP on ARM64] ----------------------------------------
+[AOSP on ARM64] Test Set cpc test case: PASSED (3/3)
+[AOSP on ARM64] Cleaning up session...
+[AOSP on ARM64] 
+=== DEVICE COMPLETE: ALL PASSED ===
+
+╔════════════════════════════════════════════╗
+║    AUTOTEST MULTI-DEVICE RUN COMPLETE      ║
+╚════════════════════════════════════════════╝
+Devices: 1
+Total Passed: 3, Total Failed: 0
+Result: ✓ ALL PASSED
+
+Per-Device Summary:
+  ✓ AOSP on ARM64 (0B171JEC207708): 3 passed, 0 failed

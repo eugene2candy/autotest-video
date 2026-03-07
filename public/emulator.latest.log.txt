@@ -1,0 +1,283 @@
+╔════════════════════════════════════════════╗
+║     AUTOTEST MULTI-DEVICE RUNNER           ║
+╚════════════════════════════════════════════╝
+App Package: com.microsoft.rdc.androidx
+Test sets to run: 1
+Total test cases: 3
+Devices: 1
+Mode: SEQUENTIAL (one device at a time)
+  1. sdk gphone x86 64 (emulator-5554) - emulator
+
+--- Cleaning up all existing Appium sessions ---
+No existing sessions to clean up
+
+╔════════════════════════════════════════════╗
+║  DEVICE [1/1]: sdk gphone x86 64
+║  UDID: emulator-5554
+╚════════════════════════════════════════════╝
+[sdk gphone x86 64] Starting test execution...
+[sdk gphone x86 64] Cleaning up any existing Appium sessions...
+[sdk gphone x86 64] No existing sessions found
+[sdk gphone x86 64] Creating Appium session (attempt 1/2, UDID: emulator-5554, systemPort: 8200)...
+[sdk gphone x86 64] Session created: 28f0c459-1abf-40a1-9b47-69e052627f4e
+[sdk gphone x86 64] 
+--- TEST SET [1/1]: cpc test case ---
+[sdk gphone x86 64] Preparing app...
+[sdk gphone x86 64] Preparing app for testing: com.microsoft.rdc.androidx
+[sdk gphone x86 64] Cleaning app state for: com.microsoft.rdc.androidx (reinstall)
+[sdk gphone x86 64]   Reinstalling app: com.microsoft.rdc.androidx from C:\Users\chengjiexu\AppData\Local\autotest\packages\Windows App_11.0.0.78_APKPure.apk
+[sdk gphone x86 64]   Force stopping app...
+[sdk gphone x86 64]   Uninstalling app...
+[sdk gphone x86 64]   App uninstalled successfully
+[sdk gphone x86 64]   Installing APK...
+[sdk gphone x86 64]   Installing APK: C:\Users\chengjiexu\AppData\Local\autotest\packages\Windows App_11.0.0.78_APKPure.apk
+[sdk gphone x86 64]   Trying mobile: installApp...
+[sdk gphone x86 64]   mobile: installApp succeeded
+[sdk gphone x86 64]   APK installed successfully (fresh)
+[sdk gphone x86 64] App ready (cleaned)
+[sdk gphone x86 64] Launching app...
+[sdk gphone x86 64] [1/3] 001-welcome-20260224-125157.zip
+[sdk gphone x86 64] 
+========================================
+[sdk gphone x86 64] Running test case: welcome
+[sdk gphone x86 64] App package: com.microsoft.rdc.androidx
+[sdk gphone x86 64] Total steps: 3
+[sdk gphone x86 64] Evidence source XMLs available: 4
+[sdk gphone x86 64] ========================================
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 1: tap - -android uiautomator="new UiSelector().className("android.widget.Button").instance(0)"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Presence of multiple interactive elements including buttons and clickable EditTexts, and visible content text indicates the page is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 4240ms (21 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: -android uiautomator="new UiSelector().className("android.widget.Button").instance(0)"
+[sdk gphone x86 64]   Element found in 44ms
+[sdk gphone x86 64]   XML structural comparison: 14/14 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 2: tap - class name="android.widget.Button"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, clickable views, and text content indicating the welcome screen is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 3321ms (22 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: class name="android.widget.Button"
+[sdk gphone x86 64]   Element found in 40ms
+[sdk gphone x86 64]   XML structural comparison: 14/14 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 3: tap - accessibility id="Close"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons and editable text fields, and visible content text indicating the sign-in screen is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 3222ms (26 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: accessibility id="Close"
+[sdk gphone x86 64]   Element found in 33ms
+[sdk gphone x86 64]   XML structural comparison: 15/15 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Verifying trailing evidence (step 8) -- final screen state check
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 90%, Page has multiple interactive elements including buttons and clickable views, visible content text such as 'Devices', and no loading indicators detected.)
+[sdk gphone x86 64]   Page source stabilized after 3532ms (38 elements, AI confirmed ready)
+[sdk gphone x86 64]   XML structural comparison: 18/18 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Trailing evidence XML verification passed
+[sdk gphone x86 64]   ✓ Step 1 SUCCESS
+[sdk gphone x86 64]   ✓ Step 2 SUCCESS
+[sdk gphone x86 64]   ✓ Step 3 SUCCESS
+[sdk gphone x86 64] 
+----------------------------------------
+[sdk gphone x86 64] Test case welcome: PASSED
+[sdk gphone x86 64] Success: 3, Failed: 0
+[sdk gphone x86 64] ----------------------------------------
+[sdk gphone x86 64] [2/3] 002-login-to-cpc-20260224-125210.zip
+[sdk gphone x86 64] 
+========================================
+[sdk gphone x86 64] Running test case: login to cpc
+[sdk gphone x86 64] App package: com.microsoft.rdc.androidx
+[sdk gphone x86 64] Total steps: 6
+[sdk gphone x86 64] Evidence source XMLs available: 7
+[sdk gphone x86 64] ========================================
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 1: tap - accessibility id="Add"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 90%, Page contains multiple interactive elements including buttons and clickable views, with visible content text such as 'Devices' and descriptive elements like 'Add' and 'Search'. No loading indicators detected.)
+[sdk gphone x86 64]   Page source stabilized after 3513ms (38 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: accessibility id="Add"
+[sdk gphone x86 64]   Element found in 33ms
+[sdk gphone x86 64]   XML structural comparison: 18/18 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 2: tap - -android uiautomator="new UiSelector().text("OK")"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, radio buttons, and clickable views with meaningful text labels, indicating the page is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 3135ms (29 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: -android uiautomator="new UiSelector().text("OK")"
+[sdk gphone x86 64]   Element found in 44ms
+[sdk gphone x86 64]   XML structural comparison: 16/16 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 3: sendKeys - xpath="//*[@resource-id="placeholder"]//android.widget.EditText[@resource-id="emailTextInput"]"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: loading (confidence: 70%, Page contains only a WebView with no content children, indicating content is still loading, suggested wait: 3000ms)
+[sdk gphone x86 64]   AI detected page still loading — extending timeout to 30000ms, polling every 3000ms
+[sdk gphone x86 64]   Page source still loading (8 -> 24 elements)
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Presence of interactive elements like EditText and Button with visible text, and no loading indicators detected)
+[sdk gphone x86 64]   Page source stabilized after 12537ms (24 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: xpath="//*[@resource-id="placeholder"]//android.widget.EditText[@resource-id="emailTextInput"]"
+[sdk gphone x86 64]   Element found in 428ms
+[sdk gphone x86 64]   XML structural comparison: 19/20 elements matched (95.0%, threshold: 70%)
+[sdk gphone x86 64]     Missing: class=android.widget.TextView|text=Sign in|clickable=false|enabled=true|checkable=false|checked=false
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 4: tap - xpath="//*[@resource-id="placeholder"]//android.widget.Button[@resource-id="nextButton"]"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including EditText and Button, visible content text, and no loading indicators present.)
+[sdk gphone x86 64]   Page source stabilized after 3004ms (24 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: xpath="//*[@resource-id="placeholder"]//android.widget.Button[@resource-id="nextButton"]"
+[sdk gphone x86 64]   Element found in 49ms
+[sdk gphone x86 64]   XML structural comparison: 19/20 elements matched (95.0%, threshold: 70%)
+[sdk gphone x86 64]     Missing: class=android.widget.TextView|text=Sign in|clickable=false|enabled=true|checkable=false|checked=false
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 5: sendKeys - xpath="//*[@resource-id="lightbox"]//android.widget.EditText[@resource-id="i0118"]"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: loading (confidence: 90%, Presence of ProgressBar indicates loading in progress, suggested wait: 4000ms)
+[sdk gphone x86 64]   AI detected page still loading — extending timeout to 30000ms, polling every 4000ms
+[sdk gphone x86 64]   Page source still loading (8 -> 48 elements)
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, text fields, and visible content text indicating the sign-in page is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 11182ms (48 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: xpath="//*[@resource-id="lightbox"]//android.widget.EditText[@resource-id="i0118"]"
+[sdk gphone x86 64]   Element found in 80ms
+[sdk gphone x86 64]   XML structural comparison: 33/34 elements matched (97.1%, threshold: 70%)
+[sdk gphone x86 64]     Missing: class=android.widget.EditText|resource-id=i0118|clickable=true|enabled=true|checkable=false|checked=false
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 6: tap - -android uiautomator="new UiSelector().resourceId("idSIButton9")"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page shows multiple interactive elements including buttons, text fields, and visible content text such as 'Sign in to your account' and 'Forgot my password', indicating the page is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 3364ms (48 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: -android uiautomator="new UiSelector().resourceId("idSIButton9")"
+[sdk gphone x86 64]   Element found in 35ms
+[sdk gphone x86 64]   XML structural comparison: 33/34 elements matched (97.1%, threshold: 70%)
+[sdk gphone x86 64]     Missing: class=android.widget.EditText|resource-id=i0118|text=Fuzamima123|clickable=true|enabled=true|checkable=false|checked=false
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Verifying trailing evidence (step 13) -- final screen state check
+[sdk gphone x86 64]   AI page readiness: loading (confidence: 90%, Presence of ProgressBar indicates loading in progress, suggested wait: 4000ms)
+[sdk gphone x86 64]   AI detected page still loading — extending timeout to 30000ms, polling every 4000ms
+[sdk gphone x86 64]   Page source still loading (8 -> 12 elements)
+[sdk gphone x86 64]   AI page readiness: loading (confidence: 90%, Presence of ProgressBar and text 'Downloading managed resources...' indicates ongoing download activity, suggested wait: 5000ms)
+[sdk gphone x86 64]   Page source still loading (12 -> 68 elements)
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, clickable views, and descriptive text indicating content is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 28567ms (68 elements, AI confirmed ready)
+[sdk gphone x86 64]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Trailing evidence XML verification passed
+[sdk gphone x86 64]   ✓ Step 1 SUCCESS
+[sdk gphone x86 64]   ✓ Step 2 SUCCESS
+[sdk gphone x86 64]   ✓ Step 3 SUCCESS
+[sdk gphone x86 64]   ✓ Step 4 SUCCESS
+[sdk gphone x86 64]   ✓ Step 5 SUCCESS
+[sdk gphone x86 64]   ✓ Step 6 SUCCESS
+[sdk gphone x86 64] 
+----------------------------------------
+[sdk gphone x86 64] Test case login to cpc: PASSED
+[sdk gphone x86 64] Success: 6, Failed: 0
+[sdk gphone x86 64] ----------------------------------------
+[sdk gphone x86 64] [3/3] 003-connect-to-cpc-imported-imported-20260305-103528.zip
+[sdk gphone x86 64] 
+========================================
+[sdk gphone x86 64] Running test case: connect to cpc (Imported) (Imported)
+[sdk gphone x86 64] App package: com.microsoft.rdc.androidx
+[sdk gphone x86 64] Total steps: 5
+[sdk gphone x86 64] Evidence source XMLs available: 6
+[sdk gphone x86 64] ========================================
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 1: tap - -android uiautomator="new UiSelector().className("android.view.View").instance(20)"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, clickable views, and descriptive text indicating content is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 3330ms (68 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: -android uiautomator="new UiSelector().className("android.view.View").instance(20)"
+[sdk gphone x86 64]   Element found in 35ms
+[sdk gphone x86 64]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 2: sendKeys - accessibility id="Enter your password"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, switches, clickable text, and visible content text. No loading indicators or spinners detected.)
+[sdk gphone x86 64]   Page source stabilized after 5368ms (32 elements, AI confirmed ready)
+[sdk gphone x86 64]   Heuristic: Settings permission screen detected ("all files access"), looking for toggles...
+[sdk gphone x86 64]   Heuristic: tapping toggle at (1004, 707) [rect: 908,670 128x74]
+[sdk gphone x86 64]   Heuristic: enabled unchecked toggle (1)
+[sdk gphone x86 64]   Heuristic: reached bottom of list after 1 scroll(s)
+[sdk gphone x86 64]   Heuristic: enabled 1 toggle(s) for "all files access"
+[sdk gphone x86 64]   Heuristic: pressing Back to return to app...
+[sdk gphone x86 64]   Heuristic: Settings permission "all files access" handled (1 enabled) and returned to app
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page shows permission request with multiple clickable buttons and visible text, no loading indicators present)
+[sdk gphone x86 64]   Page source stabilized after 4316ms (15 elements, AI confirmed ready)
+[sdk gphone x86 64]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[sdk gphone x86 64]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[sdk gphone x86 64]   Heuristic: permission dialog dismissed
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page shows permission request with multiple clickable buttons and visible content text, no loading indicators present.)
+[sdk gphone x86 64]   Page source stabilized after 3146ms (15 elements, AI confirmed ready)
+[sdk gphone x86 64]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[sdk gphone x86 64]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[sdk gphone x86 64]   Heuristic: permission dialog dismissed
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page shows permission request with multiple clickable buttons and visible text, no loading indicators present)
+[sdk gphone x86 64]   Page source stabilized after 2993ms (15 elements, AI confirmed ready)
+[sdk gphone x86 64]   Heuristic: dialog indicators detected, scanning for dismiss buttons...
+[sdk gphone x86 64]   Heuristic: dismissing permission dialog — tap id="com.android.permissioncontroller:id/permission_allow_foreground_only_button" (resource-id)
+[sdk gphone x86 64]   Heuristic: permission dialog dismissed
+[sdk gphone x86 64]   AI page readiness: loading (confidence: 90%, Presence of status text 'Initiating remote connection...' and connect dialog indicates ongoing connection process, not fully loaded yet., suggested wait: 5000ms)
+[sdk gphone x86 64]   AI detected page still loading — extending timeout to 24000ms, polling every 5000ms
+[sdk gphone x86 64]   Page source still loading (21 -> 23 elements)
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page shows interactive elements including text fields and buttons with no loading indicators present.)
+[sdk gphone x86 64]   Page source stabilized after 17622ms (23 elements, AI confirmed ready)
+[sdk gphone x86 64]   Early dialog sweep: dismissed 4 screen(s) [settings-permission, permission, permission, permission] (3 dialogs, 1 settings)
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page shows interactive elements including text fields and buttons with no loading indicators present)
+[sdk gphone x86 64]   Page source stabilized after 2971ms (23 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: accessibility id="Enter your password"
+[sdk gphone x86 64]   Element found in 25ms
+[sdk gphone x86 64]   XML structural comparison: 20/20 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 3: tap - id="android:id/button1"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page shows interactive elements including text fields and buttons with no loading indicators present.)
+[sdk gphone x86 64]   Page source stabilized after 3113ms (23 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: id="android:id/button1"
+[sdk gphone x86 64]   Element found in 21ms
+[sdk gphone x86 64]   XML structural comparison: 20/20 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 4: tap - accessibility id="Tap to show session switcher"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: loading (confidence: 90%, Presence of status text 'Configuring remote PC...' indicates ongoing setup process; interactive elements exist but main content not ready yet, suggested wait: 5000ms)
+[sdk gphone x86 64]   AI detected page still loading — extending timeout to 30000ms, polling every 5000ms
+[sdk gphone x86 64]   Page source still loading (21 -> 19 elements)
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, No loading indicators present; multiple interactive elements (buttons, text input) and content views visible)
+[sdk gphone x86 64]   Page source stabilized after 13563ms (19 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: accessibility id="Tap to show session switcher"
+[sdk gphone x86 64]   Element found in 23ms
+[sdk gphone x86 64]   XML structural comparison: 16/16 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Step 5: tap - accessibility id="Disconnect Button"
+[sdk gphone x86 64]   Waiting for page to stabilize...
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains many interactive elements including buttons, clickable layouts, text fields, and lists with descriptive text, indicating full content load.)
+[sdk gphone x86 64]   Page source stabilized after 3076ms (37 elements, AI confirmed ready)
+[sdk gphone x86 64]   Waiting for element: accessibility id="Disconnect Button"
+[sdk gphone x86 64]   Element found in 23ms
+[sdk gphone x86 64]   XML structural comparison: 30/30 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Captured evidence XML source
+[sdk gphone x86 64] Verifying trailing evidence (step 11) -- final screen state check
+[sdk gphone x86 64]   AI page readiness: ready (confidence: 95%, Page contains multiple interactive elements including buttons, clickable views, and descriptive text indicating content is fully loaded.)
+[sdk gphone x86 64]   Page source stabilized after 3907ms (68 elements, AI confirmed ready)
+[sdk gphone x86 64]   XML structural comparison: 29/29 elements matched (100.0%, threshold: 70%)
+[sdk gphone x86 64]   Trailing evidence XML verification passed
+[sdk gphone x86 64]   ✓ Step 1 SUCCESS
+[sdk gphone x86 64]   ✓ Step 2 SUCCESS
+[sdk gphone x86 64]   ✓ Step 3 SUCCESS
+[sdk gphone x86 64]   ✓ Step 4 SUCCESS
+[sdk gphone x86 64]   ✓ Step 5 SUCCESS
+[sdk gphone x86 64] 
+----------------------------------------
+[sdk gphone x86 64] Test case connect to cpc (Imported) (Imported): PASSED
+[sdk gphone x86 64] Success: 5, Failed: 0
+[sdk gphone x86 64] ----------------------------------------
+[sdk gphone x86 64] Test Set cpc test case: PASSED (3/3)
+[sdk gphone x86 64] Cleaning up session...
+[sdk gphone x86 64] 
+=== DEVICE COMPLETE: ALL PASSED ===
+
+╔════════════════════════════════════════════╗
+║    AUTOTEST MULTI-DEVICE RUN COMPLETE      ║
+╚════════════════════════════════════════════╝
+Devices: 1
+Total Passed: 3, Total Failed: 0
+Result: ✓ ALL PASSED
+
+Per-Device Summary:
+  ✓ sdk gphone x86 64 (emulator-5554): 3 passed, 0 failed
