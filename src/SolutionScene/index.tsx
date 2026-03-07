@@ -71,18 +71,13 @@ export const SolutionScene: React.FC = () => {
           <RecordOnceAct />
         </Sequence>
 
-        {/* Act 2: Replay Everywhere */}
+        {/* Act 2: AI-Powered */}
         <Sequence from={280} durationInFrames={200} premountFor={30}>
-          <ReplayEverywhereAct />
-        </Sequence>
-
-        {/* Act 3: AI-Powered */}
-        <Sequence from={460} durationInFrames={200} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
-        {/* Act 4: Summary */}
-        <Sequence from={640} durationInFrames={320} premountFor={30}>
+        {/* Act 3: Summary */}
+        <Sequence from={460} durationInFrames={320} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -305,185 +300,7 @@ const RecordOnceAct: React.FC = () => {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Act 2: Replay Everywhere                                           */
-/* ------------------------------------------------------------------ */
-const ReplayEverywhereAct: React.FC = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-
-  const entrance = spring({
-    frame,
-    fps,
-    config: { damping: 200 },
-    durationInFrames: 20,
-  });
-  const opacity = interpolate(entrance, [0, 1], [0, 1]);
-  const translateY = interpolate(entrance, [0, 1], [60, 0]);
-
-  const platforms = [
-    { name: "Android", devices: ["Samsung", "Pixel", "Xiaomi", "OnePlus", "Huawei", "Oppo", "Vivo", "Sony"], delay: 20 },
-    { name: "iOS / iPadOS", devices: ["iPhone 16", "iPhone 15", "iPhone 14", "iPhone 13", "iPad Pro", "iPad Air", "iPad Mini", "iPhone SE"], delay: 40 },
-    { name: "Windows", devices: ["Dell", "HP", "Lenovo", "Asus", "Acer", "MSI", "Surface", "Razer"], delay: 60 },
-    { name: "macOS", devices: ["MacBook Pro", "MacBook Air", "iMac", "Mac Mini", "Mac Studio", "Mac Pro", "iMac 24\"", "MacBook 13\""], delay: 80 },
-    { name: "Linux", devices: ["Ubuntu", "Fedora", "Debian", "Arch", "RHEL", "SUSE", "Mint", "CentOS"], delay: 100 },
-    { name: "Browser", devices: ["Chrome", "Safari", "Firefox", "Edge", "Opera", "Brave", "Arc", "Vivaldi"], delay: 120 },
-  ];
-
-  const actFade = interpolate(frame, [165, 200], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  return (
-    <AbsoluteFill
-      style={{
-        opacity: opacity * actFade,
-        transform: `translateY(${translateY}px)`,
-      }}
-    >
-      {/* Title */}
-      <div
-        style={{
-          position: "absolute",
-          top: "4%",
-          width: "100%",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: FONT_FAMILY,
-            fontSize: 56,
-            fontWeight: 700,
-            color: "#111",
-            margin: 0,
-          }}
-        >
-          One Time <span style={{ color: "#e53935" }}>Record</span>, <span style={{ color: GREEN }}>Replay</span> Everywhere
-        </h2>
-      </div>
-
-      {/* Platform rows */}
-      <div
-        style={{
-          position: "absolute",
-          top: "18%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          gap: 10,
-        }}
-      >
-        {platforms.map((platform, i) => {
-          const rowEntrance = spring({
-            frame: frame - platform.delay,
-            fps,
-            config: { damping: 15, stiffness: 200 },
-          });
-          const rowOpacity = interpolate(rowEntrance, [0, 1], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          });
-          const rowX = interpolate(rowEntrance, [0, 1], [40, 0], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          });
-
-          return (
-            <div
-              key={`platform-${i}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 20,
-                opacity: rowOpacity,
-                transform: `translateX(${rowX}px)`,
-              }}
-            >
-              {/* Left: platform test case label */}
-              <div
-                style={{
-                  width: 380,
-                  flexShrink: 0,
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 34,
-                  fontWeight: 700,
-                  color: "#111",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {platform.name} Test Cases
-              </div>
-
-              {/* Arrow */}
-              <span
-                style={{
-                  width: 50,
-                  flexShrink: 0,
-                  textAlign: "center",
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 42,
-                  color: "#333",
-                  display: "inline-block",
-                  transform: `translateX(${interpolate(
-                    (frame + i * 5) % 30,
-                    [0, 15, 30],
-                    [0, 8, 0],
-                  )}px)`,
-                  opacity: interpolate(
-                    (frame + i * 5) % 30,
-                    [0, 15, 30],
-                    [0.5, 1, 0.5],
-                  ),
-                }}
-              >
-                →
-              </span>
-
-              {/* Right: device icons */}
-              <div style={{ display: "flex", gap: 14 }}>
-                {platform.devices.map((device, j) => {
-                  const deviceDelay = platform.delay + 10 + j * 8;
-                  const showCheck = frame > deviceDelay + 15;
-                  const deviceEntrance = spring({
-                    frame: frame - deviceDelay,
-                    fps,
-                    config: { damping: 15, stiffness: 200 },
-                  });
-                  const s = interpolate(deviceEntrance, [0, 1], [0, 1], {
-                    extrapolateLeft: "clamp",
-                    extrapolateRight: "clamp",
-                  });
-
-                  return (
-                    <div
-                      key={`device-${i}-${j}`}
-                      style={{
-                        transform: `scale(${s})`,
-                        opacity: s,
-                      }}
-                    >
-                      <DeviceWithCheck
-                        scale={1.2}
-                        label={device}
-                        showCheck={showCheck}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-    </AbsoluteFill>
-  );
-};
-
-/* ------------------------------------------------------------------ */
-/*  Act 3: AI-Powered Intelligence                                     */
+/*  Act 2: AI-Powered Intelligence                                     */
 /* ------------------------------------------------------------------ */
 const AIPoweredAct: React.FC = () => {
   const frame = useCurrentFrame();
@@ -546,7 +363,7 @@ const AIPoweredAct: React.FC = () => {
             margin: 0,
           }}
         >
-          <span style={{ color: MICROSOFT_BLUE, textShadow: `0 0 8px ${MICROSOFT_BLUE}80, 0 0 20px ${MICROSOFT_BLUE}40, 0 0 40px ${MICROSOFT_BLUE}20`, letterSpacing: 1 }}>AI-Powered</span> Intelligence
+          <span style={{ color: GREEN }}>Replay</span> Everywhere w/ <span style={{ color: MICROSOFT_BLUE, textShadow: `0 0 8px ${MICROSOFT_BLUE}80, 0 0 20px ${MICROSOFT_BLUE}40, 0 0 40px ${MICROSOFT_BLUE}20`, letterSpacing: 1 }}>AI-Powered</span> Intelligence
         </h2>
       </div>
 
