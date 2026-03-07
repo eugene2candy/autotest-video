@@ -2,9 +2,11 @@ import React from "react";
 import {
   AbsoluteFill,
   Easing,
+  Img,
   interpolate,
   Sequence,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -18,7 +20,6 @@ import {
 const FONT_FAMILY = "SF Pro Text, Helvetica, Arial, sans-serif";
 const GREEN = "#4caf50";
 const MICROSOFT_BLUE = "#0078D4";
-const DARK_BG = "#0a0a0a";
 
 /* ====================================================================
  * SolutionScene – Scene 2: "How Autotest Solves It"
@@ -44,7 +45,21 @@ export const SolutionScene: React.FC = () => {
   );
 
   return (
-    <AbsoluteFill style={{ backgroundColor: DARK_BG }}>
+    <AbsoluteFill>
+      {/* Blurred background image */}
+      <AbsoluteFill style={{ overflow: "hidden" }}>
+        <Img
+          src={staticFile("background-1.png")}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            filter: "blur(20px)",
+            transform: "scale(1.1)",
+          }}
+        />
+      </AbsoluteFill>
+      <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* Title */}
         <Sequence from={0} durationInFrames={130} premountFor={10}>
@@ -118,7 +133,7 @@ const SectionTitle: React.FC = () => {
             fontFamily: FONT_FAMILY,
             fontSize: 110,
             fontWeight: 800,
-            color: "white",
+            color: "#111",
             margin: 0,
             letterSpacing: -2,
           }}
@@ -199,7 +214,7 @@ const RecordOnceAct: React.FC = () => {
             fontFamily: FONT_FAMILY,
             fontSize: 56,
             fontWeight: 700,
-            color: "white",
+            color: "#111",
             margin: 0,
             display: "flex",
             alignItems: "center",
@@ -207,7 +222,8 @@ const RecordOnceAct: React.FC = () => {
             gap: 28,
           }}
         >
-          <span style={{ color: GREEN }}>Record</span> Once
+          <span style={{ color: GREEN }}>Record</span>{" "}
+          <span style={{ color: "#111" }}>Once</span>
           <div style={{ marginLeft: 10 }}>
             <RecordButton scale={0.8} />
           </div>
@@ -348,7 +364,7 @@ const ReplayEverywhereAct: React.FC = () => {
             fontFamily: FONT_FAMILY,
             fontSize: 56,
             fontWeight: 700,
-            color: "white",
+            color: "#111",
             margin: 0,
           }}
         >
@@ -416,7 +432,7 @@ const ReplayEverywhereAct: React.FC = () => {
           style={{
             fontFamily: FONT_FAMILY,
             fontSize: 24,
-            color: "#999",
+            color: "#555",
           }}
         >
           Same test case →
@@ -447,7 +463,7 @@ const ReplayEverywhereAct: React.FC = () => {
           style={{
             fontFamily: FONT_FAMILY,
             fontSize: 26,
-            color: "#999",
+            color: "#555",
             marginTop: 12,
           }}
         >
@@ -518,7 +534,7 @@ const AIPoweredAct: React.FC = () => {
             fontFamily: FONT_FAMILY,
             fontSize: 56,
             fontWeight: 700,
-            color: "white",
+            color: "#111",
             margin: 0,
           }}
         >
@@ -718,7 +734,7 @@ const SolutionStep: React.FC<{
         style={{
           fontFamily: FONT_FAMILY,
           fontSize: 38,
-          color: "white",
+          color: "#111",
           fontWeight: 600,
           whiteSpace: "nowrap",
         }}
@@ -773,7 +789,7 @@ const AIFeatureCard: React.FC<{
         style={{
           fontFamily: FONT_FAMILY,
           fontSize: 22,
-          color: "#ccc",
+          color: "#444",
           lineHeight: 1.4,
         }}
       >
@@ -848,10 +864,10 @@ const ProxyFlowDiagram: React.FC<{ frame: number }> = ({ frame }) => {
                   y1="0"
                   x2="14"
                   y2="30"
-                  stroke="#555"
+                  stroke="#999"
                   strokeWidth="3"
                 />
-                <polygon points="6,26 14,38 22,26" fill="#555" />
+                <polygon points="6,26 14,38 22,26" fill="#999" />
               </svg>
             )}
           </React.Fragment>
@@ -909,7 +925,7 @@ const ElementSignatureViz: React.FC<{ frame: number }> = ({ frame }) => {
         style={{
           fontFamily: FONT_FAMILY,
           fontSize: 18,
-          color: "#999",
+          color: "#555",
           fontWeight: 600,
           marginRight: 8,
         }}

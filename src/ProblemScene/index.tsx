@@ -2,9 +2,11 @@ import React from "react";
 import {
   AbsoluteFill,
   Easing,
+  Img,
   interpolate,
   Sequence,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -12,7 +14,6 @@ import { TypingCharacter, DeviceScreen, TickingClock } from "./Character";
 
 const FONT_FAMILY = "SF Pro Text, Helvetica, Arial, sans-serif";
 const RED = "#e53935";
-const DARK_BG = "#0a0a0a";
 
 /* ====================================================================
  * ProblemScene – Scene 1: "The Problem with UI Testing Today"
@@ -37,7 +38,21 @@ export const ProblemScene: React.FC = () => {
   );
 
   return (
-    <AbsoluteFill style={{ backgroundColor: DARK_BG }}>
+    <AbsoluteFill>
+      {/* Blurred background image */}
+      <AbsoluteFill style={{ overflow: "hidden" }}>
+        <Img
+          src={staticFile("background-1.png")}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            filter: "blur(20px)",
+            transform: "scale(1.1)",
+          }}
+        />
+      </AbsoluteFill>
+      <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* ---- ACT 0: Section title ---- */}
         <Sequence from={0} durationInFrames={120} premountFor={10}>
@@ -108,7 +123,7 @@ const SectionTitle: React.FC = () => {
             fontFamily: FONT_FAMILY,
             fontSize: 120,
             fontWeight: 800,
-            color: "white",
+            color: "#111",
             margin: 0,
             letterSpacing: -2,
           }}
@@ -207,7 +222,7 @@ const ManualTestingAct: React.FC = () => {
             marginTop: 20,
             fontFamily: FONT_FAMILY,
             fontSize: 40,
-            color: "white",
+            color: "#111",
             fontWeight: 700,
             opacity: subtitleOpacity,
             textAlign: "center",
@@ -355,7 +370,7 @@ const BrittleScriptsAct: React.FC = () => {
             fontFamily: FONT_FAMILY,
             fontSize: 56,
             fontWeight: 700,
-            color: "white",
+            color: "#111",
             margin: 0,
           }}
         >
@@ -371,7 +386,7 @@ const BrittleScriptsAct: React.FC = () => {
           top: "22%",
           width: "50%",
           backgroundColor: `rgba(229, 57, 53, ${breakFlash})`,
-          border: "2px solid #333",
+          border: "2px solid #bbb",
           borderRadius: 12,
           padding: 28,
           transition: "none",
@@ -415,7 +430,7 @@ const BrittleScriptsAct: React.FC = () => {
           style={{
             fontFamily: FONT_FAMILY,
             fontSize: 40,
-            color: "#999",
+            color: "#555",
             fontWeight: 600,
             marginBottom: 16,
           }}
@@ -528,7 +543,7 @@ const CannotScaleAct: React.FC = () => {
             fontFamily: FONT_FAMILY,
             fontSize: 56,
             fontWeight: 700,
-            color: "white",
+            color: "#111",
             margin: 0,
           }}
         >
@@ -615,7 +630,7 @@ const CannotScaleAct: React.FC = () => {
           style={{
             fontFamily: FONT_FAMILY,
             fontSize: 46,
-            color: "#999",
+            color: "#555",
             opacity: interpolate(frame, [40, 65], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
@@ -685,7 +700,7 @@ const ProblemBullet: React.FC<{
           style={{
             fontFamily: FONT_FAMILY,
             fontSize: 48,
-            color: "white",
+            color: "#111",
             fontWeight: 600,
             lineHeight: 1.4,
           }}
@@ -697,7 +712,7 @@ const ProblemBullet: React.FC<{
             style={{
               fontFamily: FONT_FAMILY,
               fontSize: 36,
-              color: "#999",
+              color: "#555",
               fontWeight: 400,
               marginTop: 6,
             }}

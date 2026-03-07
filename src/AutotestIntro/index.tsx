@@ -1,9 +1,11 @@
 import React from "react";
 import {
   AbsoluteFill,
+  Img,
   interpolate,
   Sequence,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -36,11 +38,24 @@ export const AutotestIntro: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0a0a0a",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
+      {/* Blurred background image */}
+      <AbsoluteFill style={{ overflow: "hidden" }}>
+        <Img
+          src={staticFile("background-1.png")}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            filter: "blur(20px)",
+            transform: "scale(1.1)",
+          }}
+        />
+      </AbsoluteFill>
+      <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* ---- Autotest Logo (starts at frame 0) ---- */}
         <Sequence from={0}>
@@ -98,7 +113,7 @@ const WelcomeTitle: React.FC = () => {
               fontFamily: FONT_FAMILY,
               fontWeight: 700,
               fontSize: 100,
-              color: "white",
+              color: "#111",
               display: "inline-block",
               marginLeft: 14,
               marginRight: 14,
