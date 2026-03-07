@@ -205,13 +205,14 @@ const ManualTestingAct: React.FC = () => {
           style={{
             marginTop: 20,
             fontFamily: FONT_FAMILY,
-            fontSize: 28,
-            color: "#999",
+            fontSize: 40,
+            color: "white",
+            fontWeight: 700,
             opacity: subtitleOpacity,
             textAlign: "center",
           }}
         >
-          Manual Tester
+          UI Test Vendor
         </div>
       </div>
 
@@ -245,24 +246,24 @@ const ManualTestingAct: React.FC = () => {
         />
       </div>
 
-      {/* Clock - time wasted */}
+      {/* Clock - time wasted (top-left of the buddy) */}
       <div
         style={{
           position: "absolute",
-          right: "12%",
-          bottom: "12%",
+          left: "12%",
+          top: "18%",
           transform: `scale(${clockScale})`,
           opacity: captionOpacity,
           display: "flex",
           alignItems: "center",
-          gap: 16,
+          gap: 12,
         }}
       >
-        <TickingClock scale={1.2} />
+        <TickingClock scale={1} />
         <span
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 24,
+            fontSize: 22,
             color: RED,
             fontWeight: 600,
           }}
