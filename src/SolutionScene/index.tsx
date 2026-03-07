@@ -67,17 +67,17 @@ export const SolutionScene: React.FC = () => {
         </Sequence>
 
         {/* Act 1: Record Once */}
-        <Sequence from={80} durationInFrames={220} premountFor={30}>
+        <Sequence from={80} durationInFrames={430} premountFor={30}>
           <RecordOnceAct />
         </Sequence>
 
         {/* Act 2: AI-Powered */}
-        <Sequence from={280} durationInFrames={200} premountFor={30}>
+        <Sequence from={490} durationInFrames={200} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
         {/* Act 3: Summary */}
-        <Sequence from={460} durationInFrames={320} premountFor={30}>
+        <Sequence from={670} durationInFrames={320} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -166,24 +166,48 @@ const RecordOnceAct: React.FC = () => {
   const translateY = interpolate(entrance, [0, 1], [60, 0]);
 
   // Recording steps appearing one by one
+  // Each bullet appears after the previous bullet's images finish
   const steps = [
     { label: "Open Autotest Portal", delay: 25, icon: "1" },
     {
       label: "Connect — Tap, Type, Swipe",
-      delay: 60,
+      delay: 160,
       icon: "2",
     },
-    { label: "Autotest captures everything", delay: 95, icon: "3" },
+    { label: "Autotest captures everything", delay: 235, icon: "3" },
   ];
 
-  // Evidence capture animation (screenshots + XML flying into storage)
-  const evidenceEntrance = spring({
-    frame: frame - 120,
-    fps,
-    config: { damping: 15, stiffness: 200 },
-  });
+  // Screenshot images grouped by bullet point:
+  // Each image lasts 30 frames (1 second). Next image replaces instantly.
+  //
+  // Bullet 1 (fully at frame 40): 1-1-0, 1-2-0, 1-3-0, 1-4-0
+  // Bullet 2 (fully at frame 175): 2-1-0, 2-2-0
+  // Bullet 3 (fully at frame 250): 2-4-0, 2-5-0, 2-6-0, 2-7-0
+  const screenshots = [
+    // Bullet 1 images
+    { src: staticFile("1-1-0.png"), start: 40 },
+    { src: staticFile("1-2-0.png"), start: 70 },
+    { src: staticFile("1-3-0.png"), start: 100 },
+    { src: staticFile("1-4-0.png"), start: 130 },
+    // Bullet 2 images
+    { src: staticFile("2-1-0.png"), start: 175 },
+    { src: staticFile("2-2-0.png"), start: 205 },
+    // Bullet 3 images
+    { src: staticFile("2-4-0.png"), start: 250 },
+    { src: staticFile("2-5-0.png"), start: 280 },
+    { src: staticFile("2-6-0.png"), start: 310 },
+    { src: staticFile("2-7-0.png"), start: 340 },
+  ];
+  // Determine which screenshot is active (last one whose start <= frame)
+  const activeScreenshotIndex = screenshots.reduce(
+    (acc, s, i) => (frame >= s.start ? i : acc),
+    -1,
+  );
 
-  const actFade = interpolate(frame, [180, 220], [1, 0], {
+  // Portrait images (2-4-0 to 2-7-0, indices 6-9) need to sit lower to avoid covering the title
+  const isPortraitImage = activeScreenshotIndex >= 6;
+
+  const actFade = interpolate(frame, [385, 420], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -231,7 +255,7 @@ const RecordOnceAct: React.FC = () => {
           position: "absolute",
           left: "8%",
           top: "22%",
-          width: "48%",
+          width: "38%",
         }}
       >
         {steps.map((step, i) => (
@@ -245,31 +269,31 @@ const RecordOnceAct: React.FC = () => {
         ))}
       </div>
 
-      {/* Right side: Evidence capture visualization */}
+      {/* Right side: Screenshot showcase */}
       <div
         style={{
           position: "absolute",
-          right: "8%",
-          top: "22%",
-          width: "38%",
-          opacity: interpolate(evidenceEntrance, [0, 1], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          }),
-          transform: `scale(${interpolate(evidenceEntrance, [0, 1], [0.8, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`,
+          right: isPortraitImage ? "10%" : "4%",
+          top: isPortraitImage ? "55%" : "70%",
+          transform: "translateY(-50%)",
+          maxWidth: isPortraitImage ? "55%" : "60%",
+          maxHeight: "80%",
+          borderRadius: 16,
+          overflow: "hidden",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+          border: "2px solid rgba(0,0,0,0.08)",
         }}
       >
-        {/* Proxy visualization */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 16,
-          }}
-        >
-          <ProxyFlowDiagram frame={frame - 120} />
-        </div>
+        {activeScreenshotIndex >= 0 && (
+          <Img
+            src={screenshots[activeScreenshotIndex].src}
+            style={{
+              display: "block",
+              maxWidth: "100%",
+              maxHeight: "95vh",
+            }}
+          />
+        )}
       </div>
 
       {/* Bottom-left caption below bullet points */}
@@ -286,7 +310,7 @@ const RecordOnceAct: React.FC = () => {
             fontSize: 56,
             color: "#333",
             fontWeight: 700,
-            opacity: interpolate(frame, [130, 155], [0, 1], {
+            opacity: interpolate(frame, [350, 370], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
             }),
@@ -363,7 +387,17 @@ const AIPoweredAct: React.FC = () => {
             margin: 0,
           }}
         >
-          <span style={{ color: GREEN }}>Replay</span> Everywhere w/ <span style={{ color: MICROSOFT_BLUE, textShadow: `0 0 8px ${MICROSOFT_BLUE}80, 0 0 20px ${MICROSOFT_BLUE}40, 0 0 40px ${MICROSOFT_BLUE}20`, letterSpacing: 1 }}>AI-Powered</span> Intelligence
+          <span style={{ color: GREEN }}>Replay</span> Everywhere w/{" "}
+          <span
+            style={{
+              color: MICROSOFT_BLUE,
+              textShadow: `0 0 8px ${MICROSOFT_BLUE}80, 0 0 20px ${MICROSOFT_BLUE}40, 0 0 40px ${MICROSOFT_BLUE}20`,
+              letterSpacing: 1,
+            }}
+          >
+            AI-Powered
+          </span>{" "}
+          Intelligence
         </h2>
       </div>
 
@@ -460,10 +494,15 @@ const SummaryAct: React.FC = () => {
   });
 
   // CI Pipeline appears with CI Ready badge (85), fades out for Easy to Scale
-  const pipelineOpacity = interpolate(frame, [95, 105, 165, 175], [0, 1, 1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
+  const pipelineOpacity = interpolate(
+    frame,
+    [95, 105, 165, 175],
+    [0, 1, 1, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    },
+  );
 
   // Scale Grid (test cases + device icons) appears AFTER Easy to Scale badge
   const gridOpacity = interpolate(frame, [175, 185], [0, 1], {
@@ -619,32 +658,68 @@ const CIPipelineFlow: React.FC<{ frame: number; fps: number }> = ({
 }) => {
   // Step 1: Build App Package
   const step1 = spring({ frame, fps, config: { damping: 12, stiffness: 200 } });
-  const s1 = interpolate(step1, [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const s1 = interpolate(step1, [0, 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   // Arrow 1
-  const arrow1Fill = interpolate(frame, [8, 18], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const arrow1Fill = interpolate(frame, [8, 18], [0, 100], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   // Step 2: Self-hosted agent with devices
-  const step2 = spring({ frame: frame - 12, fps, config: { damping: 12, stiffness: 200 } });
-  const s2 = interpolate(step2, [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const step2 = spring({
+    frame: frame - 12,
+    fps,
+    config: { damping: 12, stiffness: 200 },
+  });
+  const s2 = interpolate(step2, [0, 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   // Arrow 2
-  const arrow2Fill = interpolate(frame, [20, 30], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const arrow2Fill = interpolate(frame, [20, 30], [0, 100], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   // Step 3: Testing with animation
-  const step3 = spring({ frame: frame - 24, fps, config: { damping: 12, stiffness: 200 } });
-  const s3 = interpolate(step3, [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const step3 = spring({
+    frame: frame - 24,
+    fps,
+    config: { damping: 12, stiffness: 200 },
+  });
+  const s3 = interpolate(step3, [0, 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   // Testing progress bar
-  const testProgress = interpolate(frame, [26, 42], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const testProgress = interpolate(frame, [26, 42], [0, 100], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   const testingDots = ".".repeat(Math.max(0, Math.floor((frame / 5) % 4)));
 
   // Arrow 3
-  const arrow3Fill = interpolate(frame, [38, 48], [0, 100], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const arrow3Fill = interpolate(frame, [38, 48], [0, 100], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   // Step 4: Report
-  const step4 = spring({ frame: frame - 44, fps, config: { damping: 12, stiffness: 200 } });
-  const s4 = interpolate(step4, [0, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const step4 = spring({
+    frame: frame - 44,
+    fps,
+    config: { damping: 12, stiffness: 200 },
+  });
+  const s4 = interpolate(step4, [0, 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   // Report checkmark
   const reportCheck = frame > 48;
@@ -673,27 +748,89 @@ const CIPipelineFlow: React.FC<{ frame: number; fps: number }> = ({
   };
 
   const renderArrow = (fill: number, opacity: number) => (
-    <div style={{ width: 100, position: "relative", opacity, marginLeft: 5, marginRight: 5 }}>
-      <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: 10, backgroundColor: `${PIPELINE_BLUE}30`, borderRadius: 5 }} />
-      <div style={{ position: "absolute", top: 0, left: 0, width: `${fill}%`, height: 10, backgroundColor: PIPELINE_BLUE, borderRadius: 5 }} />
-      <div style={{ position: "absolute", right: -10, top: -7, width: 0, height: 0, borderTop: "12px solid transparent", borderBottom: "12px solid transparent", borderLeft: `14px solid ${PIPELINE_BLUE}`, opacity: fill > 90 ? 1 : 0 }} />
+    <div
+      style={{
+        width: 100,
+        position: "relative",
+        opacity,
+        marginLeft: 5,
+        marginRight: 5,
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: 10,
+          backgroundColor: `${PIPELINE_BLUE}30`,
+          borderRadius: 5,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: `${fill}%`,
+          height: 10,
+          backgroundColor: PIPELINE_BLUE,
+          borderRadius: 5,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          right: -10,
+          top: -7,
+          width: 0,
+          height: 0,
+          borderTop: "12px solid transparent",
+          borderBottom: "12px solid transparent",
+          borderLeft: `14px solid ${PIPELINE_BLUE}`,
+          opacity: fill > 90 ? 1 : 0,
+        }}
+      />
     </div>
   );
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
       {/* Step 1: Build */}
-      <div style={{ transform: `scale(${s1})`, opacity: s1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          transform: `scale(${s1})`,
+          opacity: s1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <div style={{ ...boxStyle(PIPELINE_BLUE), width: 280, height: 220 }}>
           <span style={{ fontSize: 64 }}>📦</span>
           <span style={labelStyle}>Build{"\n"}App Package</span>
         </div>
       </div>
 
-      {renderArrow(arrow1Fill, interpolate(frame, [8, 12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))}
+      {renderArrow(
+        arrow1Fill,
+        interpolate(frame, [8, 12], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        }),
+      )}
 
       {/* Step 2: Self-Hosted Agent with devices */}
-      <div style={{ transform: `scale(${s2})`, opacity: s2, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          transform: `scale(${s2})`,
+          opacity: s2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <div style={{ ...boxStyle("#ff9800"), width: 380, height: 320 }}>
           <span style={{ fontSize: 56 }}>🖥️</span>
           <span style={{ ...labelStyle, fontSize: 26 }}>Self-Hosted Agent</span>
@@ -708,35 +845,108 @@ const CIPipelineFlow: React.FC<{ frame: number; fps: number }> = ({
                   border: "1px solid #ccc",
                 }}
               >
-                <span style={{ fontFamily: FONT_FAMILY, fontSize: 22, fontWeight: 600, color: "#333" }}>{device}</span>
+                <span
+                  style={{
+                    fontFamily: FONT_FAMILY,
+                    fontSize: 22,
+                    fontWeight: 600,
+                    color: "#333",
+                  }}
+                >
+                  {device}
+                </span>
               </div>
             ))}
           </div>
-          <span style={{ fontFamily: FONT_FAMILY, fontSize: 26, fontWeight: 600, color: "#666", marginTop: 10 }}>Devices attached</span>
-        </div>
-      </div>
-
-      {renderArrow(arrow2Fill, interpolate(frame, [20, 24], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))}
-
-      {/* Step 3: Testing with animation */}
-      <div style={{ transform: `scale(${s3})`, opacity: s3, display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <div style={{ ...boxStyle("#4caf50"), width: 320, height: 280 }}>
-          <span style={{ fontSize: 64 }}>🧪</span>
-          <span style={labelStyle}>Testing{testingDots}</span>
-          {/* Progress bar */}
-          <div style={{ width: "85%", height: 14, backgroundColor: "#e0e0e0", borderRadius: 7, marginTop: 12, overflow: "hidden" }}>
-            <div style={{ width: `${testProgress}%`, height: "100%", backgroundColor: "#4caf50", borderRadius: 7 }} />
-          </div>
-          <span style={{ fontFamily: FONT_FAMILY, fontSize: 22, color: testProgress >= 100 ? "#4caf50" : "#888", fontWeight: 600, marginTop: 6 }}>
-            {testProgress >= 100 ? "✓ All Passed" : `${Math.floor(testProgress)}%`}
+          <span
+            style={{
+              fontFamily: FONT_FAMILY,
+              fontSize: 26,
+              fontWeight: 600,
+              color: "#666",
+              marginTop: 10,
+            }}
+          >
+            Devices attached
           </span>
         </div>
       </div>
 
-      {renderArrow(arrow3Fill, interpolate(frame, [38, 42], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }))}
+      {renderArrow(
+        arrow2Fill,
+        interpolate(frame, [20, 24], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        }),
+      )}
+
+      {/* Step 3: Testing with animation */}
+      <div
+        style={{
+          transform: `scale(${s3})`,
+          opacity: s3,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ ...boxStyle("#4caf50"), width: 320, height: 280 }}>
+          <span style={{ fontSize: 64 }}>🧪</span>
+          <span style={labelStyle}>Testing{testingDots}</span>
+          {/* Progress bar */}
+          <div
+            style={{
+              width: "85%",
+              height: 14,
+              backgroundColor: "#e0e0e0",
+              borderRadius: 7,
+              marginTop: 12,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                width: `${testProgress}%`,
+                height: "100%",
+                backgroundColor: "#4caf50",
+                borderRadius: 7,
+              }}
+            />
+          </div>
+          <span
+            style={{
+              fontFamily: FONT_FAMILY,
+              fontSize: 22,
+              color: testProgress >= 100 ? "#4caf50" : "#888",
+              fontWeight: 600,
+              marginTop: 6,
+            }}
+          >
+            {testProgress >= 100
+              ? "✓ All Passed"
+              : `${Math.floor(testProgress)}%`}
+          </span>
+        </div>
+      </div>
+
+      {renderArrow(
+        arrow3Fill,
+        interpolate(frame, [38, 42], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        }),
+      )}
 
       {/* Step 4: Report Results */}
-      <div style={{ transform: `scale(${s4})`, opacity: s4, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          transform: `scale(${s4})`,
+          opacity: s4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <div style={{ ...boxStyle("#9c27b0"), width: 280, height: 220 }}>
           <span style={{ fontSize: 64 }}>{reportCheck ? "✅" : "📊"}</span>
           <span style={labelStyle}>Publish{"\n"}Report</span>
@@ -749,12 +959,90 @@ const CIPipelineFlow: React.FC<{ frame: number; fps: number }> = ({
 const ScaleGrid: React.FC<{ frame: number }> = ({ frame }) => {
   const { fps } = useVideoConfig();
   const platforms = [
-    { name: "Android", devices: ["Samsung", "Pixel", "Xiaomi", "OnePlus", "Huawei", "Oppo", "Vivo", "Sony"], delay: 0 },
-    { name: "iOS / iPadOS", devices: ["iPhone 16", "iPhone 15", "iPhone 14", "iPhone 13", "iPad Pro", "iPad Air", "iPad Mini", "iPhone SE"], delay: 8 },
-    { name: "Windows", devices: ["Dell", "HP", "Lenovo", "Asus", "Acer", "MSI", "Surface", "Razer"], delay: 16 },
-    { name: "macOS", devices: ["MacBook Pro", "MacBook Air", "iMac", "Mac Mini", "Mac Studio", "Mac Pro", "iMac 24\"", "MacBook 13\""], delay: 24 },
-    { name: "Linux", devices: ["Ubuntu", "Fedora", "Debian", "Arch", "RHEL", "SUSE", "Mint", "CentOS"], delay: 32 },
-    { name: "Browser", devices: ["Chrome", "Safari", "Firefox", "Edge", "Opera", "Brave", "Arc", "Vivaldi"], delay: 40 },
+    {
+      name: "Android",
+      devices: [
+        "Samsung",
+        "Pixel",
+        "Xiaomi",
+        "OnePlus",
+        "Huawei",
+        "Oppo",
+        "Vivo",
+        "Sony",
+      ],
+      delay: 0,
+    },
+    {
+      name: "iOS / iPadOS",
+      devices: [
+        "iPhone 16",
+        "iPhone 15",
+        "iPhone 14",
+        "iPhone 13",
+        "iPad Pro",
+        "iPad Air",
+        "iPad Mini",
+        "iPhone SE",
+      ],
+      delay: 8,
+    },
+    {
+      name: "Windows",
+      devices: [
+        "Dell",
+        "HP",
+        "Lenovo",
+        "Asus",
+        "Acer",
+        "MSI",
+        "Surface",
+        "Razer",
+      ],
+      delay: 16,
+    },
+    {
+      name: "macOS",
+      devices: [
+        "MacBook Pro",
+        "MacBook Air",
+        "iMac",
+        "Mac Mini",
+        "Mac Studio",
+        "Mac Pro",
+        'iMac 24"',
+        'MacBook 13"',
+      ],
+      delay: 24,
+    },
+    {
+      name: "Linux",
+      devices: [
+        "Ubuntu",
+        "Fedora",
+        "Debian",
+        "Arch",
+        "RHEL",
+        "SUSE",
+        "Mint",
+        "CentOS",
+      ],
+      delay: 32,
+    },
+    {
+      name: "Browser",
+      devices: [
+        "Chrome",
+        "Safari",
+        "Firefox",
+        "Edge",
+        "Opera",
+        "Brave",
+        "Arc",
+        "Vivaldi",
+      ],
+      delay: 40,
+    },
   ];
 
   return (
@@ -979,99 +1267,3 @@ const AIFeatureCard: React.FC<{
     </div>
   );
 };
-
-/** Proxy flow diagram: Inspector -> Proxy -> Appium -> Device */
-const ProxyFlowDiagram: React.FC<{ frame: number }> = ({ frame }) => {
-  const arrowProgress = interpolate(frame, [0, 40], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.out(Easing.quad),
-  });
-
-  const boxes = [
-    { label: "Appium\nInspector", color: "#e53935" },
-    { label: "Autotest\nProxy", color: MICROSOFT_BLUE },
-    { label: "Appium\nServer", color: "#ff9800" },
-  ];
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 20,
-        alignItems: "center",
-      }}
-    >
-      {boxes.map((box, i) => {
-        const boxOpacity = interpolate(frame, [i * 12, i * 12 + 15], [0, 1], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-        });
-
-        return (
-          <React.Fragment key={`proxy-box-${i}`}>
-            <div
-              style={{
-                padding: "22px 40px",
-                borderRadius: 14,
-                border: `3px solid ${box.color}`,
-                backgroundColor: `${box.color}20`,
-                opacity: boxOpacity,
-                textAlign: "center",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 32,
-                  color: box.color,
-                  fontWeight: 600,
-                  whiteSpace: "pre-line",
-                }}
-              >
-                {box.label}
-              </span>
-            </div>
-            {i < boxes.length - 1 && (
-              <svg
-                width="28"
-                height="40"
-                viewBox="0 0 28 40"
-                style={{ opacity: arrowProgress }}
-              >
-                <line
-                  x1="14"
-                  y1="0"
-                  x2="14"
-                  y2="30"
-                  stroke="#999"
-                  strokeWidth="3"
-                />
-                <polygon points="6,26 14,38 22,26" fill="#999" />
-              </svg>
-            )}
-          </React.Fragment>
-        );
-      })}
-
-      {/* Capture label */}
-      <div
-        style={{
-          fontFamily: FONT_FAMILY,
-          fontSize: 28,
-          color: GREEN,
-          fontWeight: 600,
-          opacity: interpolate(frame, [40, 55], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          }),
-          textAlign: "center",
-        }}
-      >
-        Screenshots + XML + Actions captured transparently
-      </div>
-    </div>
-  );
-};
-
