@@ -20,13 +20,13 @@ const MICROSOFT_BLUE = "#0078D4";
 /* ====================================================================
  * SolutionScene – Scene 2: "How Autotest Solves It"
  *
- * Timeline (30 fps, 750 frames = 25 s):
- *   0-70     : Title "How Autotest Solves It" with blue underline
- *   70-250   : Act 1 – Record Once (recording animation + proxy capture)
- *   250-430  : Act 2 – Replay Everywhere (multi-device green checks)
- *   430-620  : Act 3 – AI-Powered Intelligence
- *   620-710  : Act 4 – Summary badges (all platforms, CI/CD)
- *   710-750  : Fade out
+ * Timeline (30 fps, 2635 frames ≈ 87.8 s):
+ *   0-130    : Title "How Autotest Solves It" with blue underline
+ *   80-510   : Act 1 – Record Once (recording animation + proxy capture)
+ *   490-2075 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
+ *   2055-2335: Act 3 – Progress (platform status with AI-thinking style)
+ *   2315-2635: Act 4 – Summary badges (all platforms, CI/CD, scale grid)
+ *   ~2595+   : Fade out
  * ==================================================================== */
 
 export const SolutionScene: React.FC = () => {
@@ -72,14 +72,14 @@ export const SolutionScene: React.FC = () => {
           <AIPoweredAct />
         </Sequence>
 
-        {/* Act 3: Summary */}
-        <Sequence from={2055} durationInFrames={320} premountFor={30}>
-          <SummaryAct />
+        {/* Act 3: Progress */}
+        <Sequence from={2055} durationInFrames={280} premountFor={30}>
+          <ProgressAct />
         </Sequence>
 
-        {/* Act 4: Progress */}
-        <Sequence from={2355} durationInFrames={280} premountFor={30}>
-          <ProgressAct />
+        {/* Act 4: Summary */}
+        <Sequence from={2315} durationInFrames={320} premountFor={30}>
+          <SummaryAct />
         </Sequence>
       </AbsoluteFill>
     </AbsoluteFill>
@@ -1172,7 +1172,7 @@ const AIPoweredAct: React.FC = () => {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Act 4: Summary                                                     */
+/*  Act 4: Summary (rendered last in sequence)                          */
 /* ------------------------------------------------------------------ */
 const SummaryAct: React.FC = () => {
   const frame = useCurrentFrame();
@@ -1376,7 +1376,7 @@ const SummaryAct: React.FC = () => {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Act 5: Progress                                                    */
+/*  Act 3: Progress (rendered before Summary in sequence)               */
 /* ------------------------------------------------------------------ */
 const PLATFORM_STATUS = [
   {
