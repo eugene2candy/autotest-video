@@ -505,13 +505,13 @@ const AIPoweredAct: React.FC = () => {
       delay: 20,
     },
     {
-      title: "Smart Element Finding",
-      desc: "Uses element signatures to locate elements despite UI changes",
+      title: "Handles the Unexpected",
+      desc: "Permission dialogs, system popups — AI adapts automatically",
       delay: 70,
     },
     {
-      title: "Handles the Unexpected",
-      desc: "Permission dialogs, system popups — AI adapts automatically",
+      title: "Smart Element Finding",
+      desc: "Uses element signatures to locate elements despite UI changes",
       delay: 120,
     },
   ];
@@ -574,7 +574,7 @@ const AIPoweredAct: React.FC = () => {
         style={{
           position: "absolute",
           left: "42%",
-          top: "20%",
+          top: "28%",
           width: "fit-content",
         }}
       >
@@ -587,23 +587,6 @@ const AIPoweredAct: React.FC = () => {
             description={feat.desc}
           />
         ))}
-      </div>
-
-      {/* Bottom: element signature visualization */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "8%",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          opacity: interpolate(frame, [100, 125], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          }),
-        }}
-      >
-        <ElementSignatureViz frame={frame - 100} />
       </div>
     </AbsoluteFill>
   );
@@ -788,6 +771,7 @@ const AIFeatureCard: React.FC<{
           fontSize: 46,
           fontWeight: 700,
           color: MICROSOFT_BLUE,
+          textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000`,
           marginBottom: 6,
         }}
       >
