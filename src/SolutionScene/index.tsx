@@ -20,13 +20,13 @@ const MICROSOFT_BLUE = "#0078D4";
 /* ====================================================================
  * SolutionScene – Scene 2: "How Autotest Solves It"
  *
- * Timeline (30 fps, 2635 frames ≈ 87.8 s):
+ * Timeline (30 fps, 2715 frames ≈ 90.5 s):
  *   0-130    : Title "How Autotest Solves It" with blue underline
  *   80-510   : Act 1 – Record Once (recording animation + proxy capture)
  *   490-2075 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
  *   2055-2335: Act 3 – Progress (platform status with AI-thinking style)
- *   2315-2635: Act 4 – Summary badges (all platforms, CI/CD, scale grid)
- *   ~2595+   : Fade out
+ *   2315-2715: Act 4 – Summary badges → Microsoft logo morph + "Autotest"
+ *   ~2675+   : Fade out
  * ==================================================================== */
 
 export const SolutionScene: React.FC = () => {
@@ -78,7 +78,7 @@ export const SolutionScene: React.FC = () => {
         </Sequence>
 
         {/* Act 4: Summary */}
-        <Sequence from={2315} durationInFrames={320} premountFor={30}>
+        <Sequence from={2315} durationInFrames={400} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -1233,7 +1233,97 @@ const SummaryAct: React.FC = () => {
   );
 
   // Scale Grid (test cases + device icons) appears AFTER Easy to Scale badge
-  const gridOpacity = interpolate(frame, [175, 185], [0, 1], {
+  const gridOpacity = interpolate(frame, [175, 185, 275, 290], [0, 1, 1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  /* ── Microsoft logo morph ──
+   * Phase starts at frame 275. The 4 colored badges move from their
+   * horizontal row positions into a 2×2 grid at the center of the screen,
+   * morphing from rounded text badges into solid colored squares.
+   *
+   * Badge initial positions (centered row at top 3% = ~32px):
+   *   Row total = 4×280 + 3×32 = 1216, offset = (1920-1216)/2 = 352
+   *   Badge centers: 492, 804, 1116, 1428  (y center = 32 + 45 = 77)
+   *
+   * Microsoft logo target (2×2 grid centered at 960, 480):
+   *   Square size 100×100, gap 8
+   *   Red(TL): 906, 426   Green(TR): 1014, 426
+   *   Blue(BL): 906, 534   Yellow(BR): 1014, 534
+   */
+  const MORPH_START = 275;
+  const MORPH_DUR = 30;
+
+  // Morph progress (0 → 1) with spring for smooth feel
+  const morphSpring = spring({
+    frame: frame - MORPH_START,
+    fps,
+    config: { damping: 14, stiffness: 120 },
+  });
+  const morphT = interpolate(morphSpring, [0, 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Badge initial center positions (horizontal row at top)
+  const badgeInitialCenters = [
+    { x: 492, y: 77 },
+    { x: 804, y: 77 },
+    { x: 1116, y: 77 },
+    { x: 1428, y: 77 },
+  ];
+
+  // Microsoft logo target center positions (2×2 grid)
+  const LOGO_CX = 960;
+  const LOGO_CY = 480;
+  const LOGO_SQUARE = 100;
+  const LOGO_GAP = 8;
+  const logoTargetCenters = [
+    {
+      x: LOGO_CX - (LOGO_SQUARE + LOGO_GAP) / 2,
+      y: LOGO_CY - (LOGO_SQUARE + LOGO_GAP) / 2,
+    }, // Red TL
+    {
+      x: LOGO_CX + (LOGO_SQUARE + LOGO_GAP) / 2,
+      y: LOGO_CY - (LOGO_SQUARE + LOGO_GAP) / 2,
+    }, // Green TR
+    {
+      x: LOGO_CX - (LOGO_SQUARE + LOGO_GAP) / 2,
+      y: LOGO_CY + (LOGO_SQUARE + LOGO_GAP) / 2,
+    }, // Blue BL
+    {
+      x: LOGO_CX + (LOGO_SQUARE + LOGO_GAP) / 2,
+      y: LOGO_CY + (LOGO_SQUARE + LOGO_GAP) / 2,
+    }, // Yellow BR
+  ];
+
+  // Initial badge size → final square size
+  const BADGE_W = 280;
+  const BADGE_H = 90;
+
+  // Text fade: disappears as morph begins
+  const textOpacity = interpolate(
+    frame,
+    [MORPH_START, MORPH_START + 10],
+    [1, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    },
+  );
+
+  // "Autotest" label appears after logo forms
+  const labelEntrance = spring({
+    frame: frame - (MORPH_START + MORPH_DUR + 10),
+    fps,
+    config: { damping: 14, stiffness: 150 },
+  });
+  const labelOpacity = interpolate(labelEntrance, [0, 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const labelY = interpolate(labelEntrance, [0, 1], [20, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -1260,63 +1350,129 @@ const SummaryAct: React.FC = () => {
         <ScaleGrid frame={frame - 175} />
       </div>
 
-      {/* 4 badges at top */}
-      <div
-        style={{
-          position: "absolute",
-          top: "3%",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          gap: 32,
-          zIndex: 11,
-        }}
-      >
-        {badges.map((badge, i) => {
-          const badgeEntrance = spring({
-            frame: frame - badge.delay,
-            fps,
-            config: { damping: 12, stiffness: 200 },
-          });
-          const scale = interpolate(badgeEntrance, [0, 1], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          });
+      {/* 4 badges — absolutely positioned so they can morph into the Microsoft logo */}
+      {badges.map((badge, i) => {
+        const badgeEntrance = spring({
+          frame: frame - badge.delay,
+          fps,
+          config: { damping: 12, stiffness: 200 },
+        });
+        const badgeScale = interpolate(badgeEntrance, [0, 1], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
 
-          return (
-            <div
-              key={`badge-${i}`}
+        // Current position: interpolate from initial badge row to logo grid
+        const curX = interpolate(
+          morphT,
+          [0, 1],
+          [badgeInitialCenters[i].x, logoTargetCenters[i].x],
+        );
+        const curY = interpolate(
+          morphT,
+          [0, 1],
+          [badgeInitialCenters[i].y, logoTargetCenters[i].y],
+        );
+        const curW = interpolate(morphT, [0, 1], [BADGE_W, LOGO_SQUARE]);
+        const curH = interpolate(morphT, [0, 1], [BADGE_H, LOGO_SQUARE]);
+        const curRadius = interpolate(morphT, [0, 1], [16, 4]);
+
+        // Border fades out, fill transitions from translucent white to solid color
+        const borderOpacity = interpolate(morphT, [0, 0.5], [1, 0], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        // Blended background: starts as white glassmorphism, ends as solid color
+        const bgR = interpolate(
+          morphT,
+          [0, 1],
+          [255, parseInt(badge.color.slice(1, 3), 16)],
+        );
+        const bgG = interpolate(
+          morphT,
+          [0, 1],
+          [255, parseInt(badge.color.slice(3, 5), 16)],
+        );
+        const bgB = interpolate(
+          morphT,
+          [0, 1],
+          [255, parseInt(badge.color.slice(5, 7), 16)],
+        );
+        const bgA = interpolate(morphT, [0, 1], [0.85, 1]);
+
+        return (
+          <div
+            key={`badge-${i}`}
+            style={{
+              position: "absolute",
+              left: curX - curW / 2,
+              top: curY - curH / 2,
+              width: curW,
+              height: curH,
+              borderRadius: curRadius,
+              border: `3px solid ${badge.color}`,
+              borderColor: `rgba(${parseInt(badge.color.slice(1, 3), 16)}, ${parseInt(badge.color.slice(3, 5), 16)}, ${parseInt(badge.color.slice(5, 7), 16)}, ${borderOpacity})`,
+              backgroundColor: `rgba(${Math.round(bgR)}, ${Math.round(bgG)}, ${Math.round(bgB)}, ${bgA})`,
+              backdropFilter: morphT < 0.5 ? "blur(12px)" : "none",
+              boxShadow:
+                morphT < 0.5
+                  ? "0 8px 32px rgba(0,0,0,0.1)"
+                  : `0 4px 20px ${badge.color}40`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transform: `scale(${badgeScale})`,
+              opacity: badgeScale,
+              zIndex: 20,
+              overflow: "hidden",
+            }}
+          >
+            <span
               style={{
-                transform: `scale(${scale})`,
-                opacity: scale,
-                width: 280,
-                height: 90,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 16,
-                border: `3px solid ${badge.color}`,
-                backgroundColor: `rgba(255,255,255,0.85)`,
-                backdropFilter: "blur(12px)",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
+                fontFamily: FONT_FAMILY,
+                fontSize: 34,
+                fontWeight: 700,
+                color: badge.color,
+                textShadow: `0 0 8px ${badge.color}40`,
+                letterSpacing: 1,
+                opacity: textOpacity,
+                whiteSpace: "nowrap",
               }}
             >
-              <span
-                style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 34,
-                  fontWeight: 700,
-                  color: badge.color,
-                  textShadow: `0 0 8px ${badge.color}40`,
-                  letterSpacing: 1,
-                }}
-              >
-                {badge.label}
-              </span>
-            </div>
-          );
-        })}
-      </div>
+              {badge.label}
+            </span>
+          </div>
+        );
+      })}
+
+      {/* "Autotest" label below the formed Microsoft logo */}
+      {frame > MORPH_START + MORPH_DUR && (
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: LOGO_CY + LOGO_SQUARE + 40,
+            transform: `translateX(-50%) translateY(${labelY}px)`,
+            opacity: labelOpacity,
+            zIndex: 20,
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: FONT_FAMILY,
+              fontSize: 64,
+              fontWeight: 700,
+              color: "#333",
+              letterSpacing: 2,
+            }}
+          >
+            Autotest
+          </span>
+        </div>
+      )}
 
       {/* Architecture image below badges with zoom/pan */}
       <div
