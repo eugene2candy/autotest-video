@@ -1501,7 +1501,7 @@ const ProgressAct: React.FC = () => {
           top: "20%",
           left: "50%",
           transform: "translateX(-50%)",
-          width: "80%",
+          width: "65%",
           display: "flex",
           flexDirection: "column",
           gap: 16,
