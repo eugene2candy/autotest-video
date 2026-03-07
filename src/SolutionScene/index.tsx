@@ -608,27 +608,61 @@ const SummaryAct: React.FC = () => {
   const opacity = interpolate(entrance, [0, 1], [0, 1]);
 
   const badges = [
-    { label: "AI-Powered", color: "#F25022", delay: 10 },
-    { label: "All Platforms", color: "#7FBA00", delay: 25 },
-    { label: "CI Ready", color: "#00A4EF", delay: 40 },
-    { label: "Easy to Scale", color: "#FFB900", delay: 55 },
+    { label: "AI-Powered", color: "#F25022", delay: 15 },
+    { label: "All Platforms", color: "#7FBA00", delay: 50 },
+    { label: "CI Ready", color: "#00A4EF", delay: 85 },
+    { label: "Easy to Scale", color: "#FFB900", delay: 95 },
   ];
+
+  // Timeline:
+  // Frame 0-15: full image shown
+  // Frame 15-20: first badge appears, start zoom into left-center (AI Models)
+  // Frame 20-45: zoomed into AI Models area
+  // Frame 45-50: second badge appears, zoom out
+  // Frame 50-55: zoom into bottom (Devices)
+  // Frame 55-80: zoomed into Devices area
+  // Frame 80-90: zoom back to full view
+  // Frame 85-95: remaining badges appear
+
+  const zoomScale = interpolate(
+    frame,
+    [0, 15, 20, 45, 55, 80, 90],
+    [1, 1, 3, 3, 2, 2, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
+
+  // Pan X: center → far left (AI Models) → bottom-right (devices) → center
+  const panX = interpolate(
+    frame,
+    [0, 15, 20, 45, 55, 80, 90],
+    [0, 0, 450, 450, -80, -80, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
+
+  // Pan Y: center → slight up (AI Models) → down (devices) → center
+  const panY = interpolate(
+    frame,
+    [0, 15, 20, 45, 55, 80, 90],
+    [0, 0, -20, -20, -260, -260, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
 
   return (
     <AbsoluteFill
       style={{
         opacity,
-        justifyContent: "flex-start",
-        alignItems: "center",
-        paddingTop: "5%",
       }}
     >
+      {/* 4 badges at top */}
       <div
         style={{
+          position: "absolute",
+          top: "3%",
+          width: "100%",
           display: "flex",
-          gap: 32,
-          flexWrap: "nowrap",
           justifyContent: "center",
+          gap: 32,
+          zIndex: 2,
         }}
       >
         {badges.map((badge, i) => {
@@ -649,19 +683,20 @@ const SummaryAct: React.FC = () => {
                 transform: `scale(${scale})`,
                 opacity: scale,
                 width: 280,
-                height: 120,
+                height: 90,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: 16,
                 border: `3px solid ${badge.color}`,
-                backgroundColor: `${badge.color}15`,
+                backgroundColor: `rgba(255,255,255,0.5)`,
+                backdropFilter: "blur(8px)",
               }}
             >
               <span
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 36,
+                  fontSize: 34,
                   fontWeight: 700,
                   color: badge.color,
                   textShadow: `0 0 8px ${badge.color}80, 0 0 20px ${badge.color}40, 0 0 40px ${badge.color}20`,
@@ -673,6 +708,40 @@ const SummaryAct: React.FC = () => {
             </div>
           );
         })}
+      </div>
+
+      {/* Architecture image below badges with zoom/pan */}
+      <div
+        style={{
+          position: "absolute",
+          top: "15%",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            transform: `scale(${zoomScale}) translate(${panX}px, ${panY}px)`,
+            transformOrigin: "center center",
+          }}
+        >
+          <Img
+            src={staticFile("architecture.png")}
+            style={{
+              maxWidth: "95%",
+              maxHeight: "100%",
+              objectFit: "contain",
+              borderRadius: 16,
+            }}
+          />
+        </div>
       </div>
     </AbsoluteFill>
   );
@@ -894,72 +963,3 @@ const ProxyFlowDiagram: React.FC<{ frame: number }> = ({ frame }) => {
   );
 };
 
-/** Element signature visualization */
-const ElementSignatureViz: React.FC<{ frame: number }> = ({ frame }) => {
-  const opacity = interpolate(frame, [0, 15], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  const signatures = [
-    { key: "text", value: '"Login"', color: "#4fc3f7" },
-    { key: "a11y", value: '"login_button"', color: "#81c784" },
-    { key: "parent", value: '"form_container"', color: "#ffb74d" },
-    { key: "position", value: "{x: 180, y: 420}", color: "#ce93d8" },
-  ];
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        gap: 20,
-        alignItems: "center",
-        opacity,
-        padding: "16px 28px",
-        borderRadius: 12,
-        border: `1px solid ${MICROSOFT_BLUE}40`,
-        backgroundColor: `${MICROSOFT_BLUE}08`,
-      }}
-    >
-      <span
-        style={{
-          fontFamily: FONT_FAMILY,
-          fontSize: 18,
-          color: "#555",
-          fontWeight: 600,
-          marginRight: 8,
-        }}
-      >
-        Element Signature:
-      </span>
-      {signatures.map((sig, i) => {
-        const sigOpacity = interpolate(frame, [i * 10, i * 10 + 12], [0, 1], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-        });
-        return (
-          <div
-            key={`sig-${i}`}
-            style={{
-              opacity: sigOpacity,
-              padding: "6px 12px",
-              borderRadius: 6,
-              backgroundColor: `${sig.color}20`,
-              border: `1px solid ${sig.color}60`,
-            }}
-          >
-            <span
-              style={{
-                fontFamily: "'Courier New', Courier, monospace",
-                fontSize: 16,
-                color: sig.color,
-              }}
-            >
-              {sig.key}: {sig.value}
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
