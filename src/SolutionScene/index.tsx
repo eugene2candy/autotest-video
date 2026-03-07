@@ -20,13 +20,13 @@ const MICROSOFT_BLUE = "#0078D4";
 /* ====================================================================
  * SolutionScene – Scene 2: "How Autotest Solves It"
  *
- * Timeline (30 fps, 2715 frames ≈ 90.5 s):
+ * Timeline (30 fps, 2815 frames ≈ 93.8 s):
  *   0-130    : Title "How Autotest Solves It" with blue underline
  *   80-510   : Act 1 – Record Once (recording animation + proxy capture)
  *   490-2075 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
  *   2055-2335: Act 3 – Progress (platform status with AI-thinking style)
- *   2315-2715: Act 4 – Summary badges → Microsoft logo morph + "Autotest"
- *   ~2675+   : Fade out
+ *   2315-2815: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
+ *   ~2775+   : Fade out
  * ==================================================================== */
 
 export const SolutionScene: React.FC = () => {
@@ -78,7 +78,7 @@ export const SolutionScene: React.FC = () => {
         </Sequence>
 
         {/* Act 4: Summary */}
-        <Sequence from={2315} durationInFrames={400} premountFor={30}>
+        <Sequence from={2315} durationInFrames={500} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -1251,9 +1251,19 @@ const SummaryAct: React.FC = () => {
    *   Square size 100×100, gap 8
    *   Red(TL): 906, 426   Green(TR): 1014, 426
    *   Blue(BL): 906, 534   Yellow(BR): 1014, 534
+   *
+   * After logo forms:
+   *   Frame 320-345: Logo slides left, "Windows 365 Experience Team" appears
+   *   Frame 395-420: Flip to "Autotest implemented by W365X"
    */
   const MORPH_START = 275;
-  const MORPH_DUR = 30;
+
+  // Phase 2: Logo slides left, text appears
+  const SLIDE_START = 320;
+
+  // Phase 3: Flip text
+  const FLIP_START = 400;
+  const FLIP_DUR = 20;
 
   // Morph progress (0 → 1) with spring for smooth feel
   const morphSpring = spring({
@@ -1266,6 +1276,17 @@ const SummaryAct: React.FC = () => {
     extrapolateRight: "clamp",
   });
 
+  // Slide progress: logo moves from center to left
+  const slideSpring = spring({
+    frame: frame - SLIDE_START,
+    fps,
+    config: { damping: 14, stiffness: 100 },
+  });
+  const slideT = interpolate(slideSpring, [0, 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
   // Badge initial center positions (horizontal row at top)
   const badgeInitialCenters = [
     { x: 492, y: 77 },
@@ -1274,26 +1295,31 @@ const SummaryAct: React.FC = () => {
     { x: 1428, y: 77 },
   ];
 
-  // Microsoft logo target center positions (2×2 grid)
-  const LOGO_CX = 960;
+  // Microsoft logo target center positions (2×2 grid) — at screen center initially
+  const LOGO_CX_CENTER = 960;
+  const LOGO_CX_LEFT = 420; // Final left position for logo
   const LOGO_CY = 480;
   const LOGO_SQUARE = 100;
   const LOGO_GAP = 8;
-  const logoTargetCenters = [
+
+  // Current logo center X: slides from center to left
+  const logoCX = interpolate(slideT, [0, 1], [LOGO_CX_CENTER, LOGO_CX_LEFT]);
+
+  const logoTargetCenters = (cx: number) => [
     {
-      x: LOGO_CX - (LOGO_SQUARE + LOGO_GAP) / 2,
+      x: cx - (LOGO_SQUARE + LOGO_GAP) / 2,
       y: LOGO_CY - (LOGO_SQUARE + LOGO_GAP) / 2,
     }, // Red TL
     {
-      x: LOGO_CX + (LOGO_SQUARE + LOGO_GAP) / 2,
+      x: cx + (LOGO_SQUARE + LOGO_GAP) / 2,
       y: LOGO_CY - (LOGO_SQUARE + LOGO_GAP) / 2,
     }, // Green TR
     {
-      x: LOGO_CX - (LOGO_SQUARE + LOGO_GAP) / 2,
+      x: cx - (LOGO_SQUARE + LOGO_GAP) / 2,
       y: LOGO_CY + (LOGO_SQUARE + LOGO_GAP) / 2,
     }, // Blue BL
     {
-      x: LOGO_CX + (LOGO_SQUARE + LOGO_GAP) / 2,
+      x: cx + (LOGO_SQUARE + LOGO_GAP) / 2,
       y: LOGO_CY + (LOGO_SQUARE + LOGO_GAP) / 2,
     }, // Yellow BR
   ];
@@ -1313,20 +1339,41 @@ const SummaryAct: React.FC = () => {
     },
   );
 
-  // "Autotest" label appears after logo forms
-  const labelEntrance = spring({
-    frame: frame - (MORPH_START + MORPH_DUR + 10),
+  // ── "Windows 365 Experience Team" text ──
+  // Appears from center expanding to right alongside the logo slide
+  const teamTextEntrance = spring({
+    frame: frame - (SLIDE_START + 5),
     fps,
-    config: { damping: 14, stiffness: 150 },
+    config: { damping: 14, stiffness: 120 },
   });
-  const labelOpacity = interpolate(labelEntrance, [0, 1], [0, 1], {
+  const teamTextOpacity = interpolate(teamTextEntrance, [0, 1], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const labelY = interpolate(labelEntrance, [0, 1], [20, 0], {
+  const teamTextX = interpolate(teamTextEntrance, [0, 1], [60, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
+  // ── Flip animation for text swap ──
+  // rotateX goes from 0 → 90 (hide "W365 Experience Team") → continues 90→0 (show "Autotest...")
+  const flipProgress = interpolate(
+    frame,
+    [FLIP_START, FLIP_START + FLIP_DUR / 2, FLIP_START + FLIP_DUR],
+    [0, 1, 2],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
+  // Front face: 0→90° then stays hidden
+  const frontRotateX = interpolate(flipProgress, [0, 1, 2], [0, 90, 90], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  // Back face: starts at -90°, flips to 0°
+  const backRotateX = interpolate(flipProgress, [0, 1, 2], [-90, -90, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const showBackFace = frame >= FLIP_START + FLIP_DUR / 2;
 
   return (
     <AbsoluteFill
@@ -1362,16 +1409,19 @@ const SummaryAct: React.FC = () => {
           extrapolateRight: "clamp",
         });
 
+        // Logo target moves as logoCX slides left
+        const targets = logoTargetCenters(logoCX);
+
         // Current position: interpolate from initial badge row to logo grid
         const curX = interpolate(
           morphT,
           [0, 1],
-          [badgeInitialCenters[i].x, logoTargetCenters[i].x],
+          [badgeInitialCenters[i].x, targets[i].x],
         );
         const curY = interpolate(
           morphT,
           [0, 1],
-          [badgeInitialCenters[i].y, logoTargetCenters[i].y],
+          [badgeInitialCenters[i].y, targets[i].y],
         );
         const curW = interpolate(morphT, [0, 1], [BADGE_W, LOGO_SQUARE]);
         const curH = interpolate(morphT, [0, 1], [BADGE_H, LOGO_SQUARE]);
@@ -1445,32 +1495,75 @@ const SummaryAct: React.FC = () => {
         );
       })}
 
-      {/* "Autotest" label below the formed Microsoft logo */}
-      {frame > MORPH_START + MORPH_DUR && (
+      {/* Text panel — appears to the right of the logo after it slides left */}
+      {frame > SLIDE_START && (
         <div
           style={{
             position: "absolute",
-            left: "50%",
-            top: LOGO_CY + LOGO_SQUARE + 40,
-            transform: `translateX(-50%) translateY(${labelY}px)`,
-            opacity: labelOpacity,
+            left: LOGO_CX_LEFT + LOGO_SQUARE + 30,
+            top: LOGO_CY - 50,
+            width: 1100,
+            height: 100,
+            opacity: teamTextOpacity,
             zIndex: 20,
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
+            perspective: 800,
           }}
         >
-          <span
+          {/* Front face: "Windows 365 Experience Team" */}
+          <div
             style={{
-              fontFamily: FONT_FAMILY,
-              fontSize: 64,
-              fontWeight: 700,
-              color: "#333",
-              letterSpacing: 2,
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              backfaceVisibility: "hidden",
+              transform: `translateX(${teamTextX}px) rotateX(${frontRotateX}deg)`,
+              transformOrigin: "center center",
             }}
           >
-            Autotest
-          </span>
+            <span
+              style={{
+                fontFamily: FONT_FAMILY,
+                fontSize: 56,
+                fontWeight: 600,
+                color: "#333",
+                letterSpacing: 1,
+                whiteSpace: "nowrap",
+              }}
+            >
+              Windows 365 Experience Team
+            </span>
+          </div>
+
+          {/* Back face: "Autotest implemented by W365X" */}
+          {showBackFace && (
+            <div
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                backfaceVisibility: "hidden",
+                transform: `rotateX(${backRotateX}deg)`,
+                transformOrigin: "center center",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 56,
+                  fontWeight: 600,
+                  color: "#0078D4",
+                  letterSpacing: 1,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Autotest implemented by W365X
+              </span>
+            </div>
+          )}
         </div>
       )}
 
