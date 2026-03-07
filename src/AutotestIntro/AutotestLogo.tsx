@@ -18,67 +18,73 @@ const measurePath = (d: string, fallback: number): number => {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Geometry – all values in the SVG viewBox coordinate space          */
+/*  Geometry – same proportions as LogoStill (512×512 coordinate       */
+/*  space).  The SVG viewBox is shifted so the logo sits in the upper  */
+/*  portion of the 1920×1080 frame, leaving room for text below.       */
 /* ------------------------------------------------------------------ */
 
-// Left source circle
-const SRC_CX = 380;
-const SRC_CY = 400;
-const SRC_R = 80;
+const STROKE_WIDTH = 8;
+const GLOW_DOT = 12;
 
-// Branch‑point (where the horizontal line meets the fan‑out)
-const BRANCH_X = 960;
+// Source circle (left-centre)
+const SRC_CX = 100;
+const SRC_CY = 256;
+const SRC_R = 48;
+
+// Branch point
+const BRANCH_X = 260;
 const BRANCH_Y = SRC_CY;
 
-// Right target circles (top / middle / bottom)
+// Target circles
 const TARGETS = [
-  { cx: 1540, cy: 150, r: 55 }, // top
-  { cx: 1540, cy: 400, r: 45 }, // middle
-  { cx: 1540, cy: 650, r: 55 }, // bottom
+  { cx: 430, cy: 100, r: 34 }, // top
+  { cx: 430, cy: 256, r: 28 }, // middle
+  { cx: 430, cy: 412, r: 34 }, // bottom
 ];
 
-// SVG path: horizontal line from left circle edge all the way to the middle target
-const MID_TARGET = TARGETS[1];
-const STEM_PATH = `M ${SRC_CX + SRC_R} ${SRC_CY} L ${MID_TARGET.cx - MID_TARGET.r} ${MID_TARGET.cy}`;
+// Stem: left circle edge → middle target left edge
+const MID = TARGETS[1];
+const STEM_PATH = `M ${SRC_CX + SRC_R} ${SRC_CY} L ${MID.cx - MID.r} ${MID.cy}`;
 
-// SVG paths: curved branches from branch‑point to each target circle
+// Branches: only top and bottom (stem covers middle)
 const branchPath = (tx: number, ty: number, tr: number): string => {
-  // Cubic bezier that curves out from the branch point to the target
   const cpx1 = BRANCH_X + (tx - BRANCH_X) * 0.45;
   const cpy1 = BRANCH_Y;
   const cpx2 = BRANCH_X + (tx - BRANCH_X) * 0.55;
   const cpy2 = ty;
-  // End at the left edge of the target circle
   return `M ${BRANCH_X} ${BRANCH_Y} C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${tx - tr} ${ty}`;
 };
 
-// Only top and bottom branches -- the stem covers the middle path
 const BRANCH_PATHS = [TARGETS[0], TARGETS[2]].map((t) =>
   branchPath(t.cx, t.cy, t.r),
 );
 
-/* Approximate fallback lengths (close enough for dash calculations) */
-const STEM_FALLBACK = 600;
-const BRANCH_FALLBACK = 300;
-const STROKE_WIDTH = 10;
-const GLOW_DOT = 16;
+const STEM_FALLBACK = 280;
+const BRANCH_FALLBACK = 250;
 
 /* ------------------------------------------------------------------ */
-/*  Shared helper: render one path with draw‑on + glow‑dot animation  */
+/*  Animated path with draw-on + glow dot                              */
 /* ------------------------------------------------------------------ */
 const AnimatedPath: React.FC<{
   d: string;
   fallbackLength: number;
-  progress: number; // 0‑1 draw progress
+  progress: number;
   filterId: string;
   glowGradientId: string;
-}> = ({ d, fallbackLength, progress, filterId, glowGradientId }) => {
+  useFilter?: boolean;
+}> = ({
+  d,
+  fallbackLength,
+  progress,
+  filterId,
+  glowGradientId,
+  useFilter = true,
+}) => {
   const totalLen = measurePath(d, fallbackLength);
   const offset = totalLen - progress * totalLen;
 
   return (
     <>
-      {/* Drawn stroke */}
       <path
         d={d}
         fill="none"
@@ -88,8 +94,7 @@ const AnimatedPath: React.FC<{
         strokeDasharray={totalLen}
         strokeDashoffset={offset}
       />
-      {/* Leading glow halo */}
-      {progress > 0 && progress < 1 && (
+      {progress > 0 && progress < 1 && useFilter && (
         <path
           d={d}
           fill="none"
@@ -101,8 +106,7 @@ const AnimatedPath: React.FC<{
           filter={`url(#${filterId})`}
         />
       )}
-      {/* Leading bright core */}
-      {progress > 0 && progress < 1 && (
+      {progress > 0 && progress < 1 && useFilter && (
         <path
           d={d}
           fill="none"
@@ -120,7 +124,7 @@ const AnimatedPath: React.FC<{
 };
 
 /* ------------------------------------------------------------------ */
-/*  Animated circle drawn with stroke‑dashoffset on an SVG <circle>   */
+/*  Animated circle                                                    */
 /* ------------------------------------------------------------------ */
 const AnimatedCircle: React.FC<{
   cx: number;
@@ -146,7 +150,6 @@ const AnimatedCircle: React.FC<{
         strokeDasharray={circumference}
         strokeDashoffset={offset}
       />
-      {/* glow dot on circle edge */}
       {progress > 0 && progress < 1 && (
         <circle
           cx={cx}
@@ -181,26 +184,15 @@ const AnimatedCircle: React.FC<{
 };
 
 /* ------------------------------------------------------------------ */
-/*  Main exported component                                            */
+/*  Main component                                                     */
 /* ------------------------------------------------------------------ */
-
 export const AutotestLogo: React.FC<{
-  /** Total draw duration in frames */
   drawDuration?: number;
 }> = ({ drawDuration }) => {
   const frame = useCurrentFrame();
-  const { fps, width, height } = useVideoConfig();
+  const { fps } = useVideoConfig();
 
-  const dur = drawDuration ?? Math.round(2.5 * fps); // ~75 frames at 30fps
-
-  /*
-   * Timeline (all values as fraction of `dur`):
-   *
-   *  0.00 – 0.30  Draw the left (source) circle
-   *  0.20 – 0.55  Draw the horizontal stem  (overlaps slightly with circle)
-   *  0.45 – 0.80  Draw the three curved branches (staggered)
-   *  0.65 – 1.00  Draw the three target circles (staggered)
-   */
+  const dur = drawDuration ?? Math.round(2.5 * fps);
 
   const ease = Easing.inOut(Easing.quad);
   const clamp = {
@@ -214,51 +206,55 @@ export const AutotestLogo: React.FC<{
     ...clamp,
   });
 
-  // Stem (horizontal line)
+  // Stem
   const stem = interpolate(frame, [dur * 0.2, dur * 0.55], [0, 1], {
     easing: ease,
     ...clamp,
   });
 
-  // Branches (staggered by 0.06 of dur)
+  // Branches (2 — top and bottom, staggered)
   const branchProgress = BRANCH_PATHS.map((_, i) =>
     interpolate(
       frame,
-      [dur * (0.45 + i * 0.06), dur * (0.75 + i * 0.06)],
+      [dur * (0.45 + i * 0.08), dur * (0.75 + i * 0.08)],
       [0, 1],
-      {
-        easing: ease,
-        ...clamp,
-      },
+      { easing: ease, ...clamp },
     ),
   );
 
-  // Target circles (staggered, start when their branch is ~halfway done)
+  // Target circles (3 — top, middle, bottom, staggered)
   const targetProgress = TARGETS.map((_, i) =>
     interpolate(
       frame,
       [dur * (0.6 + i * 0.06), dur * (0.88 + i * 0.06)],
       [0, 1],
-      {
-        easing: ease,
-        ...clamp,
-      },
+      { easing: ease, ...clamp },
     ),
   );
 
-  // Post‑draw glow on everything
+  // Post-draw glow
   const postGlow = interpolate(frame, [dur, dur + 15], [0, 1], clamp);
 
   const filterId = "logo-glow";
   const glowGradientId = "logo-glow-grad";
 
+  /*
+   * The logo paths are in a 512×512 coordinate space (matching LogoStill).
+   * We render at ~700px (≈65% of 1080 height), centred horizontally and
+   * pushed into the upper portion so there is room for title + tagline below.
+   */
+  const logoSize = 700;
+
   return (
     <svg
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox="0 0 512 512"
       style={{
         position: "absolute",
-        width: "100%",
-        height: "100%",
+        top: "5%",
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: logoSize,
+        height: logoSize,
         filter:
           postGlow > 0
             ? `drop-shadow(0 0 ${6 + postGlow * 10}px ${MICROSOFT_BLUE})`
@@ -267,7 +263,7 @@ export const AutotestLogo: React.FC<{
     >
       <defs>
         <filter id={filterId} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feGaussianBlur stdDeviation="4" result="blur" />
           <feMerge>
             <feMergeNode in="blur" />
             <feMergeNode in="SourceGraphic" />
@@ -290,7 +286,7 @@ export const AutotestLogo: React.FC<{
         glowGradientId={glowGradientId}
       />
 
-      {/* 2. Curved branches */}
+      {/* 2. Curved branches (top & bottom) */}
       {BRANCH_PATHS.map((d, i) => (
         <AnimatedPath
           key={`branch-${i}`}
@@ -302,13 +298,14 @@ export const AutotestLogo: React.FC<{
         />
       ))}
 
-      {/* 3. Horizontal stem – rendered after branches so it's on top */}
+      {/* 3. Horizontal stem – on top of branches, no glow filter */}
       <AnimatedPath
         d={STEM_PATH}
         fallbackLength={STEM_FALLBACK}
         progress={stem}
         filterId={filterId}
         glowGradientId={glowGradientId}
+        useFilter={false}
       />
 
       {/* 4. Target circles */}
