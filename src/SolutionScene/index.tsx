@@ -204,7 +204,7 @@ const RecordOnceAct: React.FC = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: 20,
+            gap: 28,
           }}
         >
           <span style={{ color: GREEN }}>Record</span> Once
@@ -261,28 +261,27 @@ const RecordOnceAct: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom caption */}
+      {/* Bottom-left caption below bullet points */}
       <div
         style={{
           position: "absolute",
-          bottom: "8%",
-          width: "100%",
-          textAlign: "center",
+          left: "8%",
+          bottom: "12%",
         }}
       >
         <span
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 28,
+            fontSize: 44,
             color: MICROSOFT_BLUE,
-            fontWeight: 500,
+            fontWeight: 700,
             opacity: interpolate(frame, [130, 155], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
             }),
           }}
         >
-          No code writing needed — just use Appium Inspector as usual
+          No code writing needed !
         </span>
       </div>
     </AbsoluteFill>
@@ -817,9 +816,9 @@ const ProxyFlowDiagram: React.FC<{ frame: number }> = ({ frame }) => {
           <React.Fragment key={`proxy-box-${i}`}>
             <div
               style={{
-                padding: "14px 24px",
-                borderRadius: 10,
-                border: `2px solid ${box.color}`,
+                padding: "22px 40px",
+                borderRadius: 14,
+                border: `3px solid ${box.color}`,
                 backgroundColor: `${box.color}20`,
                 opacity: boxOpacity,
                 textAlign: "center",
@@ -828,7 +827,7 @@ const ProxyFlowDiagram: React.FC<{ frame: number }> = ({ frame }) => {
               <span
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 18,
+                  fontSize: 32,
                   color: box.color,
                   fontWeight: 600,
                   whiteSpace: "pre-line",
@@ -839,20 +838,20 @@ const ProxyFlowDiagram: React.FC<{ frame: number }> = ({ frame }) => {
             </div>
             {i < boxes.length - 1 && (
               <svg
-                width="20"
-                height="30"
-                viewBox="0 0 20 30"
+                width="28"
+                height="40"
+                viewBox="0 0 28 40"
                 style={{ opacity: arrowProgress }}
               >
                 <line
-                  x1="10"
+                  x1="14"
                   y1="0"
-                  x2="10"
-                  y2="22"
+                  x2="14"
+                  y2="30"
                   stroke="#555"
-                  strokeWidth="2"
+                  strokeWidth="3"
                 />
-                <polygon points="4,18 10,28 16,18" fill="#555" />
+                <polygon points="6,26 14,38 22,26" fill="#555" />
               </svg>
             )}
           </React.Fragment>
@@ -863,7 +862,7 @@ const ProxyFlowDiagram: React.FC<{ frame: number }> = ({ frame }) => {
       <div
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 15,
+          fontSize: 28,
           color: GREEN,
           fontWeight: 600,
           opacity: interpolate(frame, [40, 55], [0, 1], {
