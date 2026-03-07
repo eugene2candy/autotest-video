@@ -157,8 +157,12 @@ const RecordOnceAct: React.FC = () => {
 
   // Recording steps appearing one by one
   const steps = [
-    { label: "Open Appium Inspector", delay: 25, icon: "1" },
-    { label: "Interact naturally — tap, type, swipe", delay: 60, icon: "2" },
+    { label: "Open Autotest Portal", delay: 25, icon: "1" },
+    {
+      label: "Connect to Application — tap, type, swipe",
+      delay: 60,
+      icon: "2",
+    },
     { label: "Autotest captures everything via proxy", delay: 95, icon: "3" },
   ];
 
@@ -688,23 +692,23 @@ const SolutionStep: React.FC<{
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 16,
-        marginBottom: 32,
+        gap: 24,
+        marginBottom: 44,
         opacity,
         transform: `translateX(${translateX}px)`,
       }}
     >
       <div
         style={{
-          minWidth: 48,
-          height: 48,
-          borderRadius: 24,
+          minWidth: 64,
+          height: 64,
+          borderRadius: 32,
           backgroundColor: GREEN,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontFamily: FONT_FAMILY,
-          fontSize: 24,
+          fontSize: 32,
           fontWeight: 700,
           color: "white",
         }}
@@ -714,9 +718,10 @@ const SolutionStep: React.FC<{
       <span
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 32,
+          fontSize: 38,
           color: "white",
-          fontWeight: 500,
+          fontWeight: 600,
+          whiteSpace: "nowrap",
         }}
       >
         {text}
