@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 2 Feature 1 | Video: 45.5-50.0s | AI terminal + evidence evaluation -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      During replay, AI evaluates the screen in real time — analyzing screenshots and page structure to confirm the app is in the expected state.
+    </mstts:express-as>
+  </voice>
+</speak>

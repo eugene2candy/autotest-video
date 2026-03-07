@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 4 Badge 3 | Video: 107.0-110.0s | CI pipeline flow -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      It's CI-ready — build, test on real devices, and publish reports. <break time="300ms"/> All automated.
+    </mstts:express-as>
+  </voice>
+</speak>

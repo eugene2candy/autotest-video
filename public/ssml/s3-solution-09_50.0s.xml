@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 2 Feature 2 intro | Video: 50.0-53.0s | "Handles the Unexpected" card -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      But what about unexpected popups? <break time="300ms"/> Permission dialogs? <break time="300ms"/> System interruptions?
+    </mstts:express-as>
+  </voice>
+</speak>

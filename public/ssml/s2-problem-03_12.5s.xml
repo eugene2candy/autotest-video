@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 2: Act 1 | Video: 12.5-15.5s | Third bullet + clock + mood shift -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Every device, every OS version, every update — tested by hand, again and again. <break time="500ms"/> Time wasted.
+    </mstts:express-as>
+  </voice>
+</speak>

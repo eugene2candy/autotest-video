@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 2: Act 2 | Video: 16.7-19.0s | Code typing animation -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      So teams try automation — Appium selectors, hard-coded element IDs.
+    </mstts:express-as>
+  </voice>
+</speak>

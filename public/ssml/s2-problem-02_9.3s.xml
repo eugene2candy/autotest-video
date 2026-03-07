@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 2: Act 1 | Video: 9.3-12.5s | Character typing + bullet points 1&2 -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Our teams rely on vendor testers — clicking through every screen, every flow, by hand. <break time="400ms"/> It's repetitive, slow, and error-prone.
+    </mstts:express-as>
+  </voice>
+</speak>

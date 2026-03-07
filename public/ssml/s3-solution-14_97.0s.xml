@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 3 Platform rows | Video: 97.0-103.0s -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Android is fully implemented. <break time="500ms"/> iOS and Windows are technically verified and in progress. <break time="500ms"/> macOS, Linux, and Browser are on the roadmap.
+    </mstts:express-as>
+  </voice>
+</speak>

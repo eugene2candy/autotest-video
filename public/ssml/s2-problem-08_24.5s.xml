@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 2: Act 3 | Video: 24.5-25.5s | Big red X slam -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      More devices, more bugs slipping through.
+    </mstts:express-as>
+  </voice>
+</speak>

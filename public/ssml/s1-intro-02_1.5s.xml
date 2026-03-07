@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 1: Intro | Video: 1.5-4.0s | Title springs in -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      A new way to test your app's UI <break time="300ms"/> — across every device, every platform.
+    </mstts:express-as>
+  </voice>
+</speak>

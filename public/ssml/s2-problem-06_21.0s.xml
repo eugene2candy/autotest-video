@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 2: Act 2 | Video: 21.0-22.7s | Android OEM caption -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Especially on Android, with so many OEM-customized devices.
+    </mstts:express-as>
+  </voice>
+</speak>

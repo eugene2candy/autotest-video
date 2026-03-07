@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 4 Flip | Video: 117.0-119.0s | Text flips -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Autotest <break time="400ms"/> — designed for daily work.
+    </mstts:express-as>
+  </voice>
+</speak>

@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 1 Bullet 1 | Video: 31.5-34.5s | Portal screenshots -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Open the Autotest portal. <break time="400ms"/> Connect to your device through Appium Inspector.
+    </mstts:express-as>
+  </voice>
+</speak>

@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 2: Problem | Title | Video: 6.0-9.0s -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Today, <break time="300ms"/> mobile UI testing is painful.
+    </mstts:express-as>
+  </voice>
+</speak>

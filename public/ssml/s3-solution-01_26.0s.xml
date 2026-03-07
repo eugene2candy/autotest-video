@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Solution Title | Video: 26.0-29.0s -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Here's how Autotest solves it.
+    </mstts:express-as>
+  </voice>
+</speak>

@@ -1,0 +1,227 @@
+{
+  "voice": "en-US-JennyNeural",
+  "style": "narration-professional",
+  "fps": 30,
+  "totalDurationFrames": 3595,
+  "totalDurationSec": 119.83,
+  "segments": [
+    {
+      "index": 1,
+      "file": "s1-intro-01_0.0s.xml",
+      "videoStartSec": 0.0,
+      "videoEndSec": 1.5,
+      "scene": "Intro"
+    },
+    {
+      "index": 2,
+      "file": "s1-intro-02_1.5s.xml",
+      "videoStartSec": 1.5,
+      "videoEndSec": 4.0,
+      "scene": "Intro"
+    },
+    {
+      "index": 3,
+      "file": "s1-intro-03_4.0s.xml",
+      "videoStartSec": 4.0,
+      "videoEndSec": 5.5,
+      "scene": "Intro"
+    },
+    {
+      "index": 4,
+      "file": "s2-problem-01_6.0s.xml",
+      "videoStartSec": 6.0,
+      "videoEndSec": 9.0,
+      "scene": "Problem - Title"
+    },
+    {
+      "index": 5,
+      "file": "s2-problem-02_9.3s.xml",
+      "videoStartSec": 9.3,
+      "videoEndSec": 12.5,
+      "scene": "Problem - Manual Testing"
+    },
+    {
+      "index": 6,
+      "file": "s2-problem-03_12.5s.xml",
+      "videoStartSec": 12.5,
+      "videoEndSec": 15.5,
+      "scene": "Problem - Manual Testing"
+    },
+    {
+      "index": 7,
+      "file": "s2-problem-04_16.7s.xml",
+      "videoStartSec": 16.7,
+      "videoEndSec": 19.0,
+      "scene": "Problem - Brittle Scripts"
+    },
+    {
+      "index": 8,
+      "file": "s2-problem-05_19.0s.xml",
+      "videoStartSec": 19.0,
+      "videoEndSec": 21.0,
+      "scene": "Problem - Brittle Scripts"
+    },
+    {
+      "index": 9,
+      "file": "s2-problem-06_21.0s.xml",
+      "videoStartSec": 21.0,
+      "videoEndSec": 22.7,
+      "scene": "Problem - Brittle Scripts"
+    },
+    {
+      "index": 10,
+      "file": "s2-problem-07_22.7s.xml",
+      "videoStartSec": 22.7,
+      "videoEndSec": 24.5,
+      "scene": "Problem - Cannot Scale"
+    },
+    {
+      "index": 11,
+      "file": "s2-problem-08_24.5s.xml",
+      "videoStartSec": 24.5,
+      "videoEndSec": 25.5,
+      "scene": "Problem - Cannot Scale"
+    },
+    {
+      "index": 12,
+      "file": "s3-solution-01_26.0s.xml",
+      "videoStartSec": 26.0,
+      "videoEndSec": 29.0,
+      "scene": "Solution - Title"
+    },
+    {
+      "index": 13,
+      "file": "s3-solution-02_29.7s.xml",
+      "videoStartSec": 29.7,
+      "videoEndSec": 31.5,
+      "scene": "Solution - Record Once"
+    },
+    {
+      "index": 14,
+      "file": "s3-solution-03_31.5s.xml",
+      "videoStartSec": 31.5,
+      "videoEndSec": 34.5,
+      "scene": "Solution - Record Once"
+    },
+    {
+      "index": 15,
+      "file": "s3-solution-04_34.5s.xml",
+      "videoStartSec": 34.5,
+      "videoEndSec": 37.5,
+      "scene": "Solution - Record Once"
+    },
+    {
+      "index": 16,
+      "file": "s3-solution-05_37.5s.xml",
+      "videoStartSec": 37.5,
+      "videoEndSec": 41.0,
+      "scene": "Solution - Record Once"
+    },
+    {
+      "index": 17,
+      "file": "s3-solution-06_41.0s.xml",
+      "videoStartSec": 41.0,
+      "videoEndSec": 43.0,
+      "scene": "Solution - Record Once"
+    },
+    {
+      "index": 18,
+      "file": "s3-solution-07_43.0s.xml",
+      "videoStartSec": 43.0,
+      "videoEndSec": 45.5,
+      "scene": "Solution - AI-Powered"
+    },
+    {
+      "index": 19,
+      "file": "s3-solution-08_45.5s.xml",
+      "videoStartSec": 45.5,
+      "videoEndSec": 50.0,
+      "scene": "Solution - AI Evidence"
+    },
+    {
+      "index": 20,
+      "file": "s3-solution-09_50.0s.xml",
+      "videoStartSec": 50.0,
+      "videoEndSec": 53.0,
+      "scene": "Solution - Unexpected"
+    },
+    {
+      "index": 21,
+      "file": "s3-solution-10_53.0s.xml",
+      "videoStartSec": 53.0,
+      "videoEndSec": 60.0,
+      "scene": "Solution - Dismiss Videos"
+    },
+    {
+      "index": 22,
+      "file": "s3-solution-11_60.0s.xml",
+      "videoStartSec": 60.0,
+      "videoEndSec": 67.0,
+      "scene": "Solution - Dismiss Videos"
+    },
+    {
+      "index": 23,
+      "file": "s3-solution-12_87.0s.xml",
+      "videoStartSec": 87.0,
+      "videoEndSec": 95.0,
+      "scene": "Solution - Smart Element",
+      "note": "Intentional silence from 67.0s-87.0s during dismiss video playback"
+    },
+    {
+      "index": 24,
+      "file": "s3-solution-13_95.0s.xml",
+      "videoStartSec": 95.0,
+      "videoEndSec": 97.0,
+      "scene": "Solution - Platform Progress"
+    },
+    {
+      "index": 25,
+      "file": "s3-solution-14_97.0s.xml",
+      "videoStartSec": 97.0,
+      "videoEndSec": 103.0,
+      "scene": "Solution - Platform Progress"
+    },
+    {
+      "index": 26,
+      "file": "s3-solution-15_104.0s.xml",
+      "videoStartSec": 104.0,
+      "videoEndSec": 105.5,
+      "scene": "Solution - Summary"
+    },
+    {
+      "index": 27,
+      "file": "s3-solution-16_105.5s.xml",
+      "videoStartSec": 105.5,
+      "videoEndSec": 107.0,
+      "scene": "Solution - Summary"
+    },
+    {
+      "index": 28,
+      "file": "s3-solution-17_107.0s.xml",
+      "videoStartSec": 107.0,
+      "videoEndSec": 110.0,
+      "scene": "Solution - Summary"
+    },
+    {
+      "index": 29,
+      "file": "s3-solution-18_110.0s.xml",
+      "videoStartSec": 110.0,
+      "videoEndSec": 113.0,
+      "scene": "Solution - Summary"
+    },
+    {
+      "index": 30,
+      "file": "s3-solution-19_114.5s.xml",
+      "videoStartSec": 114.5,
+      "videoEndSec": 117.0,
+      "scene": "Solution - Summary"
+    },
+    {
+      "index": 31,
+      "file": "s3-solution-20_117.0s.xml",
+      "videoStartSec": 117.0,
+      "videoEndSec": 119.0,
+      "scene": "Solution - Summary"
+    }
+  ]
+}

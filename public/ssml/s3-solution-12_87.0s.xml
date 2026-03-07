@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 2 Feature 3 | Video: 87.0-95.0s | Smart Element Finding panel -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      When the UI differs across devices, <break time="300ms"/> Autotest uses rich element signatures — accessibility labels, parent context, spatial position — to find the right element. <break time="500ms"/> The same signature matches across Emulator, Pixel, and Samsung.
+    </mstts:express-as>
+  </voice>
+</speak>

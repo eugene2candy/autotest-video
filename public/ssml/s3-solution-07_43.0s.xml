@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 2 Title | Video: 43.0-45.5s | AI-Powered Intelligence -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Step two <break time="400ms"/> — replay everywhere, powered by AI.
+    </mstts:express-as>
+  </voice>
+</speak>

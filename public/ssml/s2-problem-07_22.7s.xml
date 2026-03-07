@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 2: Act 3 | Video: 22.7-24.5s | Device grid multiplying -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      And as devices multiply, <break time="300ms"/> this approach doesn't scale.
+    </mstts:express-as>
+  </voice>
+</speak>

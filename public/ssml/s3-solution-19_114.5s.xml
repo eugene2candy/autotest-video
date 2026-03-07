@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 4 MS logo | Video: 114.5-117.0s | Logo slides left + team text -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Built by the Windows 365 Experience Team <break time="300ms"/> at Microsoft.
+    </mstts:express-as>
+  </voice>
+</speak>

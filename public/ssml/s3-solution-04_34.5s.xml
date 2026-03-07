@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 1 Bullet 2 | Video: 34.5-37.5s | Tap, Type, Swipe -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Then just use your app — tap, type, swipe — like a real user would.
+    </mstts:express-as>
+  </voice>
+</speak>

@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 4 Badge 1 | Video: 104.0-105.5s | "AI-Powered" -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Autotest is AI-powered.
+    </mstts:express-as>
+  </voice>
+</speak>

@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 1 Caption | Video: 41.0-43.0s | "No code writing needed!" -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      No code writing needed.
+    </mstts:express-as>
+  </voice>
+</speak>

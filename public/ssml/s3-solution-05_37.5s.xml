@@ -1,0 +1,9 @@
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+  <!-- Scene 3: Act 1 Bullet 3 | Video: 37.5-41.0s | Autotest captures -->
+  <voice name="en-US-JennyNeural">
+    <mstts:express-as style="narration-professional">
+      Autotest captures every interaction — screenshots, XML snapshots, element signatures — all through its transparent proxy.
+    </mstts:express-as>
+  </voice>
+</speak>
