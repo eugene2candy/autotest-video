@@ -222,7 +222,7 @@ const RecordOnceAct: React.FC = () => {
             gap: 28,
           }}
         >
-          <span style={{ color: GREEN }}>Record</span>{" "}
+          <span style={{ color: "#e53935" }}>Record</span>{" "}
           <span style={{ color: "#111" }}>Once</span>
           <div style={{ marginLeft: 10 }}>
             <RecordButton scale={0.8} />
@@ -320,23 +320,14 @@ const ReplayEverywhereAct: React.FC = () => {
   const opacity = interpolate(entrance, [0, 1], [0, 1]);
   const translateY = interpolate(entrance, [0, 1], [60, 0]);
 
-  const devices = [
-    { label: "Android", delay: 30 },
-    { label: "iOS", delay: 45 },
-    { label: "Windows", delay: 60 },
-    { label: "macOS", delay: 75 },
-    { label: "Linux", delay: 90 },
-    { label: "Browser", delay: 105 },
+  const platforms = [
+    { name: "Android", devices: ["Samsung", "Pixel", "Xiaomi", "OnePlus", "Huawei", "Oppo", "Vivo", "Sony"], delay: 20 },
+    { name: "iOS / iPadOS", devices: ["iPhone 16", "iPhone 15", "iPhone 14", "iPhone 13", "iPad Pro", "iPad Air", "iPad Mini", "iPhone SE"], delay: 40 },
+    { name: "Windows", devices: ["Dell", "HP", "Lenovo", "Asus", "Acer", "MSI", "Surface", "Razer"], delay: 60 },
+    { name: "macOS", devices: ["MacBook Pro", "MacBook Air", "iMac", "Mac Mini", "Mac Studio", "Mac Pro", "iMac 24\"", "MacBook 13\""], delay: 80 },
+    { name: "Linux", devices: ["Ubuntu", "Fedora", "Debian", "Arch", "RHEL", "SUSE", "Mint", "CentOS"], delay: 100 },
+    { name: "Browser", devices: ["Chrome", "Safari", "Firefox", "Edge", "Opera", "Brave", "Arc", "Vivaldi"], delay: 120 },
   ];
-
-  // "All pass" celebration
-  const allPassFrame = 130;
-  const celebrationOpacity = interpolate(
-    frame,
-    [allPassFrame, allPassFrame + 15],
-    [0, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-  );
 
   const actFade = interpolate(frame, [165, 200], [1, 0], {
     extrapolateLeft: "clamp",
@@ -354,7 +345,7 @@ const ReplayEverywhereAct: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: "6%",
+          top: "4%",
           width: "100%",
           textAlign: "center",
         }}
@@ -368,108 +359,125 @@ const ReplayEverywhereAct: React.FC = () => {
             margin: 0,
           }}
         >
-          <span style={{ color: GREEN }}>Replay</span> Everywhere
+          One Time <span style={{ color: "#e53935" }}>Record</span>, <span style={{ color: GREEN }}>Replay</span> Everywhere
         </h2>
       </div>
 
-      {/* Device grid with green checks appearing */}
+      {/* Platform rows */}
       <div
         style={{
           position: "absolute",
-          top: "22%",
-          width: "100%",
+          top: "18%",
+          left: "50%",
+          transform: "translateX(-50%)",
           display: "flex",
-          justifyContent: "center",
-          gap: 30,
+          flexDirection: "column",
+          gap: 10,
         }}
       >
-        {devices.map((d, i) => {
-          const deviceEntrance = spring({
-            frame: frame - d.delay,
+        {platforms.map((platform, i) => {
+          const rowEntrance = spring({
+            frame: frame - platform.delay,
             fps,
             config: { damping: 15, stiffness: 200 },
           });
-          const s = interpolate(deviceEntrance, [0, 1], [0, 1], {
+          const rowOpacity = interpolate(rowEntrance, [0, 1], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           });
-          const showCheck = frame > d.delay + 20;
+          const rowX = interpolate(rowEntrance, [0, 1], [40, 0], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
 
           return (
             <div
-              key={`replay-device-${i}`}
+              key={`platform-${i}`}
               style={{
                 display: "flex",
-                flexDirection: "column",
                 alignItems: "center",
-                transform: `scale(${s})`,
-                opacity: s,
+                gap: 20,
+                opacity: rowOpacity,
+                transform: `translateX(${rowX}px)`,
               }}
             >
-              <DeviceWithCheck
-                scale={1.5}
-                label={d.label}
-                showCheck={showCheck}
-              />
+              {/* Left: platform test case label */}
+              <div
+                style={{
+                  width: 380,
+                  flexShrink: 0,
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 34,
+                  fontWeight: 700,
+                  color: "#111",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {platform.name} Test Cases
+              </div>
+
+              {/* Arrow */}
+              <span
+                style={{
+                  width: 50,
+                  flexShrink: 0,
+                  textAlign: "center",
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 42,
+                  color: "#333",
+                  display: "inline-block",
+                  transform: `translateX(${interpolate(
+                    (frame + i * 5) % 30,
+                    [0, 15, 30],
+                    [0, 8, 0],
+                  )}px)`,
+                  opacity: interpolate(
+                    (frame + i * 5) % 30,
+                    [0, 15, 30],
+                    [0.5, 1, 0.5],
+                  ),
+                }}
+              >
+                →
+              </span>
+
+              {/* Right: device icons */}
+              <div style={{ display: "flex", gap: 14 }}>
+                {platform.devices.map((device, j) => {
+                  const deviceDelay = platform.delay + 10 + j * 8;
+                  const showCheck = frame > deviceDelay + 15;
+                  const deviceEntrance = spring({
+                    frame: frame - deviceDelay,
+                    fps,
+                    config: { damping: 15, stiffness: 200 },
+                  });
+                  const s = interpolate(deviceEntrance, [0, 1], [0, 1], {
+                    extrapolateLeft: "clamp",
+                    extrapolateRight: "clamp",
+                  });
+
+                  return (
+                    <div
+                      key={`device-${i}-${j}`}
+                      style={{
+                        transform: `scale(${s})`,
+                        opacity: s,
+                      }}
+                    >
+                      <DeviceWithCheck
+                        scale={1.2}
+                        label={device}
+                        showCheck={showCheck}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           );
         })}
       </div>
 
-      {/* Arrow from "one source" label */}
-      <div
-        style={{
-          position: "absolute",
-          top: "18%",
-          left: "10%",
-          opacity: interpolate(frame, [15, 35], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          }),
-        }}
-      >
-        <span
-          style={{
-            fontFamily: FONT_FAMILY,
-            fontSize: 24,
-            color: "#555",
-          }}
-        >
-          Same test case →
-        </span>
-      </div>
-
-      {/* Celebration text */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "12%",
-          width: "100%",
-          textAlign: "center",
-          opacity: celebrationOpacity,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: FONT_FAMILY,
-            fontSize: 40,
-            color: GREEN,
-            fontWeight: 700,
-          }}
-        >
-          All Platforms — All Passing
-        </span>
-        <div
-          style={{
-            fontFamily: FONT_FAMILY,
-            fontSize: 26,
-            color: "#555",
-            marginTop: 12,
-          }}
-        >
-          One time record, replay everywhere
-        </div>
-      </div>
     </AbsoluteFill>
   );
 };
