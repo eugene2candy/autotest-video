@@ -193,8 +193,9 @@ const ManualTestingAct: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: "15%",
-          top: "20%",
+          left: "10%",
+          top: "50%",
+          transform: "translateY(-50%)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -221,7 +222,8 @@ const ManualTestingAct: React.FC = () => {
         style={{
           position: "absolute",
           right: "3%",
-          top: "12%",
+          top: "50%",
+          transform: "translateY(-50%)",
           width: "55%",
         }}
       >
@@ -229,7 +231,7 @@ const ManualTestingAct: React.FC = () => {
           frame={frame}
           delay={10}
           icon="1"
-          text="UI testing fully relies on human manual testing"
+          text="Fully relies on human manual testing"
         />
         <ProblemBullet
           frame={frame}
@@ -241,7 +243,7 @@ const ManualTestingAct: React.FC = () => {
           frame={frame}
           delay={90}
           icon="3"
-          text="Every device, every OS version, every update..."
+          text="Every device, OS version, update..."
           subtext="tested by hand, again and again"
         />
       </div>
@@ -250,8 +252,8 @@ const ManualTestingAct: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: "12%",
-          top: "18%",
+          left: "7%",
+          top: "15%",
           transform: `scale(${clockScale})`,
           opacity: captionOpacity,
           display: "flex",
