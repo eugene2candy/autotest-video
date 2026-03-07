@@ -1255,7 +1255,7 @@ const SummaryAct: React.FC = () => {
    *
    * After logo forms:
    *   Frame 320-345: Logo slides left, "Windows 365 Experience Team" appears
-   *   Frame 395-420: Flip to "Autotest implemented by W365X"
+   *   Frame 395-420: Flip to "Autotest designed for daily work"
    */
   const MORPH_START = 275;
 
@@ -1537,7 +1537,7 @@ const SummaryAct: React.FC = () => {
             </span>
           </div>
 
-          {/* Back face: "Autotest implemented by W365X" */}
+          {/* Back face: "Autotest designed for daily work" */}
           {showBackFace && (
             <div
               style={{
@@ -1561,7 +1561,7 @@ const SummaryAct: React.FC = () => {
                 }}
               >
                 <span style={{ color: "#0078D4" }}>Autotest</span>
-                <span style={{ color: "#444" }}> implemented by W365X</span>
+                <span style={{ color: "#444" }}> designed for daily work</span>
               </span>
             </div>
           )}
