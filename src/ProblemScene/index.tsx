@@ -208,7 +208,7 @@ const ManualTestingAct: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: "10%",
+          left: "5%",
           top: "50%",
           transform: "translateY(-50%)",
           display: "flex",
@@ -239,7 +239,7 @@ const ManualTestingAct: React.FC = () => {
           right: "3%",
           top: "50%",
           transform: "translateY(-50%)",
-          width: "55%",
+          width: "62%",
         }}
       >
         <ProblemBullet
@@ -280,7 +280,7 @@ const ManualTestingAct: React.FC = () => {
         <span
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 22,
+            fontSize: 40,
             color: RED,
             fontWeight: 600,
           }}
@@ -385,8 +385,8 @@ const BrittleScriptsAct: React.FC = () => {
           left: "8%",
           top: "22%",
           width: "50%",
-          backgroundColor: `rgba(229, 57, 53, ${breakFlash})`,
-          border: "2px solid #bbb",
+          backgroundColor: `rgba(0, 0, 0, ${Math.max(0.9, 0.9 + breakFlash)})`,
+          border: "2px solid #333",
           borderRadius: 12,
           padding: 28,
           transition: "none",
@@ -396,7 +396,7 @@ const BrittleScriptsAct: React.FC = () => {
           style={{
             fontFamily: "'Courier New', Courier, monospace",
             fontSize: 34,
-            color: "#4fc3f7",
+            color: "#fff",
             lineHeight: 1.9,
             whiteSpace: "pre-wrap",
           }}
@@ -430,7 +430,7 @@ const BrittleScriptsAct: React.FC = () => {
           style={{
             fontFamily: FONT_FAMILY,
             fontSize: 40,
-            color: "#555",
+            color: "#333",
             fontWeight: 600,
             marginBottom: 16,
           }}
@@ -477,7 +477,7 @@ const BrittleScriptsAct: React.FC = () => {
           style={{
             fontFamily: FONT_FAMILY,
             fontSize: 46,
-            color: RED,
+            color: "#111",
             fontWeight: 600,
             opacity: interpolate(frame, [130, 155], [0, 1], {
               extrapolateLeft: "clamp",
@@ -630,7 +630,8 @@ const CannotScaleAct: React.FC = () => {
           style={{
             fontFamily: FONT_FAMILY,
             fontSize: 46,
-            color: "#555",
+            color: "#111",
+            fontWeight: 700,
             opacity: interpolate(frame, [40, 65], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
@@ -680,15 +681,15 @@ const ProblemBullet: React.FC<{
     >
       <div
         style={{
-          minWidth: 64,
-          height: 64,
-          borderRadius: 32,
+          minWidth: 76,
+          height: 76,
+          borderRadius: 38,
           backgroundColor: RED,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontFamily: FONT_FAMILY,
-          fontSize: 32,
+          fontSize: 40,
           fontWeight: 700,
           color: "white",
         }}
@@ -699,7 +700,7 @@ const ProblemBullet: React.FC<{
         <div
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 48,
+            fontSize: 60,
             color: "#111",
             fontWeight: 600,
             lineHeight: 1.4,
@@ -711,8 +712,8 @@ const ProblemBullet: React.FC<{
           <div
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 36,
-              color: "#555",
+              fontSize: 46,
+              color: "#333",
               fontWeight: 400,
               marginTop: 6,
             }}
@@ -737,15 +738,29 @@ function renderTypedCode(lines: string[], charsTyped: number): React.ReactNode {
     remaining -= lineChars;
 
     const isComment = lineText.trimStart().startsWith("//");
+    const highlighted = highlightKeywords(lineText, isComment);
     result.push(
       <div
         key={`codeline-${i}`}
-        style={{ color: isComment ? "#666" : "#4fc3f7" }}
+        style={{ color: isComment ? "#888" : "#fff" }}
       >
-        {lineText}
+        {highlighted}
       </div>,
     );
   }
 
   return result;
+}
+
+function highlightKeywords(text: string, isComment: boolean): React.ReactNode {
+  if (isComment) return text;
+  const parts = text.split(/(\.click\(\)|\.sendKeys\(\.\.\.\))/);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    part === ".click()" || part === ".sendKeys(...)" ? (
+      <span key={i} style={{ color: "#e53935" }}>{part}</span>
+    ) : (
+      <span key={i}>{part}</span>
+    ),
+  );
 }

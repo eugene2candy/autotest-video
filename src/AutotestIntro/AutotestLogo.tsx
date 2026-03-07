@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
 
-const MICROSOFT_BLUE = "#0078D4";
+const MICROSOFT_BLUE = "#004E8C";
 
 /**
  * Measure the total length of an SVG path string via a temporary DOM element.

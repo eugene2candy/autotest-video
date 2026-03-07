@@ -12,7 +12,7 @@ import {
 import { AutotestLogo } from "./AutotestLogo";
 
 const FONT_FAMILY = "SF Pro Text, Helvetica, Arial, sans-serif";
-const MICROSOFT_BLUE = "#0078D4";
+const MICROSOFT_BLUE = "#004E8C";
 
 /**
  * AutotestIntro – opening scene of the Autotest demo video.
@@ -112,7 +112,7 @@ const WelcomeTitle: React.FC = () => {
             style={{
               fontFamily: FONT_FAMILY,
               fontWeight: 700,
-              fontSize: 100,
+              fontSize: 130,
               color: "#111",
               display: "inline-block",
               marginLeft: 14,
@@ -159,9 +159,9 @@ const Tagline: React.FC = () => {
       <span
         style={{
           fontFamily: FONT_FAMILY,
-          fontWeight: 400,
-          fontSize: 44,
-          color: MICROSOFT_BLUE,
+          fontWeight: 600,
+          fontSize: 60,
+          color: "#333",
           letterSpacing: 3,
         }}
       >
