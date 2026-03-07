@@ -10,6 +10,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { Video } from "@remotion/media";
 import { RecordButton, DeviceWithCheck } from "./SolutionIcons";
 
 const FONT_FAMILY = "SF Pro Text, Helvetica, Arial, sans-serif";
@@ -67,12 +68,12 @@ export const SolutionScene: React.FC = () => {
         </Sequence>
 
         {/* Act 2: AI-Powered */}
-        <Sequence from={490} durationInFrames={320} premountFor={30}>
+        <Sequence from={490} durationInFrames={1500} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
         {/* Act 3: Summary */}
-        <Sequence from={790} durationInFrames={320} premountFor={30}>
+        <Sequence from={1970} durationInFrames={320} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -402,16 +403,32 @@ const AI_TERMINAL_LINES: { text: string; color?: string }[] = [
 const AITerminal: React.FC<{
   frame: number;
   startFrame: number;
-  /** Callback-style: returns the frame at which all log lines finish typing */
-}> = ({ frame, startFrame }) => {
+  /** Frame (relative to parent, not local) at which the terminal begins to fade out */
+  endFrame?: number;
+}> = ({ frame, startFrame, endFrame }) => {
   const localFrame = frame - startFrame;
   if (localFrame < 0) return null;
 
+  // If past the fade-out window, don't render at all
+  const fadeOutDuration = 12; // frames to fade out
+  if (endFrame !== undefined && frame > endFrame + fadeOutDuration) return null;
+
   // Terminal entrance animation
-  const terminalOpacity = interpolate(localFrame, [0, 12], [0, 1], {
+  const entranceOpacity = interpolate(localFrame, [0, 12], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
+  // Terminal exit fade-out
+  const exitOpacity =
+    endFrame !== undefined
+      ? interpolate(frame, [endFrame, endFrame + fadeOutDuration], [1, 0], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        })
+      : 1;
+
+  const terminalOpacity = entranceOpacity * exitOpacity;
   const terminalScale = interpolate(localFrame, [0, 12], [0.95, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -556,6 +573,102 @@ const AITerminal: React.FC<{
   );
 };
 
+/* ------------------------------------------------------------------ */
+/*  Dismiss Videos Panel – 3 device dismiss videos side-by-side        */
+/* ------------------------------------------------------------------ */
+const DISMISS_VIDEOS = [
+  { src: "emulator - dismiss.mp4", label: "Emulator" },
+  { src: "pixel - dismiss.mp4", label: "Pixel" },
+  { src: "sumsung - dismiss.mp4", label: "Samsung" },
+] as const;
+
+/** Shows 3 dismiss videos stacked vertically in the left panel area.
+ *  Fades in when `startFrame` is reached (matching bullet 2 timing). */
+const DismissVideosPanel: React.FC<{
+  frame: number;
+  startFrame: number;
+}> = ({ frame, startFrame }) => {
+  const localFrame = frame - startFrame;
+  if (localFrame < 0) return null;
+
+  const fadeIn = interpolate(localFrame, [0, 15], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const slideUp = interpolate(localFrame, [0, 15], [30, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.quad),
+  });
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: "2.5%",
+        top: "50%",
+        width: "37%",
+        opacity: fadeIn,
+        transform: `translateY(calc(-50% + ${slideUp}px))`,
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "stretch",
+        gap: 8,
+      }}
+    >
+      {DISMISS_VIDEOS.map((vid, i) => {
+        // Stagger each video entrance slightly
+        const stagger = i * 4;
+        const itemOpacity = interpolate(
+          localFrame,
+          [stagger, stagger + 12],
+          [0, 1],
+          { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+        );
+
+        return (
+          <div
+            key={vid.label}
+            style={{
+              flex: 1,
+              opacity: itemOpacity,
+              borderRadius: 10,
+              overflow: "hidden",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Video
+              src={staticFile(vid.src)}
+              muted
+              style={{
+                width: "100%",
+                display: "block",
+              }}
+            />
+            {/* Device label — pushed to bottom so all labels align */}
+            <div
+              style={{
+                color: "#222",
+                fontFamily: FONT_FAMILY,
+                fontSize: 28,
+                fontWeight: 700,
+                textAlign: "center",
+                padding: "6px 0",
+                letterSpacing: 0.5,
+                marginTop: "auto",
+              }}
+            >
+              {vid.label}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 const AIPoweredAct: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -583,11 +696,11 @@ const AIPoweredAct: React.FC = () => {
     {
       title: "Smart Element Finding",
       desc: "Uses element signatures to locate elements despite UI changes",
-      delay: 190,
+      delay: 1380,
     },
   ];
 
-  const actFade = interpolate(frame, [265, 300], [1, 0], {
+  const actFade = interpolate(frame, [1440, 1475], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -631,8 +744,11 @@ const AIPoweredAct: React.FC = () => {
         </h2>
       </div>
 
-      {/* AI Terminal - left side */}
-      <AITerminal frame={frame} startFrame={30} />
+      {/* AI Terminal - left side (fades out when bullet 2 "Handles the Unexpected" appears) */}
+      <AITerminal frame={frame} startFrame={30} endFrame={140} />
+
+      {/* Dismiss videos - left side (appears when bullet 2 appears at frame 140) */}
+      <DismissVideosPanel frame={frame} startFrame={140} />
 
       {/* Feature list */}
       <div
