@@ -546,7 +546,7 @@ const AIPoweredAct: React.FC = () => {
             margin: 0,
           }}
         >
-          <span style={{ color: MICROSOFT_BLUE }}>AI-Powered</span> Intelligence
+          <span style={{ color: MICROSOFT_BLUE, textShadow: `0 0 8px ${MICROSOFT_BLUE}80, 0 0 20px ${MICROSOFT_BLUE}40, 0 0 40px ${MICROSOFT_BLUE}20`, letterSpacing: 1 }}>AI-Powered</span> Intelligence
         </h2>
       </div>
 
@@ -760,7 +760,8 @@ const AIFeatureCard: React.FC<{
         padding: "20px 24px",
         borderRadius: 12,
         border: `2px solid ${MICROSOFT_BLUE}40`,
-        backgroundColor: `${MICROSOFT_BLUE}10`,
+        backgroundColor: `rgba(255, 255, 255, 0.25)`,
+        backdropFilter: "blur(16px)",
         opacity,
         transform: `translateX(${translateX}px)`,
       }}
@@ -771,7 +772,8 @@ const AIFeatureCard: React.FC<{
           fontSize: 46,
           fontWeight: 700,
           color: MICROSOFT_BLUE,
-          textShadow: `-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000`,
+          textShadow: `0 0 8px ${MICROSOFT_BLUE}80, 0 0 20px ${MICROSOFT_BLUE}40, 0 0 40px ${MICROSOFT_BLUE}20`,
+          letterSpacing: 1,
           marginBottom: 6,
         }}
       >
