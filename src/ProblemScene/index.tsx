@@ -220,9 +220,9 @@ const ManualTestingAct: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          right: "8%",
-          top: "15%",
-          width: "45%",
+          right: "3%",
+          top: "12%",
+          width: "55%",
         }}
       >
         <ProblemBullet
@@ -412,14 +412,15 @@ const BrittleScriptsAct: React.FC = () => {
         <span
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 24,
+            fontSize: 40,
             color: "#999",
-            marginBottom: 8,
+            fontWeight: 600,
+            marginBottom: 16,
           }}
         >
           Different devices, different results:
         </span>
-        <div style={{ display: "flex", gap: 14, flexWrap: "wrap", width: 340 }}>
+        <div style={{ display: "flex", gap: 20, flexWrap: "wrap", width: 520 }}>
           {devices.map((d, i) => {
             const deviceEntrance = spring({
               frame: frame - d.delay,
@@ -436,7 +437,7 @@ const BrittleScriptsAct: React.FC = () => {
                 style={{ transform: `scale(${s})`, opacity: s }}
               >
                 <DeviceScreen
-                  scale={0.9}
+                  scale={1.5}
                   broken={frame > d.delay + 10}
                   label={d.label}
                 />
@@ -654,23 +655,23 @@ const ProblemBullet: React.FC<{
       style={{
         display: "flex",
         alignItems: "flex-start",
-        gap: 16,
-        marginBottom: 32,
+        gap: 24,
+        marginBottom: 48,
         opacity,
         transform: `translateX(${translateX}px)`,
       }}
     >
       <div
         style={{
-          minWidth: 44,
-          height: 44,
-          borderRadius: 22,
+          minWidth: 64,
+          height: 64,
+          borderRadius: 32,
           backgroundColor: RED,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontFamily: FONT_FAMILY,
-          fontSize: 22,
+          fontSize: 32,
           fontWeight: 700,
           color: "white",
         }}
@@ -681,7 +682,7 @@ const ProblemBullet: React.FC<{
         <div
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 32,
+            fontSize: 48,
             color: "white",
             fontWeight: 600,
             lineHeight: 1.4,
@@ -693,10 +694,10 @@ const ProblemBullet: React.FC<{
           <div
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 24,
+              fontSize: 36,
               color: "#999",
               fontWeight: 400,
-              marginTop: 4,
+              marginTop: 6,
             }}
           >
             {subtext}
