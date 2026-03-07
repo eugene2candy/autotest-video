@@ -608,27 +608,27 @@ const SummaryAct: React.FC = () => {
   const opacity = interpolate(entrance, [0, 1], [0, 1]);
 
   const badges = [
-    { label: "All Platforms", color: MICROSOFT_BLUE, delay: 10 },
-    { label: "CI/CD Ready", color: GREEN, delay: 25 },
-    { label: "AI-Powered", color: "#ff9800", delay: 40 },
-    { label: "Easy to Scale", color: "#9c27b0", delay: 55 },
+    { label: "AI-Powered", color: "#F25022", delay: 10 },
+    { label: "All Platforms", color: "#7FBA00", delay: 25 },
+    { label: "CI Ready", color: "#00A4EF", delay: 40 },
+    { label: "Easy to Scale", color: "#FFB900", delay: 55 },
   ];
 
   return (
     <AbsoluteFill
       style={{
         opacity,
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
+        paddingTop: "5%",
       }}
     >
       <div
         style={{
           display: "flex",
           gap: 32,
-          flexWrap: "wrap",
+          flexWrap: "nowrap",
           justifyContent: "center",
-          maxWidth: 1200,
         }}
       >
         {badges.map((badge, i) => {
@@ -648,7 +648,11 @@ const SummaryAct: React.FC = () => {
               style={{
                 transform: `scale(${scale})`,
                 opacity: scale,
-                padding: "24px 48px",
+                width: 280,
+                height: 120,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 borderRadius: 16,
                 border: `3px solid ${badge.color}`,
                 backgroundColor: `${badge.color}15`,
@@ -660,6 +664,8 @@ const SummaryAct: React.FC = () => {
                   fontSize: 36,
                   fontWeight: 700,
                   color: badge.color,
+                  textShadow: `0 0 8px ${badge.color}80, 0 0 20px ${badge.color}40, 0 0 40px ${badge.color}20`,
+                  letterSpacing: 1,
                 }}
               >
                 {badge.label}
