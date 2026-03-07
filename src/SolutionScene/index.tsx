@@ -20,16 +20,16 @@ const MICROSOFT_BLUE = "#0078D4";
 /* ====================================================================
  * SolutionScene – Scene 2: "How Autotest Solves It"
  *
- * Timeline (30 fps, 4894 frames ≈ 163.1 s):
+ * Timeline (30 fps, 4302 frames ≈ 143.4 s):
  *   0-120    : Title "How Autotest Solves It" with blue underline
  *   120-960  : Act 1 – Record Once (recording animation + proxy capture)
- *   960-3477 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
- *   3477-3971: Act 3 – Progress (platform status with AI-thinking style)
- *   3971-4894: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
- *   ~4854+   : Fade out
+ *   960-2925 : Act 2 – AI-Powered Intelligence (terminal, dismiss videos, smart element)
+ *   2925-3419: Act 3 – Progress (platform status with AI-thinking style)
+ *   3419-4302: Act 4 – Summary badges → MS logo morph → slide left + team text → flip
+ *   ~4262+   : Fade out
  * ==================================================================== */
 
-const SOLUTION_DURATION = 4894;
+const SOLUTION_DURATION = 4302;
 
 export const SolutionScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -69,17 +69,17 @@ export const SolutionScene: React.FC = () => {
         </Sequence>
 
         {/* Act 2: AI-Powered */}
-        <Sequence from={960} durationInFrames={2517} premountFor={30}>
+        <Sequence from={960} durationInFrames={1965} premountFor={30}>
           <AIPoweredAct />
         </Sequence>
 
         {/* Act 3: Progress */}
-        <Sequence from={3477} durationInFrames={494} premountFor={30}>
+        <Sequence from={2925} durationInFrames={494} premountFor={30}>
           <ProgressAct />
         </Sequence>
 
         {/* Act 4: Summary */}
-        <Sequence from={3971} durationInFrames={883} premountFor={30}>
+        <Sequence from={3419} durationInFrames={883} premountFor={30}>
           <SummaryAct />
         </Sequence>
       </AbsoluteFill>
@@ -600,8 +600,8 @@ const DISMISS_VIDEOS = [
 
 /** Shows 3 dismiss videos side-by-side in the left panel area.
  *  Wrapped in a <Sequence> by the parent so videos start at the right time.
- *  Fades out after the longest video finishes (~1230 frames). */
-const DISMISS_VIDEO_DURATION = 1230; // ~41s at 30fps (longest video)
+ *  Videos play at 1.35x speed so they finish before the Smart Element panel appears. */
+const DISMISS_VIDEO_DURATION = 910; // ~30.3s at 30fps (41s source / 1.35x playback)
 const DismissVideosPanel: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -662,6 +662,7 @@ const DismissVideosPanel: React.FC = () => {
             <Video
               src={staticFile(vid.src)}
               muted
+              playbackRate={1.35}
               style={{
                 width: "100%",
                 display: "block",
@@ -1085,16 +1086,16 @@ const AIPoweredAct: React.FC = () => {
     {
       title: "Handles the Unexpected",
       desc: "Permission dialogs, system popups — AI adapts automatically",
-      delay: 226,
+      delay: 442,
     },
     {
       title: "Smart Element Finding",
       desc: "Uses element signatures to locate elements despite UI changes",
-      delay: 2265,
+      delay: 1377,
     },
   ];
 
-  const actFade = interpolate(frame, [2459, 2517], [1, 0], {
+  const actFade = interpolate(frame, [1907, 1965], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -1138,16 +1139,16 @@ const AIPoweredAct: React.FC = () => {
         </h2>
       </div>
 
-      {/* AI Terminal - left side (fades out when bullet 2 "Handles the Unexpected" appears) */}
-      <AITerminal frame={frame} startFrame={49} endFrame={226} />
+      {/* AI Terminal - left side (fades out as AI Evidence narration finishes) */}
+      <AITerminal frame={frame} startFrame={49} endFrame={435} />
 
-      {/* Dismiss videos - left side (appears after bullet 2 fade-in completes) */}
-      <Sequence from={251}>
+      {/* Dismiss videos - left side (appears with bullet 2 "Handles the Unexpected") */}
+      <Sequence from={457}>
         <DismissVideosPanel />
       </Sequence>
 
       {/* Smart Element workflow - left side (appears with bullet 3) */}
-      <SmartElementPanel frame={frame} startFrame={2273} />
+      <SmartElementPanel frame={frame} startFrame={1385} />
 
       {/* Feature list */}
       <div

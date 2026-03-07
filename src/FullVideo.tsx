@@ -6,7 +6,7 @@ import { SolutionScene } from "./SolutionScene";
 
 const INTRO_DURATION = 366;
 const PROBLEM_DURATION = 1630;
-const SOLUTION_DURATION = 4894;
+const SOLUTION_DURATION = 4302;
 
 export const FULL_VIDEO_DURATION =
   INTRO_DURATION + PROBLEM_DURATION + SOLUTION_DURATION; // 6890
@@ -40,16 +40,15 @@ const NARRATION_SEGMENTS: [string, number][] = [
   ["s3-solution-09_50.0s", 3398],
   ["s3-solution-10_53.0s", 3635],
   ["s3-solution-11_60.0s", 3960],
-  // ~20s silence gap for dismiss video playback
-  ["s3-solution-12_87.0s", 4951],
-  ["s3-solution-13_95.0s", 5493],
-  ["s3-solution-14_97.0s", 5580],
-  ["s3-solution-15_104.0s", 5982],
-  ["s3-solution-16_105.5s", 6064],
-  ["s3-solution-17_107.0s", 6149],
-  ["s3-solution-18_110.0s", 6372],
-  ["s3-solution-19_114.5s", 6542],
-  ["s3-solution-20_117.0s", 6702],
+  ["s3-solution-12_87.0s", 4351],
+  ["s3-solution-13_95.0s", 4941],
+  ["s3-solution-14_97.0s", 5028],
+  ["s3-solution-15_104.0s", 5430],
+  ["s3-solution-16_105.5s", 5512],
+  ["s3-solution-17_107.0s", 5597],
+  ["s3-solution-18_110.0s", 5820],
+  ["s3-solution-19_114.5s", 5990],
+  ["s3-solution-20_117.0s", 6150],
 ];
 
 /**

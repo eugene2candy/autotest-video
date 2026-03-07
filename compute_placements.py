@@ -39,11 +39,11 @@ PROB_ACT1_START = PROB_TITLE_DUR  # 135
 PROB_ACT2_START = PROB_ACT1_START + PROB_ACT1_DUR  # 756
 PROB_ACT3_START = PROB_ACT2_START + PROB_ACT2_DUR  # 1306
 
-# SOLUTION: 4894 frames
-SOLUTION_DUR = 4894
+# SOLUTION: 4302 frames (was 4894 — shrunk by eliminating 20s dismiss gap)
+SOLUTION_DUR = 4302
 SOL_TITLE_DUR = 120
 SOL_RECORD_DUR = 840
-SOL_AI_DUR = 2517
+SOL_AI_DUR = 1965  # was 2517 — shrunk after removing dismiss gap
 SOL_PROGRESS_DUR = 494
 SOL_SUMMARY_DUR = 883
 SOL_FADE = 40
@@ -51,8 +51,8 @@ SOL_FADE = 40
 SOL_TITLE_START = 0
 SOL_RECORD_START = SOL_TITLE_DUR  # 120
 SOL_AI_START = SOL_RECORD_START + SOL_RECORD_DUR  # 960
-SOL_PROGRESS_START = SOL_AI_START + SOL_AI_DUR  # 3477
-SOL_SUMMARY_START = SOL_PROGRESS_START + SOL_PROGRESS_DUR  # 3971
+SOL_PROGRESS_START = SOL_AI_START + SOL_AI_DUR  # 2925
+SOL_SUMMARY_START = SOL_PROGRESS_START + SOL_PROGRESS_DUR  # 3419
 
 # ============================================================
 # COMPUTE ABSOLUTE FRAME POSITIONS FOR AUDIO
@@ -159,8 +159,9 @@ for scene_label in [
         all_placements.append((seg, ai_cursor))
         ai_cursor += seg["audio_frames"] + PAUSE_FRAMES
 
-# Add 20s silence gap for watching dismiss videos
-ai_cursor += 600  # 20s at 30fps
+# Small pause after dismiss narration before smart element narration
+# (Previously 20s / 600 frames gap — now just the standard pause)
+ai_cursor += 0  # No extra gap — standard PAUSE_FRAMES already applied above
 
 # Smart Element Finding
 smart_segs = [s for s in segments if s["scene"] == "Solution - Smart Element"]
