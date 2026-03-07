@@ -378,9 +378,9 @@ const BrittleScriptsAct: React.FC = () => {
         <div
           style={{
             fontFamily: "'Courier New', Courier, monospace",
-            fontSize: 22,
+            fontSize: 34,
             color: "#4fc3f7",
-            lineHeight: 1.8,
+            lineHeight: 1.9,
             whiteSpace: "pre-wrap",
           }}
         >
@@ -420,7 +420,7 @@ const BrittleScriptsAct: React.FC = () => {
         >
           Different devices, different results:
         </span>
-        <div style={{ display: "flex", gap: 20, flexWrap: "wrap", width: 520 }}>
+        <div style={{ display: "flex", gap: 20, flexWrap: "nowrap" }}>
           {devices.map((d, i) => {
             const deviceEntrance = spring({
               frame: frame - d.delay,
