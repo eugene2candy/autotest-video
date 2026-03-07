@@ -459,7 +459,7 @@ const BrittleScriptsAct: React.FC = () => {
         <span
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 30,
+            fontSize: 46,
             color: RED,
             fontWeight: 600,
             opacity: interpolate(frame, [130, 155], [0, 1], {
@@ -539,9 +539,9 @@ const CannotScaleAct: React.FC = () => {
         style={{
           display: "flex",
           flexWrap: "wrap",
-          gap: 10,
+          gap: 18,
           justifyContent: "center",
-          maxWidth: 800,
+          maxWidth: 1200,
           marginTop: 40,
         }}
       >
@@ -560,7 +560,7 @@ const CannotScaleAct: React.FC = () => {
               }}
             >
               <DeviceScreen
-                scale={0.7}
+                scale={1.5}
                 label={["Android", "iOS", "Win", "Mac", "Linux", "Web"][i % 6]}
               />
             </div>
@@ -612,7 +612,7 @@ const CannotScaleAct: React.FC = () => {
         <span
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 32,
+            fontSize: 46,
             color: "#999",
             opacity: interpolate(frame, [40, 65], [0, 1], {
               extrapolateLeft: "clamp",
