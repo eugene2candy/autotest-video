@@ -399,117 +399,6 @@ const AI_TERMINAL_LINES: { text: string; color?: string }[] = [
   },
 ];
 
-/* Smart Element Finding – curated log lines showing how element
-   signatures locate elements across different devices and UI states */
-const SMART_ELEMENT_LINES: { text: string; color?: string }[] = [
-  { text: '[Emulator] Step 1: tap - accessibility id="Add"' },
-  { text: "  Waiting for element..." },
-  {
-    text: "  Element found in 33ms",
-    color: "#4caf50",
-  },
-  {
-    text: "  XML signature: 18/18 matched (100.0%)",
-    color: "#4caf50",
-  },
-  { text: "" },
-  { text: '[Pixel] Step 1: tap - accessibility id="Add"' },
-  { text: "  Waiting for element..." },
-  {
-    text: "  Element found in 69ms",
-    color: "#4caf50",
-  },
-  {
-    text: "  XML signature: 18/18 matched (100.0%)",
-    color: "#4caf50",
-  },
-  { text: "" },
-  { text: '[Samsung] Step 1: tap - accessibility id="Add"' },
-  { text: "  Waiting for element..." },
-  {
-    text: "  Element found in 46ms",
-    color: "#4caf50",
-  },
-  {
-    text: "  XML signature: 18/18 matched (100.0%)",
-    color: "#4caf50",
-  },
-  { text: "" },
-  { text: '[Emulator] Step 3: sendKeys - xpath="...EditText"' },
-  { text: "  Waiting for element..." },
-  {
-    text: "  Element found in 428ms",
-    color: "#4caf50",
-  },
-  {
-    text: "  XML signature: 19/20 matched (95.0%)",
-    color: "#FFB900",
-  },
-  {
-    text: '    Missing: TextView text="Sign in"',
-    color: "#FFB900",
-  },
-  {
-    text: "    UI changed — still matched via signature",
-    color: "#4caf50",
-  },
-  { text: "" },
-  { text: '[Pixel] Step 5: sendKeys - xpath="...i0118"' },
-  { text: "  Waiting for element..." },
-  {
-    text: "  Element found in 207ms",
-    color: "#4caf50",
-  },
-  {
-    text: "  XML signature: 31/34 matched (91.2%)",
-    color: "#FFB900",
-  },
-  {
-    text: "    3 elements differ from recording",
-    color: "#FFB900",
-  },
-  {
-    text: "    Signature match above 70% threshold",
-    color: "#4caf50",
-  },
-  { text: "" },
-  { text: '[Samsung] Step 5: sendKeys - xpath="...i0118"' },
-  { text: "  Waiting for element..." },
-  {
-    text: "  Element found in 81ms",
-    color: "#4caf50",
-  },
-  {
-    text: "  XML signature: 31/34 matched (91.2%)",
-    color: "#FFB900",
-  },
-  {
-    text: "    Signature match above 70% threshold",
-    color: "#4caf50",
-  },
-  { text: "" },
-  { text: "[Emulator] Verifying final screen state" },
-  {
-    text: "  XML signature: 29/29 matched (100.0%)",
-    color: "#4caf50",
-  },
-  { text: "[Pixel] Verifying final screen state" },
-  {
-    text: "  XML signature: 29/29 matched (100.0%)",
-    color: "#4caf50",
-  },
-  { text: "[Samsung] Verifying final screen state" },
-  {
-    text: "  XML signature: 29/29 matched (100.0%)",
-    color: "#4caf50",
-  },
-  { text: "" },
-  {
-    text: "  All devices: element signatures verified",
-    color: "#4caf50",
-  },
-];
-
 /** Animated terminal window showing typed-out log lines */
 const AITerminal: React.FC<{
   frame: number;
@@ -794,6 +683,380 @@ const DismissVideosPanel: React.FC = () => {
   );
 };
 
+/* ------------------------------------------------------------------ */
+/*  Smart Element Panel – Workflow showing element signature matching   */
+/* ------------------------------------------------------------------ */
+const SIGNATURE_DEVICES = [
+  { name: "Emulator", match: 18, total: 18, pct: 100, color: "#4caf50" },
+  { name: "Pixel", match: 31, total: 34, pct: 91.2, color: "#FFB900" },
+  { name: "Samsung", match: 19, total: 20, pct: 95.0, color: "#FFB900" },
+] as const;
+
+/** Workflow-style panel showing how an element signature recorded on one device
+ *  is matched across multiple devices despite UI differences.
+ *  Top-to-bottom layout: source signature card on top, arrows down, device cards below. */
+const SmartElementPanel: React.FC<{ frame: number; startFrame: number }> = ({
+  frame,
+  startFrame,
+}) => {
+  const { fps } = useVideoConfig();
+  const localFrame = frame - startFrame;
+  if (localFrame < 0) return null;
+
+  // Entrance
+  const entranceOpacity = interpolate(localFrame, [0, 15], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const entranceScale = interpolate(localFrame, [0, 15], [0.92, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.quad),
+  });
+
+  // Source card (the recorded signature) – springs in first
+  const srcSpring = spring({
+    frame: localFrame,
+    fps,
+    config: { damping: 14, stiffness: 180 },
+  });
+  const srcScale = interpolate(srcSpring, [0, 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Signature lines in the source card – reveal one by one
+  const sigLines = [
+    'accessibility_id: "Add"',
+    "class: android.widget.Button",
+    "parent: LinearLayout",
+    "siblings: [TextView, ImageView]",
+    "depth: 5 / tree_size: 18",
+  ];
+
+  const cardStyle = (borderColor: string): React.CSSProperties => ({
+    borderRadius: 16,
+    border: `3px solid ${borderColor}`,
+    backgroundColor: "rgba(255,255,255,0.55)",
+    backdropFilter: "blur(10px)",
+    boxShadow: "0 6px 24px rgba(0,0,0,0.1)",
+    display: "flex",
+    flexDirection: "column",
+    padding: "14px 20px",
+    overflow: "hidden",
+  });
+
+  const monoStyle: React.CSSProperties = {
+    fontFamily: "SF Mono, Consolas, monospace",
+    fontSize: 35,
+    lineHeight: 1.55,
+    color: "#444",
+  };
+
+  // Device cards arrive with stagger
+  const deviceStagger = 18;
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: "1.5%",
+        top: "55%",
+        width: "39%",
+        opacity: entranceOpacity,
+        transform: `scale(${entranceScale}) translateY(-50%)`,
+        transformOrigin: "center center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 0,
+      }}
+    >
+      {/* TOP: Source signature card */}
+      <div
+        style={{
+          transform: `scale(${srcScale})`,
+          opacity: srcScale,
+          width: "100%",
+        }}
+      >
+        <div style={{ ...cardStyle(MICROSOFT_BLUE), width: "100%" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              marginBottom: 8,
+            }}
+          >
+            <span style={{ fontSize: 36 }}>🔍</span>
+            <span
+              style={{
+                fontFamily: FONT_FAMILY,
+                fontSize: 32,
+                fontWeight: 700,
+                color: MICROSOFT_BLUE,
+              }}
+            >
+              Recorded Element Signature
+            </span>
+          </div>
+          {sigLines.map((line, i) => {
+            const lineDelay = 8 + i * 5;
+            const lineOpacity = interpolate(
+              localFrame,
+              [lineDelay, lineDelay + 6],
+              [0, 1],
+              {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              },
+            );
+            return (
+              <div
+                key={`sig-${i}`}
+                style={{ ...monoStyle, opacity: lineOpacity }}
+              >
+                {line}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* MIDDLE: Downward arrows — one per device, side-by-side */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          width: "100%",
+          height: 60,
+          flexShrink: 0,
+        }}
+      >
+        {SIGNATURE_DEVICES.map((_, i) => {
+          const arrowDelay = 30 + i * deviceStagger;
+          const arrowFill = interpolate(
+            localFrame,
+            [arrowDelay, arrowDelay + 12],
+            [0, 100],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+          );
+          const arrowOpacity = interpolate(
+            localFrame,
+            [arrowDelay, arrowDelay + 4],
+            [0, 1],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+          );
+          return (
+            <div
+              key={`arrow-${i}`}
+              style={{
+                width: 8,
+                height: 50,
+                position: "relative",
+                opacity: arrowOpacity,
+              }}
+            >
+              {/* Track */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: 8,
+                  height: "100%",
+                  backgroundColor: `${MICROSOFT_BLUE}25`,
+                  borderRadius: 4,
+                }}
+              />
+              {/* Fill */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: 8,
+                  height: `${arrowFill}%`,
+                  backgroundColor: MICROSOFT_BLUE,
+                  borderRadius: 4,
+                }}
+              />
+              {/* Arrowhead (downward) */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: -10,
+                  left: -6,
+                  width: 0,
+                  height: 0,
+                  borderLeft: "10px solid transparent",
+                  borderRight: "10px solid transparent",
+                  borderTop: `12px solid ${MICROSOFT_BLUE}`,
+                  opacity: arrowFill > 85 ? 1 : 0,
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* BOTTOM: Device match cards — side-by-side in a row */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 14,
+          width: "100%",
+        }}
+      >
+        {SIGNATURE_DEVICES.map((dev, i) => {
+          const devDelay = 38 + i * deviceStagger;
+          const devSpring = spring({
+            frame: localFrame - devDelay,
+            fps,
+            config: { damping: 14, stiffness: 180 },
+          });
+          const devScale = interpolate(devSpring, [0, 1], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+
+          // Match bar fills after device card arrives
+          const barDelay = devDelay + 10;
+          const barFill = interpolate(
+            localFrame,
+            [barDelay, barDelay + 18],
+            [0, dev.pct],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+          );
+
+          // Checkmark appears when bar is full
+          const showCheck = localFrame > barDelay + 20;
+          const checkOpacity = interpolate(
+            localFrame,
+            [barDelay + 20, barDelay + 26],
+            [0, 1],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+          );
+
+          const isFullMatch = dev.pct >= 100;
+
+          return (
+            <div
+              key={`dev-${i}`}
+              style={{
+                flex: 1,
+                transform: `scale(${devScale})`,
+                opacity: devScale,
+                transformOrigin: "top center",
+              }}
+            >
+              <div style={cardStyle(dev.color)}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    marginBottom: 6,
+                  }}
+                >
+                  <span style={{ fontSize: 32 }}>📱</span>
+                  <span
+                    style={{
+                      fontFamily: FONT_FAMILY,
+                      fontSize: 30,
+                      fontWeight: 700,
+                      color: "#222",
+                    }}
+                  >
+                    {dev.name}
+                  </span>
+                </div>
+                {/* Match fraction */}
+                <div
+                  style={{
+                    fontFamily: "SF Mono, Consolas, monospace",
+                    fontSize: 35,
+                    fontWeight: 700,
+                    color: dev.color,
+                    textAlign: "center",
+                    marginBottom: 6,
+                  }}
+                >
+                  {barFill >= dev.pct
+                    ? `${dev.match}/${dev.total}`
+                    : `${Math.floor((barFill / 100) * dev.total)}/${dev.total}`}
+                  {showCheck && (
+                    <span
+                      style={{
+                        fontSize: 24,
+                        marginLeft: 8,
+                        opacity: checkOpacity,
+                      }}
+                    >
+                      ✅
+                    </span>
+                  )}
+                </div>
+                {/* Match progress bar */}
+                <div
+                  style={{
+                    width: "100%",
+                    height: 10,
+                    backgroundColor: "#e8e8e8",
+                    borderRadius: 5,
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: `${barFill}%`,
+                      height: "100%",
+                      backgroundColor:
+                        isFullMatch && barFill >= 100 ? "#4caf50" : dev.color,
+                      borderRadius: 5,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Summary label after all devices match */}
+      {(() => {
+        const summaryDelay = 38 + 2 * deviceStagger + 30 + 26;
+        const summaryOpacity = interpolate(
+          localFrame,
+          [summaryDelay, summaryDelay + 12],
+          [0, 1],
+          { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+        );
+        return (
+          <div
+            style={{
+              opacity: summaryOpacity,
+              fontFamily: FONT_FAMILY,
+              fontSize: 30,
+              fontWeight: 700,
+              color: "#333",
+              textAlign: "center",
+              marginTop: 14,
+            }}
+          >
+            All devices matched via element signatures
+          </div>
+        );
+      })()}
+    </div>
+  );
+};
+
 const AIPoweredAct: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -877,13 +1140,8 @@ const AIPoweredAct: React.FC = () => {
         <DismissVideosPanel />
       </Sequence>
 
-      {/* Smart Element terminal - left side (appears with bullet 3) */}
-      <AITerminal
-        frame={frame}
-        startFrame={1405}
-        lines={SMART_ELEMENT_LINES}
-        title="autotest -- Smart Element Finding"
-      />
+      {/* Smart Element workflow - left side (appears with bullet 3) */}
+      <SmartElementPanel frame={frame} startFrame={1405} />
 
       {/* Feature list */}
       <div
