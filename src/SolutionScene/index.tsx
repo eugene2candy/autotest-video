@@ -156,7 +156,7 @@ const SectionTitle: React.FC = () => {
 /* ------------------------------------------------------------------ */
 const RecordOnceAct: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, height } = useVideoConfig();
 
   const entrance = spring({
     frame,
@@ -292,7 +292,9 @@ const RecordOnceAct: React.FC = () => {
             style={{
               display: "block",
               maxWidth: "100%",
-              maxHeight: "95vh",
+              maxHeight: isPortraitImage
+                ? Math.round(height * 0.72)
+                : Math.round(height * 0.95),
             }}
           />
         )}
