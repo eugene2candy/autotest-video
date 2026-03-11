@@ -7,6 +7,54 @@ import { ProblemScene } from "./ProblemScene";
 import { SolutionScene } from "./SolutionScene";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
+import { RecordOnceGif } from "./RecordOnceGif";
+import { ReplayEverywhereStill } from "./ReplayEverywhereStill";
+import { AIFeatureStill, aiFeatureSchema } from "./AIFeatureStill";
+import { AITerminalGif } from "./AITerminalGif";
+import { SmartElementStill } from "./SmartElementStill";
+import { DismissVideoGif, dismissVideoSchema } from "./DismissVideoGif";
+import { SolutionStepStill, solutionStepSchema } from "./SolutionStepStill";
+import { SummaryBadgeStill, summaryBadgeSchema } from "./SummaryBadgeStill";
+import { CIPipelineGif } from "./CIPipelineGif";
+import { ScaleGridGif } from "./ScaleGridGif";
+import { MicrosoftLogoMorph } from "./MicrosoftLogoMorph";
+import { TitlePageStill, titlePageSchema } from "./TitlePageStill";
+
+const FEATURES = [
+  {
+    id: "AIFeature-Evidence",
+    title: "AI Evidence Evaluation",
+    description: "AI analyzes screenshots & XML to verify app state",
+  },
+  {
+    id: "AIFeature-Unexpected",
+    title: "Handles the Unexpected",
+    description: "Permission dialogs, system popups — AI adapts automatically",
+  },
+  {
+    id: "AIFeature-SmartElement",
+    title: "Smart Element Finding",
+    description:
+      "Uses element signatures to locate elements despite UI changes",
+  },
+] as const;
+
+const STEPS = [
+  { id: "Step-OpenPortal", icon: "1", text: "Open Autotest Portal" },
+  { id: "Step-Connect", icon: "2", text: "Connect \u2014 Tap, Type, Swipe" },
+  {
+    id: "Step-Captures",
+    icon: "3",
+    text: "Autotest captures everything",
+  },
+] as const;
+
+const BADGES = [
+  { id: "Badge-AIPowered", label: "AI-Powered", color: "#F25022" },
+  { id: "Badge-AllPlatforms", label: "All Platforms", color: "#7FBA00" },
+  { id: "Badge-CIReady", label: "CI Ready", color: "#00A4EF" },
+  { id: "Badge-EasyToScale", label: "Easy to Scale", color: "#FFB900" },
+] as const;
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -60,6 +108,58 @@ export const RemotionRoot: React.FC = () => {
         height={512}
       />
 
+      <Still
+        id="ReplayEverywhereStill"
+        component={ReplayEverywhereStill}
+        width={1920}
+        height={1080}
+      />
+
+      {FEATURES.map((feat) => (
+        <Still
+          key={feat.id}
+          id={feat.id}
+          component={AIFeatureStill}
+          width={1100}
+          height={166}
+          schema={aiFeatureSchema}
+          defaultProps={{
+            title: feat.title,
+            description: feat.description,
+          }}
+        />
+      ))}
+
+      {STEPS.map((step) => (
+        <Still
+          key={step.id}
+          id={step.id}
+          component={SolutionStepStill}
+          width={950}
+          height={76}
+          schema={solutionStepSchema}
+          defaultProps={{
+            icon: step.icon,
+            text: step.text,
+          }}
+        />
+      ))}
+
+      {BADGES.map((badge) => (
+        <Still
+          key={badge.id}
+          id={badge.id}
+          component={SummaryBadgeStill}
+          width={280}
+          height={90}
+          schema={summaryBadgeSchema}
+          defaultProps={{
+            label: badge.label,
+            color: badge.color,
+          }}
+        />
+      ))}
+
       <Composition
         // You can take the "id" to render a video:
         // npx remotion render HelloWorld
@@ -78,6 +178,123 @@ export const RemotionRoot: React.FC = () => {
           logoColor1: "#91EAE4",
           logoColor2: "#86A8E7",
         }}
+      />
+
+      {/* Record Once title + icon for infinite-loop GIF export */}
+      <Composition
+        id="RecordOnceGif"
+        component={RecordOnceGif}
+        durationInFrames={47}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* AI Terminal typewriter animation for GIF export */}
+      <Composition
+        id="AITerminalGif"
+        component={AITerminalGif}
+        durationInFrames={122}
+        fps={30}
+        width={710}
+        height={842}
+      />
+
+      {/* Smart Element signature panel — static still for PPT */}
+      <Still
+        id="SmartElementStill"
+        component={SmartElementStill}
+        width={750}
+        height={700}
+      />
+
+      {/* CI Pipeline workflow GIF — all 4 steps visible, Testing... dots animate */}
+      <Composition
+        id="CIPipelineGif"
+        component={CIPipelineGif}
+        durationInFrames={20}
+        fps={30}
+        width={1650}
+        height={400}
+      />
+
+      {/* Scale Grid GIF — 6 platform rows with animated arrows */}
+      <Composition
+        id="ScaleGridGif"
+        component={ScaleGridGif}
+        durationInFrames={30}
+        fps={30}
+        width={1200}
+        height={780}
+      />
+
+      {/* Microsoft Logo Morph — badges → logo → text → flip */}
+      <Composition
+        id="MicrosoftLogoMorph"
+        component={MicrosoftLogoMorph}
+        durationInFrames={220}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Dismiss videos — individual device GIFs at 1.8x playback speed */}
+      <Composition
+        id="DismissVideo-Emulator"
+        component={DismissVideoGif}
+        durationInFrames={683}
+        fps={30}
+        width={360}
+        height={800}
+        schema={dismissVideoSchema}
+        defaultProps={{
+          src: "emulator - dismiss.mp4",
+          label: "Emulator",
+        }}
+      />
+      <Composition
+        id="DismissVideo-Pixel"
+        component={DismissVideoGif}
+        durationInFrames={683}
+        fps={30}
+        width={360}
+        height={820}
+        schema={dismissVideoSchema}
+        defaultProps={{
+          src: "pixel - dismiss.mp4",
+          label: "Pixel",
+        }}
+      />
+      <Composition
+        id="DismissVideo-Samsung"
+        component={DismissVideoGif}
+        durationInFrames={683}
+        fps={30}
+        width={360}
+        height={840}
+        schema={dismissVideoSchema}
+        defaultProps={{
+          src: "sumsung - dismiss.mp4",
+          label: "Samsung",
+        }}
+      />
+
+      {/* Title page stills — "The Problem" and "How Autotest Solves It" */}
+      <Still
+        id="TitlePage-Problem"
+        component={TitlePageStill}
+        width={1920}
+        height={1080}
+        schema={titlePageSchema}
+        defaultProps={{ variant: "problem" }}
+      />
+      <Still
+        id="TitlePage-Solution"
+        component={TitlePageStill}
+        width={1920}
+        height={1080}
+        schema={titlePageSchema}
+        defaultProps={{ variant: "solution" }}
       />
 
       {/* Mount any React component to make it show up in the sidebar and work on it individually! */}
