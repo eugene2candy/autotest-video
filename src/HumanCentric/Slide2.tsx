@@ -17,8 +17,8 @@ const DecisionRow: React.FC<{
     style={{
       display: "flex",
       alignItems: "flex-start",
-      marginBottom: 10,
-      gap: 20,
+      marginBottom: 14,
+      gap: 24,
     }}
   >
     {/* Left column — human decision */}
@@ -26,10 +26,10 @@ const DecisionRow: React.FC<{
       <div
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 15,
+          fontSize: 20,
           fontWeight: 700,
           color: MICROSOFT_BLUE,
-          marginBottom: 2,
+          marginBottom: 3,
         }}
       >
         {decision}
@@ -37,7 +37,7 @@ const DecisionRow: React.FC<{
       <div
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 13,
+          fontSize: 17,
           color: "#555",
           fontStyle: "italic",
           lineHeight: 1.35,
@@ -47,23 +47,28 @@ const DecisionRow: React.FC<{
       </div>
     </div>
     {/* Arrow */}
-    <div
-      style={{
-        fontFamily: MONO_FONT,
-        fontSize: 16,
-        color: GREEN,
-        marginTop: 2,
-        flexShrink: 0,
-      }}
+    <svg
+      width="40"
+      height="24"
+      viewBox="0 0 40 24"
+      style={{ marginTop: 4, flexShrink: 0 }}
     >
-      {"->"}
-    </div>
+      <line
+        x1="0"
+        y1="12"
+        x2="28"
+        y2="12"
+        stroke={MICROSOFT_BLUE}
+        strokeWidth="3.5"
+      />
+      <polygon points="26,4 40,12 26,20" fill={MICROSOFT_BLUE} />
+    </svg>
     {/* Right column — what got built */}
     <div
       style={{
         flex: 1,
         fontFamily: FONT_FAMILY,
-        fontSize: 14,
+        fontSize: 18,
         color: "#333",
         lineHeight: 1.35,
       }}
@@ -83,14 +88,14 @@ const InsightPoint: React.FC<{ num: string; bold: string; rest: string }> = ({
     style={{
       display: "flex",
       alignItems: "flex-start",
-      marginBottom: 6,
-      gap: 8,
+      marginBottom: 10,
+      gap: 10,
     }}
   >
     <div
       style={{
         fontFamily: MONO_FONT,
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: 700,
         color: MICROSOFT_BLUE,
         flexShrink: 0,
@@ -102,7 +107,7 @@ const InsightPoint: React.FC<{ num: string; bold: string; rest: string }> = ({
     <div
       style={{
         fontFamily: FONT_FAMILY,
-        fontSize: 15,
+        fontSize: 20,
         color: "#222",
         lineHeight: 1.4,
       }}
@@ -197,11 +202,11 @@ export const Slide2: React.FC = () => {
           {/* LEFT — The Problem */}
           <div
             style={{
-              flex: "0 0 420px",
+              flex: "0 0 480px",
               borderRadius: 14,
               backgroundColor: `${RED}0C`,
               border: `2px solid ${RED}40`,
-              padding: "18px 22px",
+              padding: "22px 26px",
               display: "flex",
               flexDirection: "column",
             }}
@@ -209,12 +214,12 @@ export const Slide2: React.FC = () => {
             <div
               style={{
                 fontFamily: FONT_FAMILY,
-                fontSize: 18,
+                fontSize: 24,
                 fontWeight: 800,
                 color: RED,
                 letterSpacing: 1.5,
                 textTransform: "uppercase",
-                marginBottom: 12,
+                marginBottom: 14,
               }}
             >
               THE PROBLEM
@@ -222,7 +227,7 @@ export const Slide2: React.FC = () => {
             <div
               style={{
                 fontFamily: FONT_FAMILY,
-                fontSize: 16,
+                fontSize: 21,
                 color: "#333",
                 lineHeight: 1.5,
                 marginBottom: 14,
@@ -231,23 +236,23 @@ export const Slide2: React.FC = () => {
               Mobile UI testing is broken:
             </div>
             {[
-              "Manual testing doesn't scale",
+              "Heavily relied on manual tests",
               "Scripted automation requires dev expertise",
-              "Record-and-replay tools produce brittle tests",
+              "Manual testing doesn't scale",
             ].map((item) => (
               <div
                 key={item}
                 style={{
                   display: "flex",
                   alignItems: "flex-start",
-                  gap: 8,
-                  marginBottom: 6,
+                  gap: 10,
+                  marginBottom: 8,
                 }}
               >
                 <div
                   style={{
                     fontFamily: FONT_FAMILY,
-                    fontSize: 15,
+                    fontSize: 20,
                     color: RED,
                     flexShrink: 0,
                     marginTop: 1,
@@ -258,7 +263,7 @@ export const Slide2: React.FC = () => {
                 <div
                   style={{
                     fontFamily: FONT_FAMILY,
-                    fontSize: 15,
+                    fontSize: 20,
                     color: "#444",
                     lineHeight: 1.4,
                   }}
@@ -271,20 +276,21 @@ export const Slide2: React.FC = () => {
             {/* Traditional path box */}
             <div
               style={{
-                marginTop: 14,
-                padding: "14px 16px",
+                marginTop: 16,
+                padding: "16px 20px",
                 borderRadius: 10,
                 backgroundColor: "rgba(255,255,255,0.5)",
                 border: `1.5px solid ${RED}30`,
+                flex: 1,
               }}
             >
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 14,
+                  fontSize: 19,
                   fontWeight: 700,
                   color: "#555",
-                  marginBottom: 6,
+                  marginBottom: 8,
                 }}
               >
                 Traditional path:
@@ -292,7 +298,7 @@ export const Slide2: React.FC = () => {
               <div
                 style={{
                   fontFamily: MONO_FONT,
-                  fontSize: 13,
+                  fontSize: 17,
                   color: "#666",
                   lineHeight: 1.5,
                 }}
@@ -305,10 +311,10 @@ export const Slide2: React.FC = () => {
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 14,
+                  fontSize: 19,
                   fontWeight: 700,
                   color: RED,
-                  marginTop: 8,
+                  marginTop: 10,
                 }}
               >
                 Reality: most teams wouldn't even attempt it
@@ -323,7 +329,7 @@ export const Slide2: React.FC = () => {
               borderRadius: 14,
               backgroundColor: `${MICROSOFT_BLUE}0C`,
               border: `2px solid ${MICROSOFT_BLUE}40`,
-              padding: "18px 22px",
+              padding: "22px 26px",
               display: "flex",
               flexDirection: "column",
             }}
@@ -332,14 +338,14 @@ export const Slide2: React.FC = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 16,
-                marginBottom: 14,
+                gap: 18,
+                marginBottom: 16,
               }}
             >
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 18,
+                  fontSize: 24,
                   fontWeight: 800,
                   color: MICROSOFT_BLUE,
                   letterSpacing: 1.5,
@@ -351,10 +357,10 @@ export const Slide2: React.FC = () => {
               <div
                 style={{
                   fontFamily: MONO_FONT,
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: 700,
                   color: GREEN,
-                  padding: "4px 12px",
+                  padding: "5px 14px",
                   borderRadius: 6,
                   backgroundColor: `${GREEN}15`,
                 }}
@@ -367,9 +373,9 @@ export const Slide2: React.FC = () => {
             <div
               style={{
                 display: "flex",
-                gap: 20,
-                marginBottom: 10,
-                paddingBottom: 8,
+                gap: 24,
+                marginBottom: 12,
+                paddingBottom: 10,
                 borderBottom: `1.5px solid ${MICROSOFT_BLUE}25`,
               }}
             >
@@ -377,7 +383,7 @@ export const Slide2: React.FC = () => {
                 style={{
                   flex: 1,
                   fontFamily: FONT_FAMILY,
-                  fontSize: 13,
+                  fontSize: 16,
                   fontWeight: 700,
                   color: "#888",
                   textTransform: "uppercase",
@@ -386,12 +392,12 @@ export const Slide2: React.FC = () => {
               >
                 Human Decided
               </div>
-              <div style={{ width: 24 }} />
+              <div style={{ width: 28 }} />
               <div
                 style={{
                   flex: 1,
                   fontFamily: FONT_FAMILY,
-                  fontSize: 13,
+                  fontSize: 16,
                   fontWeight: 700,
                   color: "#888",
                   textTransform: "uppercase",
@@ -441,8 +447,8 @@ export const Slide2: React.FC = () => {
         {/* ── Bottom "So What" box ── */}
         <div
           style={{
-            marginTop: 14,
-            padding: "18px 28px",
+            marginTop: 16,
+            padding: "20px 32px",
             borderRadius: 14,
             backgroundColor: `${MICROSOFT_BLUE}10`,
             border: `2px solid ${MICROSOFT_BLUE}45`,
@@ -451,10 +457,10 @@ export const Slide2: React.FC = () => {
           <div
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 16,
+              fontSize: 22,
               fontWeight: 800,
               color: MICROSOFT_BLUE,
-              marginBottom: 10,
+              marginBottom: 12,
               textTransform: "uppercase",
               letterSpacing: 1,
             }}
@@ -497,11 +503,11 @@ export const Slide2: React.FC = () => {
           {/* Closing statement */}
           <div
             style={{
-              marginTop: 10,
-              paddingTop: 10,
+              marginTop: 12,
+              paddingTop: 12,
               borderTop: `1.5px solid ${MICROSOFT_BLUE}30`,
               fontFamily: FONT_FAMILY,
-              fontSize: 16,
+              fontSize: 21,
               fontWeight: 700,
               color: "#333",
               textAlign: "center",
