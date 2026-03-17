@@ -19,6 +19,7 @@ import { CIPipelineGif } from "./CIPipelineGif";
 import { ScaleGridGif } from "./ScaleGridGif";
 import { MicrosoftLogoMorph } from "./MicrosoftLogoMorph";
 import { TitlePageStill, titlePageSchema } from "./TitlePageStill";
+import { HumanCentric, HUMAN_CENTRIC_DURATION } from "./HumanCentric";
 
 const FEATURES = [
   {
@@ -66,6 +67,16 @@ export const RemotionRoot: React.FC = () => {
         id="FullVideo"
         component={FullVideo}
         durationInFrames={FULL_VIDEO_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* === Human-Centric AI slides for engineering leadership === */}
+      <Composition
+        id="HumanCentric"
+        component={HumanCentric}
+        durationInFrames={HUMAN_CENTRIC_DURATION}
         fps={30}
         width={1920}
         height={1080}
