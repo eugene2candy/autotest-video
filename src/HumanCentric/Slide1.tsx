@@ -15,13 +15,13 @@ const StageCard: React.FC<{
   <div style={{ display: "flex", alignItems: "center" }}>
     <div
       style={{
-        width: 340,
-        minHeight: 210,
-        borderRadius: 16,
-        border: `2.5px solid ${accent}`,
+        width: 390,
+        minHeight: 260,
+        borderRadius: 18,
+        border: `3px solid ${accent}`,
         backgroundColor: "rgba(255,255,255,0.65)",
         backdropFilter: "blur(8px)",
-        padding: "20px 22px",
+        padding: "26px 28px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -32,12 +32,12 @@ const StageCard: React.FC<{
         <div
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 22,
+            fontSize: 28,
             fontWeight: 800,
             color: accent,
             letterSpacing: 1.5,
             textTransform: "uppercase",
-            marginBottom: 4,
+            marginBottom: 6,
           }}
         >
           {label}
@@ -45,10 +45,10 @@ const StageCard: React.FC<{
         <div
           style={{
             fontFamily: FONT_FAMILY,
-            fontSize: 15,
+            fontSize: 20,
             fontWeight: 600,
             color: "#666",
-            marginBottom: 14,
+            marginBottom: 16,
           }}
         >
           {sublabel}
@@ -57,7 +57,7 @@ const StageCard: React.FC<{
       <div
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 17,
+          fontSize: 22,
           color: "#333",
           lineHeight: 1.45,
           fontStyle: "italic",
@@ -68,20 +68,20 @@ const StageCard: React.FC<{
     </div>
     {!isLast && (
       <svg
-        width="54"
-        height="24"
-        viewBox="0 0 54 24"
-        style={{ margin: "0 8px", flexShrink: 0 }}
+        width="60"
+        height="28"
+        viewBox="0 0 60 28"
+        style={{ margin: "0 10px", flexShrink: 0 }}
       >
         <line
           x1="0"
-          y1="12"
-          x2="40"
-          y2="12"
+          y1="14"
+          x2="44"
+          y2="14"
           stroke={MICROSOFT_BLUE}
-          strokeWidth="3"
+          strokeWidth="3.5"
         />
-        <polygon points="38,4 54,12 38,20" fill={MICROSOFT_BLUE} />
+        <polygon points="42,5 60,14 42,23" fill={MICROSOFT_BLUE} />
       </svg>
     )}
   </div>
@@ -123,17 +123,17 @@ export const Slide1: React.FC = () => {
       {/* Content layer */}
       <AbsoluteFill
         style={{
-          padding: "48px 72px",
+          padding: "40px 60px",
           display: "flex",
           flexDirection: "column",
         }}
       >
         {/* ── Title block ── */}
-        <div style={{ marginBottom: 10 }}>
+        <div style={{ marginBottom: 6 }}>
           <h1
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 52,
+              fontSize: 48,
               fontWeight: 800,
               color: "#111",
               margin: 0,
@@ -149,9 +149,9 @@ export const Slide1: React.FC = () => {
           <p
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 26,
+              fontSize: 24,
               color: "#444",
-              marginTop: 10,
+              marginTop: 8,
               marginBottom: 0,
               lineHeight: 1.4,
             }}
@@ -167,7 +167,7 @@ export const Slide1: React.FC = () => {
             width: "100%",
             height: 2,
             backgroundColor: `${MICROSOFT_BLUE}40`,
-            marginBottom: 28,
+            marginBottom: 20,
           }}
         />
 
@@ -210,20 +210,20 @@ export const Slide1: React.FC = () => {
         {/* ── Key takeaway box ── */}
         <div
           style={{
-            marginTop: 18,
-            padding: "22px 32px",
-            borderRadius: 14,
+            marginTop: 24,
+            padding: "26px 36px",
+            borderRadius: 16,
             backgroundColor: `${MICROSOFT_BLUE}12`,
-            border: `2px solid ${MICROSOFT_BLUE}50`,
+            border: `2.5px solid ${MICROSOFT_BLUE}50`,
           }}
         >
           <div
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 22,
+              fontSize: 30,
               fontWeight: 700,
-              color: MICROSOFT_BLUE,
-              marginBottom: 8,
+              color: "#111",
+              marginBottom: 10,
             }}
           >
             The human is in the driver's seat at every critical moment.
@@ -231,7 +231,7 @@ export const Slide1: React.FC = () => {
           <div
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 19,
+              fontSize: 25,
               color: "#333",
               lineHeight: 1.5,
             }}
