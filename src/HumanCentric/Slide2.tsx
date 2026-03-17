@@ -440,6 +440,11 @@ export const Slide2: React.FC = () => {
                 detail="Design for Android first, but don't paint into a corner"
                 built="Architecture that extends from Android to iOS, Windows, macOS, Web"
               />
+              <DecisionRow
+                decision="AI handles the unexpected"
+                detail="Non-app noise handled by AI, not the tester"
+                built="Auto-detection and dismissal of permission dialogs, system popups, and OS interruptions — tests continue without manual intervention"
+              />
             </div>
           </div>
         </div>
