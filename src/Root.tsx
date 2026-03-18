@@ -20,6 +20,7 @@ import { ScaleGridGif } from "./ScaleGridGif";
 import { MicrosoftLogoMorph } from "./MicrosoftLogoMorph";
 import { TitlePageStill, titlePageSchema } from "./TitlePageStill";
 import { HumanCentric, HUMAN_CENTRIC_DURATION } from "./HumanCentric";
+import { PlanToPrototype, PLAN_TO_PROTOTYPE_DURATION } from "./PlanToPrototype";
 
 const FEATURES = [
   {
@@ -77,6 +78,16 @@ export const RemotionRoot: React.FC = () => {
         id="HumanCentric"
         component={HumanCentric}
         durationInFrames={HUMAN_CENTRIC_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* === Plan to Prototype — 3-slide deck for engineering leadership === */}
+      <Composition
+        id="PlanToPrototype"
+        component={PlanToPrototype}
+        durationInFrames={PLAN_TO_PROTOTYPE_DURATION}
         fps={30}
         width={1920}
         height={1080}
