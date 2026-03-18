@@ -4,61 +4,47 @@ import { AbsoluteFill, Img, staticFile } from "remotion";
 const FONT_FAMILY = "SF Pro Text, Helvetica, Arial, sans-serif";
 const MICROSOFT_BLUE = "#0078D4";
 const RED = "#e53935";
-const GREEN = "#4caf50";
+const GREEN = "#E87B00";
 
 /* ── Tool box (for Before diagram) ── */
 const ToolBox: React.FC<{
   label: string;
   sub: string;
-  isLast?: boolean;
-}> = ({ label, sub, isLast }) => (
-  <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
+}> = ({ label, sub }) => (
+  <div
+    style={{
+      flex: 1,
+      borderRadius: 14,
+      border: `2px solid ${RED}50`,
+      backgroundColor: "rgba(255,255,255,0.55)",
+      padding: "18px 20px",
+      textAlign: "center",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    }}
+  >
     <div
       style={{
-        flex: 1,
-        borderRadius: 12,
-        border: `2px solid ${RED}50`,
-        backgroundColor: "rgba(255,255,255,0.55)",
-        padding: "16px 18px",
-        textAlign: "center",
+        fontFamily: FONT_FAMILY,
+        fontSize: 29,
+        fontWeight: 700,
+        color: "#333",
+        marginBottom: 4,
       }}
     >
-      <div
-        style={{
-          fontFamily: FONT_FAMILY,
-          fontSize: 22,
-          fontWeight: 700,
-          color: "#333",
-          marginBottom: 4,
-        }}
-      >
-        {label}
-      </div>
-      <div
-        style={{
-          fontFamily: FONT_FAMILY,
-          fontSize: 17,
-          color: "#777",
-          lineHeight: 1.35,
-        }}
-      >
-        {sub}
-      </div>
+      {label}
     </div>
-    {!isLast && (
-      <div
-        style={{
-          fontFamily: FONT_FAMILY,
-          fontSize: 24,
-          fontWeight: 700,
-          color: `${RED}60`,
-          margin: "0 8px",
-          flexShrink: 0,
-        }}
-      >
-        ???
-      </div>
-    )}
+    <div
+      style={{
+        fontFamily: FONT_FAMILY,
+        fontSize: 23,
+        color: "#777",
+        lineHeight: 1.35,
+      }}
+    >
+      {sub}
+    </div>
   </div>
 );
 
@@ -104,7 +90,7 @@ export const Slide3: React.FC = () => {
         }}
       >
         {/* Title */}
-        <div style={{ marginBottom: 6 }}>
+        <div style={{ marginBottom: 4 }}>
           <h1
             style={{
               fontFamily: FONT_FAMILY,
@@ -139,7 +125,7 @@ export const Slide3: React.FC = () => {
             width: "100%",
             height: 2,
             backgroundColor: `${MICROSOFT_BLUE}40`,
-            marginBottom: 14,
+            marginBottom: 12,
           }}
         />
 
@@ -147,7 +133,7 @@ export const Slide3: React.FC = () => {
         <div
           style={{
             display: "flex",
-            gap: 24,
+            gap: 20,
             flex: 1,
           }}
         >
@@ -158,7 +144,7 @@ export const Slide3: React.FC = () => {
               borderRadius: 14,
               border: `2px solid ${RED}35`,
               backgroundColor: `${RED}08`,
-              padding: "20px 24px",
+              padding: "18px 24px",
               display: "flex",
               flexDirection: "column",
             }}
@@ -166,12 +152,12 @@ export const Slide3: React.FC = () => {
             <div
               style={{
                 fontFamily: FONT_FAMILY,
-                fontSize: 22,
+                fontSize: 29,
                 fontWeight: 800,
                 color: RED,
                 letterSpacing: 1,
                 textTransform: "uppercase",
-                marginBottom: 14,
+                marginBottom: 12,
               }}
             >
               Before: Isolated Tools
@@ -182,12 +168,36 @@ export const Slide3: React.FC = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                marginBottom: 16,
+                marginBottom: 14,
               }}
             >
               <ToolBox label="Tool A" sub="Powerful but isolated" />
+              <div
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 31,
+                  fontWeight: 700,
+                  color: `${RED}60`,
+                  margin: "0 10px",
+                  flexShrink: 0,
+                }}
+              >
+                ???
+              </div>
               <ToolBox label="Tool B" sub="Powerful but isolated" />
-              <ToolBox label="Tool C" sub="Powerful but isolated" isLast />
+              <div
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: 31,
+                  fontWeight: 700,
+                  color: `${RED}60`,
+                  margin: "0 10px",
+                  flexShrink: 0,
+                }}
+              >
+                ???
+              </div>
+              <ToolBox label="Tool C" sub="Powerful but isolated" />
             </div>
 
             {/* Problem description */}
@@ -211,13 +221,13 @@ export const Slide3: React.FC = () => {
                     display: "flex",
                     alignItems: "flex-start",
                     gap: 10,
-                    marginBottom: 8,
+                    marginBottom: 7,
                   }}
                 >
                   <div
                     style={{
                       fontFamily: FONT_FAMILY,
-                      fontSize: 20,
+                      fontSize: 27,
                       color: RED,
                       flexShrink: 0,
                     }}
@@ -227,9 +237,9 @@ export const Slide3: React.FC = () => {
                   <div
                     style={{
                       fontFamily: FONT_FAMILY,
-                      fontSize: 20,
+                      fontSize: 27,
                       color: "#444",
-                      lineHeight: 1.4,
+                      lineHeight: 1.35,
                     }}
                   >
                     {item}
@@ -241,7 +251,7 @@ export const Slide3: React.FC = () => {
             <div
               style={{
                 fontFamily: FONT_FAMILY,
-                fontSize: 20,
+                fontSize: 27,
                 fontWeight: 700,
                 color: RED,
                 marginTop: 8,
@@ -258,7 +268,7 @@ export const Slide3: React.FC = () => {
               borderRadius: 14,
               border: `2px solid ${GREEN}35`,
               backgroundColor: `${GREEN}08`,
-              padding: "20px 24px",
+              padding: "18px 24px",
               display: "flex",
               flexDirection: "column",
             }}
@@ -266,12 +276,12 @@ export const Slide3: React.FC = () => {
             <div
               style={{
                 fontFamily: FONT_FAMILY,
-                fontSize: 22,
+                fontSize: 29,
                 fontWeight: 800,
                 color: GREEN,
                 letterSpacing: 1,
                 textTransform: "uppercase",
-                marginBottom: 14,
+                marginBottom: 12,
               }}
             >
               With AI: Intelligent Connections
@@ -284,19 +294,19 @@ export const Slide3: React.FC = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: 20,
-                marginBottom: 12,
+                marginBottom: 10,
               }}
             >
               {["Tool A", "Tool B", "Tool C"].map((tool) => (
                 <div
                   key={tool}
                   style={{
-                    borderRadius: 10,
+                    borderRadius: 12,
                     border: `2px solid ${GREEN}50`,
                     backgroundColor: "rgba(255,255,255,0.55)",
-                    padding: "12px 24px",
+                    padding: "10px 24px",
                     fontFamily: FONT_FAMILY,
-                    fontSize: 20,
+                    fontSize: 27,
                     fontWeight: 700,
                     color: "#333",
                     textAlign: "center",
@@ -312,7 +322,7 @@ export const Slide3: React.FC = () => {
               style={{
                 textAlign: "center",
                 fontFamily: FONT_FAMILY,
-                fontSize: 22,
+                fontSize: 27,
                 color: GREEN,
                 marginBottom: 8,
               }}
@@ -323,20 +333,20 @@ export const Slide3: React.FC = () => {
             {/* AI Glue Layer box */}
             <div
               style={{
-                borderRadius: 12,
+                borderRadius: 14,
                 border: `2.5px solid ${MICROSOFT_BLUE}60`,
                 backgroundColor: `${MICROSOFT_BLUE}12`,
-                padding: "16px 22px",
-                marginBottom: 12,
+                padding: "14px 20px",
+                marginBottom: 10,
               }}
             >
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 20,
+                  fontSize: 27,
                   fontWeight: 800,
                   color: MICROSOFT_BLUE,
-                  marginBottom: 10,
+                  marginBottom: 8,
                   textAlign: "center",
                 }}
               >
@@ -346,7 +356,7 @@ export const Slide3: React.FC = () => {
                 style={{
                   display: "flex",
                   flexWrap: "wrap",
-                  gap: 8,
+                  gap: 10,
                   justifyContent: "center",
                 }}
               >
@@ -361,10 +371,10 @@ export const Slide3: React.FC = () => {
                     key={item}
                     style={{
                       fontFamily: FONT_FAMILY,
-                      fontSize: 17,
+                      fontSize: 23,
                       color: "#333",
                       padding: "5px 12px",
-                      borderRadius: 6,
+                      borderRadius: 8,
                       backgroundColor: "rgba(255,255,255,0.6)",
                       border: `1px solid ${MICROSOFT_BLUE}30`,
                     }}
@@ -387,10 +397,10 @@ export const Slide3: React.FC = () => {
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 22,
+                  fontSize: 27,
                   color: "#333",
                   textAlign: "center",
-                  lineHeight: 1.5,
+                  lineHeight: 1.45,
                 }}
               >
                 <strong style={{ color: "#111" }}>
@@ -406,19 +416,19 @@ export const Slide3: React.FC = () => {
         {/* ── Implications box ── */}
         <div
           style={{
-            marginTop: 14,
-            padding: "20px 30px",
+            marginTop: 10,
+            padding: "16px 28px",
             borderRadius: 14,
             backgroundColor: `${MICROSOFT_BLUE}12`,
             border: `2.5px solid ${MICROSOFT_BLUE}50`,
           }}
         >
-          <div style={{ display: "flex", gap: 40 }}>
+          <div style={{ display: "flex", gap: 32 }}>
             <div style={{ flex: 1 }}>
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 20,
+                  fontSize: 27,
                   fontWeight: 700,
                   color: RED,
                   marginBottom: 6,
@@ -429,21 +439,21 @@ export const Slide3: React.FC = () => {
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 20,
+                  fontSize: 25,
                   color: "#444",
-                  lineHeight: 1.45,
+                  lineHeight: 1.4,
                 }}
               >
-                "We have great tools, but connecting them is expensive and
-                fragile. We spend more time on integration than on the actual
-                problem."
+                {
+                  '"We have great tools, but connecting them is expensive and fragile. We spend more time on integration than on the actual problem."'
+                }
               </div>
             </div>
             <div style={{ flex: 1 }}>
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 20,
+                  fontSize: 27,
                   fontWeight: 700,
                   color: GREEN,
                   marginBottom: 6,
@@ -454,31 +464,32 @@ export const Slide3: React.FC = () => {
               <div
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: 20,
+                  fontSize: 25,
                   color: "#444",
-                  lineHeight: 1.45,
+                  lineHeight: 1.4,
                 }}
               >
-                "AI handles the connections — adapting dynamically. Engineers
-                define WHAT should happen. AI figures out HOW to make the tools
-                do it."
+                {
+                  '"AI handles the connections — adapting dynamically. Engineers define WHAT should happen. AI figures out HOW to make the tools do it."'
+                }
               </div>
             </div>
           </div>
           <div
             style={{
-              marginTop: 12,
-              paddingTop: 10,
+              marginTop: 10,
+              paddingTop: 8,
               borderTop: `1.5px solid ${MICROSOFT_BLUE}30`,
               fontFamily: FONT_FAMILY,
-              fontSize: 22,
+              fontSize: 27,
               fontWeight: 700,
               color: "#222",
               textAlign: "center",
             }}
           >
-            This is not about replacing tools. It's about making existing tools
-            work together intelligently.
+            {
+              "This is not about replacing tools. It's about making existing tools work together intelligently."
+            }
           </div>
         </div>
       </AbsoluteFill>

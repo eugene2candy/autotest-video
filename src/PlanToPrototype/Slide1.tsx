@@ -12,33 +12,32 @@ const FlowBlock: React.FC<{
   subtitle: string;
   items: string[];
   accent: string;
-  isLast?: boolean;
-}> = ({ title, subtitle, items, accent, isLast }) => (
-  <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
-    <div
-      style={{
-        flex: 1,
-        minHeight: 300,
-        borderRadius: 18,
-        border: `3px solid ${accent}`,
-        backgroundColor: "rgba(255,255,255,0.65)",
-        backdropFilter: "blur(8px)",
-        padding: "28px 30px",
-        display: "flex",
-        flexDirection: "column",
-        boxShadow: `0 4px 24px ${accent}30`,
-      }}
-    >
-      {/* Header */}
+}> = ({ title, subtitle, items, accent }) => (
+  <div
+    style={{
+      flex: 1,
+      borderRadius: 18,
+      border: `3px solid ${accent}`,
+      backgroundColor: "rgba(255,255,255,0.55)",
+      backdropFilter: "blur(8px)",
+      padding: "36px 38px",
+      display: "flex",
+      flexDirection: "column",
+      gap: 24,
+      boxShadow: `0 4px 24px ${accent}30`,
+    }}
+  >
+    {/* Header */}
+    <div>
       <div
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 20,
+          fontSize: 32,
           fontWeight: 800,
           color: accent,
           letterSpacing: 2,
           textTransform: "uppercase",
-          marginBottom: 4,
+          marginBottom: 8,
         }}
       >
         {title}
@@ -46,61 +45,59 @@ const FlowBlock: React.FC<{
       <div
         style={{
           fontFamily: FONT_FAMILY,
-          fontSize: 26,
+          fontSize: 44,
           fontWeight: 700,
           color: "#222",
-          marginBottom: 16,
           lineHeight: 1.25,
         }}
       >
         {subtitle}
       </div>
-      {/* Items */}
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        {items.map((item) => (
-          <div
-            key={item}
-            style={{
-              fontFamily: FONT_FAMILY,
-              fontSize: 22,
-              color: "#444",
-              lineHeight: 1.5,
-              marginBottom: 6,
-              paddingLeft: 16,
-              borderLeft: `3px solid ${accent}40`,
-            }}
-          >
-            {item}
-          </div>
-        ))}
-      </div>
     </div>
-    {!isLast && (
-      <svg
-        width="70"
-        height="32"
-        viewBox="0 0 70 32"
-        style={{ margin: "0 10px", flexShrink: 0 }}
-      >
-        <line
-          x1="0"
-          y1="16"
-          x2="52"
-          y2="16"
-          stroke={MICROSOFT_BLUE}
-          strokeWidth="3.5"
-        />
-        <polygon points="50,6 70,16 50,26" fill={MICROSOFT_BLUE} />
-      </svg>
-    )}
+    {/* Items */}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 16,
+      }}
+    >
+      {items.map((item) => (
+        <div
+          key={item}
+          style={{
+            fontFamily: FONT_FAMILY,
+            fontSize: 36,
+            color: "#333",
+            lineHeight: 1.4,
+            paddingLeft: 22,
+            borderLeft: `5px solid ${accent}40`,
+          }}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
   </div>
+);
+
+const Arrow: React.FC = () => (
+  <svg
+    width="80"
+    height="36"
+    viewBox="0 0 80 36"
+    style={{ margin: "0 12px", flexShrink: 0, alignSelf: "center" }}
+  >
+    <line
+      x1="0"
+      y1="18"
+      x2="58"
+      y2="18"
+      stroke={MICROSOFT_BLUE}
+      strokeWidth="4"
+    />
+    <polygon points="56,6 80,18 56,30" fill={MICROSOFT_BLUE} />
+  </svg>
 );
 
 /**
@@ -145,7 +142,7 @@ export const Slide1: React.FC = () => {
         }}
       >
         {/* Title */}
-        <div style={{ marginBottom: 6 }}>
+        <div style={{ marginBottom: 4 }}>
           <h1
             style={{
               fontFamily: FONT_FAMILY,
@@ -170,7 +167,7 @@ export const Slide1: React.FC = () => {
               lineHeight: 1.2,
             }}
           >
-            The Engineer Decides, AI Accelerates
+            Human-Centric — The Engineer Decides, AI Accelerates
           </h2>
         </div>
 
@@ -180,116 +177,134 @@ export const Slide1: React.FC = () => {
             width: "100%",
             height: 2,
             backgroundColor: `${MICROSOFT_BLUE}40`,
-            marginBottom: 20,
+            marginBottom: 16,
           }}
         />
 
-        {/* Flow diagram (3 blocks) */}
+        {/* Middle section: blocks centered, repeat below, principle at bottom */}
         <div
           style={{
-            display: "flex",
-            alignItems: "stretch",
             flex: 1,
+            display: "flex",
+            flexDirection: "column",
           }}
         >
-          <FlowBlock
-            title="START"
-            subtitle="HUMAN"
-            items={[
-              "Sets intent",
-              "Defines constraints",
-              "Makes design choices",
-            ]}
-            accent={ACCENT_PURPLE}
-          />
-          <FlowBlock
-            title="ACCELERATE"
-            subtitle="AI ASSISTS"
-            items={[
-              "Explores options",
-              "Builds prototypes",
-              "Iterates rapidly",
-            ]}
-            accent={LIGHT_BLUE}
-          />
-          <FlowBlock
-            title="STEER"
-            subtitle="HUMAN"
-            items={[
-              "Evaluates results",
-              "Adjusts direction",
-              "Decides next step",
-            ]}
-            accent={ACCENT_PURPLE}
-            isLast
-          />
-        </div>
+          {/* Spacer top */}
+          <div style={{ flex: 1 }} />
 
-        {/* Repeat loop indicator */}
-        <div
-          style={{
-            textAlign: "center",
-            fontFamily: FONT_FAMILY,
-            fontSize: 20,
-            fontWeight: 700,
-            color: MICROSOFT_BLUE,
-            margin: "10px 0",
-            letterSpacing: 2,
-          }}
-        >
-          {"<"}
-          {"————————————— repeat —————————————"}
-          {">"}
-        </div>
-
-        {/* Key principle box */}
-        <div
-          style={{
-            padding: "22px 32px",
-            borderRadius: 16,
-            backgroundColor: `${MICROSOFT_BLUE}12`,
-            border: `2.5px solid ${MICROSOFT_BLUE}50`,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: FONT_FAMILY,
-              fontSize: 26,
-              fontWeight: 700,
-              color: "#111",
-              marginBottom: 10,
-            }}
-          >
-            Every critical decision stays with the human:
-          </div>
+          {/* Flow diagram (3 blocks) */}
           <div
             style={{
               display: "flex",
-              flexWrap: "wrap",
-              gap: 12,
+              alignItems: "stretch",
             }}
           >
-            {[
-              "What problem to solve",
-              "Which approach to take",
-              "Whether the result is good enough",
-              "When to pivot, iterate, or ship",
-            ].map((item) => (
-              <div
-                key={item}
-                style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: 22,
-                  color: "#333",
-                  padding: "6px 16px",
-                  borderRadius: 8,
-                  backgroundColor: `${MICROSOFT_BLUE}10`,
-                  border: `1.5px solid ${MICROSOFT_BLUE}30`,
-                }}
-              >
-                {item}
-              </div>
-            ))}
+            <FlowBlock
+              title="START"
+              subtitle="HUMAN"
+              items={[
+                "Sets intent",
+                "Defines constraints",
+                "Makes design choices",
+              ]}
+              accent={ACCENT_PURPLE}
+            />
+            <Arrow />
+            <FlowBlock
+              title="ACCELERATE"
+              subtitle="AI ASSISTS"
+              items={[
+                "Explores options",
+                "Builds prototypes",
+                "Iterates rapidly",
+              ]}
+              accent={LIGHT_BLUE}
+            />
+            <Arrow />
+            <FlowBlock
+              title="STEER"
+              subtitle="HUMAN"
+              items={[
+                "Evaluates results",
+                "Adjusts direction",
+                "Decides next step",
+              ]}
+              accent={ACCENT_PURPLE}
+            />
+          </div>
+
+          {/* Spacer + Repeat centered in gap */}
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                textAlign: "center",
+                fontFamily: FONT_FAMILY,
+                fontSize: 30,
+                fontWeight: 700,
+                color: "#111",
+                letterSpacing: 3,
+              }}
+            >
+              {"<————————————— repeat —————————————>"}
+            </div>
+          </div>
+
+          {/* Key principle box — at bottom */}
+          <div
+            style={{
+              padding: "24px 36px",
+              borderRadius: 16,
+              backgroundColor: `${MICROSOFT_BLUE}12`,
+              border: `2.5px solid ${MICROSOFT_BLUE}50`,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: FONT_FAMILY,
+                fontSize: 30,
+                fontWeight: 700,
+                color: "#111",
+                marginBottom: 14,
+              }}
+            >
+              Every critical decision stays with the human:
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 14,
+              }}
+            >
+              {[
+                "What problem to solve",
+                "Which approach to take",
+                "Whether the result is good enough",
+                "When to pivot, iterate, or ship",
+              ].map((item) => (
+                <div
+                  key={item}
+                  style={{
+                    fontFamily: FONT_FAMILY,
+                    fontSize: 28,
+                    color: "#333",
+                    padding: "8px 20px",
+                    borderRadius: 8,
+                    backgroundColor: "rgba(255,255,255,0.55)",
+                    border: `1.5px solid ${MICROSOFT_BLUE}40`,
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </AbsoluteFill>
