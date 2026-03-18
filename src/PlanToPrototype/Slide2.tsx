@@ -113,30 +113,29 @@ export const Slide2: React.FC = () => {
           <h1
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 42,
+              fontSize: 52,
               fontWeight: 800,
               color: "#111",
               margin: 0,
-              letterSpacing: -0.5,
+              letterSpacing: -1,
               lineHeight: 1.15,
             }}
           >
-            AI Shortens Every Path:{" "}
-            <span style={{ color: MICROSOFT_BLUE }}>
-              From Idea to Feature, From Gap to Solution
-            </span>
+            {"From Plan to Prototype Cont'd"}
           </h1>
-          <p
+          <h2
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 22,
-              color: "#555",
+              fontSize: 30,
+              fontWeight: 700,
+              color: MICROSOFT_BLUE,
+              margin: 0,
               marginTop: 6,
-              marginBottom: 0,
+              lineHeight: 1.2,
             }}
           >
-            Two patterns we're seeing across the team.
-          </p>
+            AI Shortens Every Path — From Idea to Impact
+          </h2>
         </div>
 
         {/* Divider */}

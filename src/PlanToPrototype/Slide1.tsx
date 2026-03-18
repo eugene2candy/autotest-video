@@ -139,7 +139,7 @@ export const Slide1: React.FC = () => {
       {/* Content */}
       <AbsoluteFill
         style={{
-          padding: "40px 60px",
+          padding: "36px 56px",
           display: "flex",
           flexDirection: "column",
         }}
@@ -149,7 +149,7 @@ export const Slide1: React.FC = () => {
           <h1
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 48,
+              fontSize: 52,
               fontWeight: 800,
               color: "#111",
               margin: 0,
@@ -157,24 +157,21 @@ export const Slide1: React.FC = () => {
               lineHeight: 1.15,
             }}
           >
-            Human-Centric AI:{" "}
-            <span style={{ color: MICROSOFT_BLUE }}>
-              The Engineer Decides, AI Accelerates
-            </span>
+            From Plan to Prototype
           </h1>
-          <p
+          <h2
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 24,
-              color: "#444",
-              marginTop: 8,
-              marginBottom: 0,
-              lineHeight: 1.4,
+              fontSize: 30,
+              fontWeight: 700,
+              color: MICROSOFT_BLUE,
+              margin: 0,
+              marginTop: 6,
+              lineHeight: 1.2,
             }}
           >
-            AI doesn't replace thinking. It removes the friction between
-            thinking and proving.
-          </p>
+            The Engineer Decides, AI Accelerates
+          </h2>
         </div>
 
         {/* Divider */}

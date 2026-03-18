@@ -108,31 +108,29 @@ export const Slide3: React.FC = () => {
           <h1
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 44,
+              fontSize: 52,
               fontWeight: 800,
               color: "#111",
               margin: 0,
-              letterSpacing: -0.5,
+              letterSpacing: -1,
               lineHeight: 1.15,
             }}
           >
-            AI as the Glue:{" "}
-            <span style={{ color: MICROSOFT_BLUE }}>
-              Connecting What Was Previously Disconnected
-            </span>
+            {"From Plan to Prototype Cont'd"}
           </h1>
-          <p
+          <h2
             style={{
               fontFamily: FONT_FAMILY,
-              fontSize: 22,
-              color: "#555",
+              fontSize: 30,
+              fontWeight: 700,
+              color: MICROSOFT_BLUE,
+              margin: 0,
               marginTop: 6,
-              marginBottom: 0,
+              lineHeight: 1.2,
             }}
           >
-            AI doesn't just speed up individual steps — it bridges the gaps
-            between them.
-          </p>
+            AI as the Glue — Connecting Disconnected Workflows
+          </h2>
         </div>
 
         {/* Divider */}
