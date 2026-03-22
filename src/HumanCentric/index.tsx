@@ -21,7 +21,7 @@ export const HUMAN_CENTRIC_DURATION = SLIDE_DURATION * 2; // 900 frames = 30s to
 export const HumanCentric: React.FC = () => {
   return (
     <AbsoluteFill>
-      <Sequence from={0} durationInFrames={SLIDE_DURATION}>
+      <Sequence  durationInFrames={SLIDE_DURATION}>
         <Slide1 />
       </Sequence>
       <Sequence from={SLIDE_DURATION} durationInFrames={SLIDE_DURATION}>

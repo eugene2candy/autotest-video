@@ -22,7 +22,7 @@ export const PLAN_TO_PROTOTYPE_DURATION = SLIDE_DURATION * 3; // 1350 frames = 4
 export const PlanToPrototype: React.FC = () => {
   return (
     <AbsoluteFill>
-      <Sequence from={0} durationInFrames={SLIDE_DURATION}>
+      <Sequence  durationInFrames={SLIDE_DURATION}>
         <Slide1 />
       </Sequence>
       <Sequence from={SLIDE_DURATION} durationInFrames={SLIDE_DURATION}>

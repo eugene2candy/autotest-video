@@ -12,7 +12,6 @@ import {
 import { AutotestLogo } from "./AutotestLogo";
 
 const FONT_FAMILY = "SF Pro Text, Helvetica, Arial, sans-serif";
-const MICROSOFT_BLUE = "#004E8C";
 
 /**
  * AutotestIntro – opening scene of the Autotest demo video.
@@ -60,7 +59,7 @@ export const AutotestIntro: React.FC = () => {
       <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* ---- Autotest Logo (starts at frame 0) ---- */}
-        <Sequence from={0}>
+        <Sequence >
           <AutotestLogo drawDuration={Math.round(2.5 * fps)} />
         </Sequence>
 

@@ -59,7 +59,7 @@ export const SolutionScene: React.FC = () => {
       <AbsoluteFill style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }} />
       <AbsoluteFill style={{ opacity: fadeOut }}>
         {/* Title */}
-        <Sequence from={0} durationInFrames={83} premountFor={10}>
+        <Sequence  durationInFrames={83} premountFor={10}>
           <SectionTitle />
         </Sequence>
 
