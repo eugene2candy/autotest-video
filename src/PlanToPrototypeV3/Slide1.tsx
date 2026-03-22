@@ -197,87 +197,131 @@ export const Slide1: React.FC = () => {
             />
           </div>
 
-          <div
-            style={{
-              textAlign: "center",
-              fontFamily: FONT,
-              fontSize: 26,
-              fontWeight: 700,
-              color: "#555",
-              letterSpacing: 4,
-            }}
-          >
-            {"◄ ─────────────── repeat ─────────────── ►"}
-          </div>
         </div>
 
         {/* AI Can / Cannot */}
-        <div style={{ display: "flex", gap: 24, marginTop: 8 }}>
+        <div style={{ display: "flex", gap: 24, marginTop: 16 }}>
           <div
             style={{
               flex: 1,
-              padding: "22px 32px",
-              borderRadius: 16,
+              padding: "28px 36px",
+              borderRadius: 18,
               backgroundColor: `${CYAN}12`,
-              border: `2px solid ${CYAN}50`,
+              border: `2.5px solid ${CYAN}50`,
             }}
           >
             <div
               style={{
                 fontFamily: FONT,
-                fontSize: 24,
+                fontSize: 28,
                 fontWeight: 800,
                 color: CYAN,
                 letterSpacing: 2,
-                marginBottom: 12,
+                marginBottom: 18,
               }}
             >
               ✓ AI CAN
             </div>
-            <div
-              style={{
-                fontFamily: FONT,
-                fontSize: 28,
-                color: "#333",
-                lineHeight: 1.6,
-              }}
-            >
-              Execute fast · Explore options · Build prototypes · Bridge
-              workflow gaps
-            </div>
+            {[
+              "Execute at huge speed",
+              "Explore options & find blind spots",
+              "Build working prototypes in hours",
+              "Bridge gaps between existing tools",
+              "Verify our initial thinking fast",
+            ].map((item) => (
+              <div
+                key={item}
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 12,
+                  marginBottom: 10,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: FONT,
+                    fontSize: 28,
+                    color: CYAN,
+                    flexShrink: 0,
+                    lineHeight: 1.3,
+                  }}
+                >
+                  •
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONT,
+                    fontSize: 28,
+                    color: "#333",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {item}
+                </div>
+              </div>
+            ))}
           </div>
           <div
             style={{
               flex: 1,
-              padding: "22px 32px",
-              borderRadius: 16,
+              padding: "28px 36px",
+              borderRadius: 18,
               backgroundColor: "#e5393512",
-              border: "2px solid #e5393550",
+              border: "2.5px solid #e5393550",
             }}
           >
             <div
               style={{
                 fontFamily: FONT,
-                fontSize: 24,
+                fontSize: 28,
                 fontWeight: 800,
                 color: "#e53935",
                 letterSpacing: 2,
-                marginBottom: 12,
+                marginBottom: 18,
               }}
             >
               ✗ AI CANNOT
             </div>
-            <div
-              style={{
-                fontFamily: FONT,
-                fontSize: 28,
-                color: "#333",
-                lineHeight: 1.6,
-              }}
-            >
-              Replace thinking · Make decisions · Understand our context · Set
-              direction
-            </div>
+            {[
+              "Replace human thinking",
+              "Make decisions for us",
+              "Understand our context & constraints",
+              "Set direction — that's our job",
+              "Know what 'good' looks like for our team",
+            ].map((item) => (
+              <div
+                key={item}
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 12,
+                  marginBottom: 10,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: FONT,
+                    fontSize: 28,
+                    color: "#e53935",
+                    flexShrink: 0,
+                    lineHeight: 1.3,
+                  }}
+                >
+                  •
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONT,
+                    fontSize: 28,
+                    color: "#333",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {item}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </AbsoluteFill>
