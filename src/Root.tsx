@@ -21,6 +21,10 @@ import { MicrosoftLogoMorph } from "./MicrosoftLogoMorph";
 import { TitlePageStill, titlePageSchema } from "./TitlePageStill";
 import { HumanCentric, HUMAN_CENTRIC_DURATION } from "./HumanCentric";
 import { PlanToPrototype, PLAN_TO_PROTOTYPE_DURATION } from "./PlanToPrototype";
+import {
+  PlanToPrototypeV3,
+  PLAN_TO_PROTOTYPE_V3_DURATION,
+} from "./PlanToPrototypeV3";
 
 const FEATURES = [
   {
@@ -88,6 +92,16 @@ export const RemotionRoot: React.FC = () => {
         id="PlanToPrototype"
         component={PlanToPrototype}
         durationInFrames={PLAN_TO_PROTOTYPE_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* === Plan to Prototype v3 — CVP presentation === */}
+      <Composition
+        id="PlanToPrototypeV3"
+        component={PlanToPrototypeV3}
+        durationInFrames={PLAN_TO_PROTOTYPE_V3_DURATION}
         fps={30}
         width={1920}
         height={1080}
