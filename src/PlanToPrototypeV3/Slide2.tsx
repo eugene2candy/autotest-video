@@ -94,7 +94,7 @@ export const Slide2: React.FC = () => {
               letterSpacing: -1,
             }}
           >
-            AI Shortens Every Path
+            Case Study 1: AI Shortens Every Path
           </h1>
           <h2
             style={{
