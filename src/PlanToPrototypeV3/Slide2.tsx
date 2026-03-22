@@ -12,72 +12,38 @@ const Step: React.FC<{
   accent: string;
   isLast?: boolean;
 }> = ({ label, accent, isLast }) => (
-  <div style={{ display: "flex", alignItems: "center", flex: 1 }}>
+  <div style={{ display: "flex", alignItems: "stretch", flex: 1 }}>
     <div
       style={{
         flex: 1,
-        borderRadius: 12,
-        border: `2px solid ${accent}50`,
+        borderRadius: 14,
+        border: `2.5px solid ${accent}50`,
         backgroundColor: "rgba(255,255,255,0.55)",
-        padding: "14px 18px",
+        padding: "18px 16px",
         fontFamily: FONT,
-        fontSize: 24,
-        fontWeight: 600,
+        fontSize: 26,
+        fontWeight: 700,
         color: "#333",
         lineHeight: 1.35,
         textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       {label}
     </div>
     {!isLast && (
       <svg
-        width="36"
-        height="20"
-        viewBox="0 0 36 20"
-        style={{ margin: "0 4px", flexShrink: 0 }}
+        width="44"
+        height="24"
+        viewBox="0 0 44 24"
+        style={{ margin: "0 6px", flexShrink: 0, alignSelf: "center" }}
       >
-        <line x1="0" y1="10" x2="22" y2="10" stroke={accent} strokeWidth="3" />
-        <polygon points="20,3 36,10 20,17" fill={accent} />
+        <line x1="0" y1="12" x2="28" y2="12" stroke={accent} strokeWidth="3.5" />
+        <polygon points="26,4 44,12 26,20" fill={accent} />
       </svg>
     )}
-  </div>
-);
-
-const ExampleBadge: React.FC<{ name: string; detail: string }> = ({
-  name,
-  detail,
-}) => (
-  <div
-    style={{
-      flex: 1,
-      borderRadius: 14,
-      border: `2px solid ${BLUE}40`,
-      backgroundColor: "rgba(255,255,255,0.6)",
-      padding: "20px 24px",
-    }}
-  >
-    <div
-      style={{
-        fontFamily: FONT,
-        fontSize: 28,
-        fontWeight: 800,
-        color: BLUE,
-        marginBottom: 6,
-      }}
-    >
-      {name}
-    </div>
-    <div
-      style={{
-        fontFamily: FONT,
-        fontSize: 22,
-        color: "#555",
-        lineHeight: 1.4,
-      }}
-    >
-      {detail}
-    </div>
   </div>
 );
 
@@ -155,29 +121,29 @@ export const Slide2: React.FC = () => {
         {/* Before timeline */}
         <div
           style={{
-            borderRadius: 16,
-            border: `2px solid ${RED}30`,
+            borderRadius: 18,
+            border: `2.5px solid ${RED}35`,
             backgroundColor: `${RED}08`,
-            padding: "20px 28px",
-            marginBottom: 16,
+            padding: "24px 32px",
+            marginBottom: 18,
           }}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 14,
-              marginBottom: 14,
+              gap: 16,
+              marginBottom: 18,
             }}
           >
             <div
               style={{
                 fontFamily: MONO,
-                fontSize: 22,
+                fontSize: 26,
                 fontWeight: 700,
                 color: RED,
-                padding: "4px 16px",
-                borderRadius: 6,
+                padding: "6px 20px",
+                borderRadius: 8,
                 backgroundColor: `${RED}12`,
               }}
             >
@@ -186,7 +152,7 @@ export const Slide2: React.FC = () => {
             <div
               style={{
                 fontFamily: MONO,
-                fontSize: 22,
+                fontSize: 26,
                 fontWeight: 700,
                 color: RED,
               }}
@@ -196,8 +162,8 @@ export const Slide2: React.FC = () => {
             <div
               style={{
                 fontFamily: FONT,
-                fontSize: 22,
-                color: "#888",
+                fontSize: 26,
+                color: "#777",
                 fontStyle: "italic",
               }}
             >
@@ -217,29 +183,29 @@ export const Slide2: React.FC = () => {
         {/* After timeline */}
         <div
           style={{
-            borderRadius: 16,
-            border: `2px solid ${GREEN}30`,
+            borderRadius: 18,
+            border: `2.5px solid ${GREEN}35`,
             backgroundColor: `${GREEN}08`,
-            padding: "20px 28px",
-            marginBottom: 20,
+            padding: "24px 32px",
+            marginBottom: 24,
           }}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 14,
-              marginBottom: 14,
+              gap: 16,
+              marginBottom: 18,
             }}
           >
             <div
               style={{
                 fontFamily: MONO,
-                fontSize: 22,
+                fontSize: 26,
                 fontWeight: 700,
                 color: GREEN,
-                padding: "4px 16px",
-                borderRadius: 6,
+                padding: "6px 20px",
+                borderRadius: 8,
                 backgroundColor: `${GREEN}12`,
               }}
             >
@@ -248,7 +214,7 @@ export const Slide2: React.FC = () => {
             <div
               style={{
                 fontFamily: MONO,
-                fontSize: 22,
+                fontSize: 26,
                 fontWeight: 700,
                 color: GREEN,
               }}
@@ -258,8 +224,8 @@ export const Slide2: React.FC = () => {
             <div
               style={{
                 fontFamily: FONT,
-                fontSize: 22,
-                color: "#888",
+                fontSize: 26,
+                color: "#777",
                 fontStyle: "italic",
               }}
             >
@@ -278,40 +244,61 @@ export const Slide2: React.FC = () => {
         <div
           style={{
             fontFamily: FONT,
-            fontSize: 24,
+            fontSize: 40,
             fontWeight: 800,
             color: BLUE,
             letterSpacing: 2,
             textTransform: "uppercase",
-            marginBottom: 12,
+            marginBottom: 14,
           }}
         >
-          REAL EXAMPLES — Windows 365 / Azure MEM Portal
+          Real Examples
         </div>
-        <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
-          <ExampleBadge
-            name="Project Radar"
-            detail="Feature on Azure MEM portal. Normally ~6 months from init to release. With AI: ~2 months."
-          />
-          <ExampleBadge
-            name="Outliner Detection"
-            detail="Feature on Windows 365 service. Same pattern — AI shortened every step from init to release."
-          />
+        <div style={{ display: "flex", gap: 24, marginBottom: 22 }}>
+          {[
+            { name: "Project Radar" },
+            { name: "Outlier Detection" },
+          ].map((ex) => (
+            <div
+              key={ex.name}
+              style={{
+                flex: 1,
+                borderRadius: 16,
+                border: `2.5px solid ${BLUE}45`,
+                backgroundColor: "rgba(255,255,255,0.6)",
+                padding: "22px 30px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: FONT,
+                  fontSize: 52,
+                  fontWeight: 800,
+                  color: BLUE,
+                }}
+              >
+                {ex.name}
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Key insight */}
         <div
           style={{
-            padding: "20px 32px",
-            borderRadius: 16,
+            padding: "24px 36px",
+            borderRadius: 18,
             backgroundColor: `${BLUE}12`,
-            border: `2px solid ${BLUE}50`,
+            border: `2.5px solid ${BLUE}50`,
           }}
         >
           <div
             style={{
               fontFamily: FONT,
-              fontSize: 28,
+              fontSize: 32,
               fontWeight: 700,
               color: "#222",
               textAlign: "center",
