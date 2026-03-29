@@ -25,6 +25,8 @@ import {
   PlanToPrototypeV3,
   PLAN_TO_PROTOTYPE_V3_DURATION,
 } from "./PlanToPrototypeV3";
+import { AutotestDemo, AUTOTEST_DEMO_DURATION } from "./AutotestDemo";
+import { AutotestDemo2, AUTOTEST_DEMO2_DURATION } from "./AutotestDemo2";
 
 const FEATURES = [
   {
@@ -102,6 +104,26 @@ export const RemotionRoot: React.FC = () => {
         id="PlanToPrototypeV3"
         component={PlanToPrototypeV3}
         durationInFrames={PLAN_TO_PROTOTYPE_V3_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* === Autotest Demo — screen recording with scrolling terminal log overlay === */}
+      <Composition
+        id="AutotestDemo"
+        component={AutotestDemo}
+        durationInFrames={AUTOTEST_DEMO_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* === Autotest Demo 2 — second recording trimmed from 5:20 === */}
+      <Composition
+        id="AutotestDemo2"
+        component={AutotestDemo2}
+        durationInFrames={AUTOTEST_DEMO2_DURATION}
         fps={30}
         width={1920}
         height={1080}
