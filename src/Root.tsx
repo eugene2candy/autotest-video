@@ -27,6 +27,10 @@ import {
 } from "./PlanToPrototypeV3";
 import { AutotestDemo, AUTOTEST_DEMO_DURATION } from "./AutotestDemo";
 import { AutotestDemo2, AUTOTEST_DEMO2_DURATION } from "./AutotestDemo2";
+import { AutotestDemo3, AUTOTEST_DEMO3_DURATION } from "./AutotestDemo3";
+import { AutotestDemoSSO, AUTOTEST_DEMO_SSO_DURATION } from "./AutotestDemoSSO";
+import { AutotestDemoCloudApp, AUTOTEST_DEMO_CLOUD_APP_DURATION } from "./AutotestDemoCloudApp";
+import { AutotestDemoP2P, AUTOTEST_DEMO_P2P_DURATION } from "./AutotestDemoP2P";
 
 const FEATURES = [
   {
@@ -127,6 +131,46 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      {/* === Autotest Demo 3 — April 2 recording with bottom-right log overlay === */}
+      <Composition
+        id="AutotestDemo3"
+        component={AutotestDemo3}
+        durationInFrames={AUTOTEST_DEMO3_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* === Autotest Demo SSO — SSO CPC recording with bottom-right log overlay === */}
+      <Composition
+        id="AutotestDemoSSO"
+        component={AutotestDemoSSO}
+        durationInFrames={AUTOTEST_DEMO_SSO_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* === Autotest Demo Cloud App — cloud app recording with bottom-right log overlay === */}
+      <Composition
+        id="AutotestDemoCloudApp"
+        component={AutotestDemoCloudApp}
+        durationInFrames={AUTOTEST_DEMO_CLOUD_APP_DURATION}
+        fps={30}
+        width={1920}
+        height={1200}
+      />
+
+      {/* === Autotest Demo P2P — P2P recording with bottom-right log overlay === */}
+      <Composition
+        id="AutotestDemoP2P"
+        component={AutotestDemoP2P}
+        durationInFrames={AUTOTEST_DEMO_P2P_DURATION}
+        fps={30}
+        width={1920}
+        height={1200}
       />
 
       {/* === Individual scenes (for development / preview) === */}
