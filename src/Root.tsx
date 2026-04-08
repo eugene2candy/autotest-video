@@ -29,8 +29,12 @@ import { AutotestDemo, AUTOTEST_DEMO_DURATION } from "./AutotestDemo";
 import { AutotestDemo2, AUTOTEST_DEMO2_DURATION } from "./AutotestDemo2";
 import { AutotestDemo3, AUTOTEST_DEMO3_DURATION } from "./AutotestDemo3";
 import { AutotestDemoSSO, AUTOTEST_DEMO_SSO_DURATION } from "./AutotestDemoSSO";
-import { AutotestDemoCloudApp, AUTOTEST_DEMO_CLOUD_APP_DURATION } from "./AutotestDemoCloudApp";
+import {
+  AutotestDemoCloudApp,
+  AUTOTEST_DEMO_CLOUD_APP_DURATION,
+} from "./AutotestDemoCloudApp";
 import { AutotestDemoP2P, AUTOTEST_DEMO_P2P_DURATION } from "./AutotestDemoP2P";
+import { AutotestProgress } from "./AutotestProgress";
 
 const FEATURES = [
   {
@@ -379,6 +383,14 @@ export const RemotionRoot: React.FC = () => {
           src: "sumsung - dismiss.mp4",
           label: "Samsung",
         }}
+      />
+
+      {/* Autotest Progress — "Who's Using" overview still */}
+      <Still
+        id="AutotestProgress"
+        component={AutotestProgress}
+        width={1920}
+        height={1080}
       />
 
       {/* Title page stills — "The Problem" and "How Autotest Solves It" */}
