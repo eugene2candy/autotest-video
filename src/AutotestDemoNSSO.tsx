@@ -8,14 +8,14 @@ import {
 } from "remotion";
 import { Video } from "@remotion/media";
 
-const VIDEO_FILE = "2026-04-02 13-08-30.mp4";
+const VIDEO_FILE = "nsso.mp4";
 
 /**
  * Video duration: 332.17s → 9965 frames at 30fps.
  * At 4× playback: ceil(9965 / 4) = 2492 frames.
  */
 const PLAYBACK_RATE = 4;
-export const AUTOTEST_DEMO3_DURATION = Math.ceil(
+export const AUTOTEST_DEMO_NSSO_DURATION = Math.ceil(
   (332.166667 * 30) / PLAYBACK_RATE,
 );
 
@@ -269,7 +269,7 @@ function estimateVisualRows(line: string): number {
   return Math.ceil(line.length / CHARS_PER_ROW);
 }
 
-export const AutotestDemo3: React.FC = () => {
+export const AutotestDemoNSSO: React.FC = () => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
@@ -333,9 +333,9 @@ export const AutotestDemo3: React.FC = () => {
           position: "absolute",
           top: 0,
           left: 0,
-          width: 1920,
-          height: 1080,
-          objectFit: "cover",
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
         }}
       />
 

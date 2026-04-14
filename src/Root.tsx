@@ -27,7 +27,7 @@ import {
 } from "./PlanToPrototypeV3";
 import { AutotestDemo, AUTOTEST_DEMO_DURATION } from "./AutotestDemo";
 import { AutotestDemo2, AUTOTEST_DEMO2_DURATION } from "./AutotestDemo2";
-import { AutotestDemo3, AUTOTEST_DEMO3_DURATION } from "./AutotestDemo3";
+import { AutotestDemoNSSO, AUTOTEST_DEMO_NSSO_DURATION } from "./AutotestDemoNSSO";
 import { AutotestDemoSSO, AUTOTEST_DEMO_SSO_DURATION } from "./AutotestDemoSSO";
 import {
   AutotestDemoCloudApp,
@@ -139,12 +139,12 @@ export const RemotionRoot: React.FC = () => {
 
       {/* === Autotest Demo 3 — April 2 recording with bottom-right log overlay === */}
       <Composition
-        id="AutotestDemo3"
-        component={AutotestDemo3}
-        durationInFrames={AUTOTEST_DEMO3_DURATION}
+        id="AutotestDemoNSSO"
+        component={AutotestDemoNSSO}
+        durationInFrames={AUTOTEST_DEMO_NSSO_DURATION}
         fps={30}
         width={1920}
-        height={1080}
+        height={1200}
       />
 
       {/* === Autotest Demo SSO — SSO CPC recording with bottom-right log overlay === */}
@@ -154,7 +154,7 @@ export const RemotionRoot: React.FC = () => {
         durationInFrames={AUTOTEST_DEMO_SSO_DURATION}
         fps={30}
         width={1920}
-        height={1080}
+        height={1200}
       />
 
       {/* === Autotest Demo Cloud App — cloud app recording with bottom-right log overlay === */}
